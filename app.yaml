@@ -1,0 +1,22 @@
+# prod
+#runtime: go112
+
+# dev
+runtime: go
+api_version: go1
+
+handlers:
+  - url: /www
+    static_dir: www
+  - url: /js
+    static_dir: www/js
+  - url: /css
+    static_dir: www/css
+  - url: /img
+    static_dir: www/img
+  - url: /fonts
+    static_dir: www/fonts
+  - url: /favicon.ico
+    static_dir: www/favicon.ico
+  - url: /.*
+    script: auto

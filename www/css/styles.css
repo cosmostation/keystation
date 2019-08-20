@@ -1,0 +1,281 @@
+/* Custom
+   ========================================================================== */
+
+/* Noto Sans Korean */
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR|Open+Sans");
+
+
+
+html {
+  height: 100%;
+}
+
+body {
+  min-width: 320px;
+  height: 100%;
+  line-height: 1.4;
+  font-size: 14px;
+  font-family: "Open Sans", "Noto Sans KR", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.not-scroll {
+  overflow: hidden;
+}
+
+p {
+  word-break: keep-all;
+}
+
+textarea {
+  outline: none;
+  border: 1px solid transparent;
+  resize: none;
+}
+
+/* float 해제 */
+.clear:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* 긴 글 생략 */
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 팝업 백그라운드 */
+.over-win {
+  visibility: hidden;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.over-win.open {
+  visibility: visible;
+}
+
+/* word break */
+.word-break-all {
+  word-break: break-all;
+}
+
+
+/* go
+ ========================================================================== */
+#app {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 40px 26px 40px;
+}
+
+.inner>h1 {
+  font-size: 0;
+  margin-bottom: 30px;
+}
+
+.inner>h2 {
+  font-weight: normal;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.keystation-form {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.keystation-form .input {
+  display: block;
+  max-width: none;
+  padding: 0;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.keystation-form .input__field {
+  font-family: "Open Sans", "Noto Sans KR", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.keystation-form input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid transparent;
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+
+/* .keystation-form input:focus{
+  background-color: #fff;
+  border-color: #9c6cff;
+} */
+
+.keystation-form .icon--fumi {
+  padding-top: 1.26em;
+}
+
+.keystation-form .input__label-content--fumi {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 1.12em 0;
+}
+
+.input__field--fumi {
+  color: #000;
+}
+
+.input__field--fumi:focus+.input__label--fumi .input__label-content--fumi,
+.input--filled .input__label-content--fumi {
+  padding: 0.9em 0;
+}
+
+@keyframes anim-fumi-1 {
+  50% {
+    transform: translate3d(0, 3em, 0);
+  }
+
+  51% {
+    transform: translate3d(0, -3em, 0);
+  }
+
+  100% {
+    color: #a3a3a3;
+    font-size: 12px;
+    transform: translate3d(0, -0.5em, 0);
+  }
+}
+
+.keystation-form>button {
+  display: block;
+  width: 50%;
+  margin: 46px auto 0;
+  background: #2d2c2c;
+  height: 50px;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.keystation-form>button:hover {
+  background-color: #000;
+}
+
+.keystation-form>input[type=button] {
+  display: block;
+  width: 50%;
+  margin: 46px auto 0;
+  background: #2d2c2c;
+  height: 50px;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.keystation-form>input[type=button]:hover {
+  background-color: #000;
+}
+
+.keystation-form>p {
+  text-align: left;
+  font-size: 13px;
+}
+
+.keystation-form>p.error {
+  color: #F44336;
+}
+
+.inner>a {
+  text-decoration: underline;
+}
+
+.form-fotter {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  text-align: right;
+  font-size: 20px;
+}
+
+.form-fotter>a {
+  color: #6e6d6d;
+}
+
+.form-fotter>a:hover {
+  color: #000;
+}
+
+.keystation-url-info {
+  margin-top: -24px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.keystation-url-info>strong {
+  display: block;
+}
+.keystation-url-info>strong i{
+  color: #3aae1e;
+}
+
+.keystation-tx-info {
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 16px;
+}
+
+.keystation-tx-info>h3 {
+  font-weight: normal;
+  color: #9c6cff;
+  padding: 2px 0px 2px 32px;
+  margin-bottom: 6px;
+}
+
+.keystation-tx-info>h3.send {
+  background: url(https://www.mintscan.io/static/media/send_ic.902591a0.svg) no-repeat left center;
+}
+
+.keystation-tx-info>span {
+  color: #9e9e9e;
+}
+
+.keystation-tx-info>p {
+  margin-bottom: 4px;
+  color: #222;
+}
+.keystation-tx-info>p>span{margin-right: 3px;}
+.keystation-form>button.tx-sign-btn{margin-top: 30px;}
+
+
+/* Media query
+ ========================================================================== */
+
+@media (min-width: 601px) {
+  .inner {
+    max-width: 500px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+  }
+
+  .form-fotter {
+    position: absolute;
+  }
+}

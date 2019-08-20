@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>KEYSTATION</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<!-- css -->
+	<link rel="stylesheet" href="css/normalize.custom.css">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/set2.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<!-- js -->
+	<!-- js -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="js/common.js"></script>
+	<script>
+		function sendEventToParent(data) {
+			window.opener.postMessage(data, "*");
+			window.close();
+		}
+	</script>
+</head>
+
+<body>
+	<div id="app">
+		<div class="inner">
+			<h1><img src="img/keystation_logo_.png" alt="" width="145"></h1>
+			<h2>Save your Account to Keychain</h2>
+			<form class="keystation-form">
+            <p>Keystation uses a mnemonic phrase from Keychain to sign transactions for networks built with the Cosmos-SDK.</p>
+            <!-- <button type="submit">Next</button> -->
+			<input type="button" onclick="sendEventToParent({{.Payload}})" value="Next" />
+			</form>
+			<a href="{{.QueryUrl}}">Try Register Again</a>
+			<div class="form-fotter">
+				<a href="#"><i class="fa fa-fw fa-github"></i></a>
+			</div>
+		</div>
+		<!-- inner end -->
+	</div>
+	<!-- #app end -->
+	<script src="js/classie.js"></script>
+	<script src="js/common.js"></script>
+</body>
+</html>
