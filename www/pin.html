@@ -9,12 +9,9 @@
 	<!-- css -->
 	<link rel="stylesheet" href="css/normalize.custom.css">
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/set2.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<!-- js -->
-	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="js/common.js"></script>
 	<script src="js/bundle.js"></script>
 	<style>
 		.dots-cointainer {
@@ -50,17 +47,17 @@
 		}
 
 		.dot.active {
-			/*-webkit-animation: growDot .5s ease;*/
-			/*animation: growDot .5s ease;*/
-			/*-webkit-animation-fill-mode: forwards;*/
-			/*animation-fill-mode: forwards;*/
-			position: relative;
+			-webkit-animation: growDot .5s ease;
+			animation: growDot .5s ease;
+			-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+			/* position: relative;
 			background: rgba(0, 0, 0, 1);
 			border-radius: 0.8em;
 			width: 1em;
 			height: 1em;
 			-webkit-transform: scale3d(0.7, 0.7, 0.7);
-			transform: scale3d(0.7, 0.7, 0.7);
+			transform: scale3d(0.7, 0.7, 0.7); */
 		}
 
 		.dot.wrong {
@@ -95,7 +92,105 @@
 			grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
 		}
 
+		@-webkit-keyframes growDot {
+			100% {
+				background: #9c6cff;
+				-webkit-transform: scale3d(0.9, 0.9, 0.9);
+				transform: scale3d(0.9, 0.9, 0.9);
+			}
+		}
 
+		@keyframes growDot {
+			100% {
+				background: #9c6cff;
+				-webkit-transform: scale3d(0.9, 0.9, 0.9);
+				transform: scale3d(0.9, 0.9, 0.9);
+			}
+		}
+
+		@-webkit-keyframes wrong {
+			20% {
+				background: #f44336;
+			}
+
+			40% {
+				-webkit-transform: translate(-15px, 0);
+				transform: translate(-15px, 0);
+			}
+
+			60% {
+				-webkit-transform: translate(10px, 0);
+				transform: translate(10px, 0);
+			}
+
+			80% {
+				-webkit-transform: translate(-5px, 0);
+				transform: translate(-5px, 0);
+			}
+		}
+
+		@keyframes wrong {
+			20% {
+				background: #f44336;
+			}
+
+			40% {
+				-webkit-transform: translate(-15px, 0);
+				transform: translate(-15px, 0);
+			}
+
+			60% {
+				-webkit-transform: translate(10px, 0);
+				transform: translate(10px, 0);
+			}
+
+			80% {
+				-webkit-transform: translate(-5px, 0);
+				transform: translate(-5px, 0);
+			}
+		}
+
+		@-webkit-keyframes correct {
+			20% {
+				background: limegreen;
+			}
+
+			40% {
+				-webkit-transform: translate(0, -15px);
+				transform: translate(0, -15px);
+			}
+
+			60% {
+				-webkit-transform: translate(0, 10px);
+				transform: translate(0, 10px);
+			}
+
+			80% {
+				-webkit-transform: translate(0, -5px);
+				transform: translate(0, -5px);
+			}
+		}
+
+		@keyframes correct {
+			20% {
+				background: limegreen;
+			}
+
+			40% {
+				-webkit-transform: translate(0, -15px);
+				transform: translate(0, -15px);
+			}
+
+			60% {
+				-webkit-transform: translate(0, 10px);
+				transform: translate(0, 10px);
+			}
+
+			80% {
+				-webkit-transform: translate(0, -5px);
+				transform: translate(0, -5px);
+			}
+		}
 	</style>
 </head>
 
@@ -165,7 +260,7 @@
 	<script src="js/common.js"></script>
 	<script>
 		(function () {
-			var input = '', correct = '1593';
+			var input = '', correct = '1234A';
 			var dots = document.querySelectorAll('.dot'), numbers = document.querySelectorAll('.grid-number');
 			dots = Array.prototype.slice.call(dots);
 			numbers = Array.prototype.slice.call(numbers);
@@ -189,8 +284,6 @@
 								}
 							}
 
-
-
 						} else {
 							input += inputStr;
 							dots[input.length - 1].className += ' active';
@@ -206,40 +299,40 @@
 						// wrapper-alphabet 의 display 를 grid 로 바꿔야함
 						$(".wrapper-number").css("display", "none");
 						$(".wrapper-alphabet").css("display", "grid");
-					} else if (input.length == 5) {
-						$(".wrapper-number").css("display", "none");
-						$(".wrapper-alphabet").css("display", "none");
-					}
+					} 
 
-					// dots[input.length - 1].className += ' active';
-					// if (input.length >= 4) {
-					// 	if (input !== correct) {
-					// 		dots.forEach(function (dot, index) {
-					// 			dot.className += ' wrong';
-					// 		});
-					// 		document.body.className += ' wrong';
-					// 	} else {
-					// 		dots.forEach(function (dot, index) {
-					// 			dot.className += ' correct';
-					// 		});
-					// 		document.body.className += ' correct';
-					// 	}
-					// 	setTimeout(function () {
-					// 		dots.forEach(function (dot, index) {
-					// 			dot.className = 'dot';
-					// 		});
-					// 		input = '';
-					// 	}, 900);
-					// 	setTimeout(function () {
-					// 		document.body.className = '';
-					// 	}, 1000);
-					// }
-					// setTimeout(function () {
-					// 	number.className = 'finger grid-number';
-					// }, 1000);
+					//dots[input.length - 1].className += ' active';
+					if (input.length >= 5) {
+						if (input !== correct) {
+							dots.forEach(function (dot, index) {
+								dot.className += ' wrong';
+							});
+							document.body.className += ' wrong';
+							$(".wrapper-number").css("display", "grid");
+							$(".wrapper-alphabet").css("display", "none");
+						} else {
+							dots.forEach(function (dot, index) {
+								dot.className += ' correct';
+							});
+							document.body.className += ' correct';
+						}
+						setTimeout(function () {
+							dots.forEach(function (dot, index) {
+								dot.className = 'dot';
+							});
+							input = '';
+						}, 900);
+						setTimeout(function () {
+							document.body.className = '';
+						}, 1000);
+					}
+					setTimeout(function () {
+						number.className = 'finger grid-number';
+					}, 1000);
 				});
 			});
 		}());
 	</script>
 </body>
+
 </html>
