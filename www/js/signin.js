@@ -26,6 +26,8 @@ function sendEventToParent(data) {
 
    var address = getKeyStationMainAddress($.trim(password));
 
-   window.opener.postMessage(address, "*");
-   window.close();
+   //window.opener.postMessage(address, "*");
+   //window.close();
+
+   $(".pin-wrap").addClass("open");
 }
