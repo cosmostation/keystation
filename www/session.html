@@ -29,8 +29,7 @@
 			<h2>Save your Account to Keychain</h2>
 			<form class="keystation-form">
             <p>Keystation uses a mnemonic phrase from Keychain to sign transactions for networks built with the Cosmos-SDK.</p>
-            <!-- <button type="submit">Next</button> -->
-			<input type="button" onclick="sendEventToParent({{.Payload}})" value="Next" />
+			<button type="button" onclick="sendEventToParent({{.Payload}})">Next</button>
 			</form>
 			<a href="{{.QueryUrl}}">Try Register Again</a>
 			<div class="form-fotter">

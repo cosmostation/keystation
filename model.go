@@ -1,17 +1,12 @@
 package main
 
-import "html/template"
-
 type signInTemplateParams struct {
 	QueryUrl string
-	ShuffledNumCode template.HTML
-	ShuffledAlphabetCode template.HTML
+	Payload string
 }
 
 type importTemplateParams struct {
 	QueryUrl string
-	ShuffledNumCode template.HTML
-	ShuffledAlphabetCode template.HTML
 	Client string
 	Payload string
 }

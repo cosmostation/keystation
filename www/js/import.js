@@ -1,5 +1,4 @@
 (function() {
-   window.pinType = "import";
 
    $("#importBtn").on('click', function(){
      submitForm();
@@ -7,44 +6,54 @@
 
 })();
 
+function getParameterByName(name, url) {
+   if (!url) url = window.location.href;
+   name = name.replace(/[\[\]]/g, '\\$&');
+   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+       results = regex.exec(url);
+   if (!results) return null;
+   if (!results[2]) return '';
+   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
 // submit
 function submitForm() {
    var account     = $(".input-account").val();
    var password	= $("input[type=password]").val();
 
-   // if ($.trim(account) == "") {
-   //    $("#formInfoMessage").hide();
-   //    $("#errorOnImport").show().find('span').text("Invalid account.");
-   //    return;
-   // }
-   //
-   // if ($.trim(password) == "") {
-   //    $("#formInfoMessage").hide();
-   //    $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
-   //    return;
-   // }
-   //
-   // var address = getKeyStationMainAddress($.trim(password));
-   // $("input[name=payload]").val(address);
+   if ($.trim(account) == "") {
+      $("#formInfoMessage").hide();
+      $("#errorOnImport").show().find('span').text("Invalid account.");
+      return;
+   }
 
-   // $('.keystation-form').submit();
-   // $(".pin-wrap").addClass("open");
+   if ($.trim(password) == "") {
+      $("#formInfoMessage").hide();
+      $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
+      return;
+   }
 
+   var hdPath = getParameterByName('payload'); // "lorem"
+   console.log("hdPath: ", hdPath);
 
-   // test
-   // $(".input-password").val(document.getElementById('keycode').value + "9999");
+   var hdPathArr = hdPath.split("/");
+   var hdPathResult = "";
+   for (var i = 0; i < hdPathArr.length; i++) {
+      hdPathResult += String(hdPathArr[i]);
+      if (i < 3) {
+         // 44, 118, 0
+         if (hdPathArr[i].indexOf("'") == -1) {
+            hdPathResult += "'";
+         }
+      }
 
-   var e = jQuery.Event( "keypress", { keyCode: 13 } );
-   $("#keycode").trigger(e);
+      if (i < hdPathArr.length - 1) {
+         hdPathResult += "/";
+      }
+   }
 
+   var address = getKeyStationMainAddress($.trim(password), hdPathResult);
+   $("input[name=payload]").val(address);
 
-
-   // $(".input-password").val("123412349999");
-   //
-   // // 키 이벤트
-   // document.getElementById('keycode').value = String.fromCharCode( 65 );
-   // $(".input-password").val(String.fromCharCode( 65 ));
-   //
-   // console.log("password: ", $("input[type=password]").val());
+   $('.keystation-form').submit();
 }

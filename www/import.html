@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="css/styles.css">
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	<script src="js/bundle.js"></script>
 </head>
 
@@ -24,8 +23,6 @@
 			<h2>Import Account</h2>
 
 			<form action="/session" method="GET" class="keystation-form" novalidate>
-				<input id="keycode" type="text">
-
 				<span class="input input--fumi">
 					<input class="input__field input__field--fumi input-account" type="text">
 					<label class="input__label input__label--fumi">
@@ -57,32 +54,6 @@
 			<div class="form-fotter">
 				<a href="#!"><i class="fa fa-fw fa-github"></i></a>
 			</div>
-
-			<!-- pin -->
-			<div class="pin-wrap">
-				<button type="button">&#10005;</button>
-				<div class="pin-cont">
-					<h2 class="pin-title">Please enter your PIN.</h2>
-					<div class="dots-cointainer">
-						<div class="dots">
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div>+</div>
-							<div class="dot"></div>
-						</div>
-					</div>
-		
-					<div class="wrapper-number">
-						{{.ShuffledNumCode}}
-					</div>
-		
-					<div class="wrapper-alphabet">
-						{{.ShuffledAlphabetCode}}
-					</div>
-				</div>
-			</div>
 		</div>
 		<!-- inner end -->
 	</div>
@@ -92,7 +63,6 @@
 	<script src="js/classie.js"></script>
 	<script src="js/input.js"></script>
 	<script src="js/import.js"></script>
-	<script src="js/pin.js"></script>
 </body>
 
 </html>
