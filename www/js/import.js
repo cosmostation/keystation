@@ -27,5 +27,6 @@ function submitForm() {
    var address = getKeyStationMainAddress($.trim(password));
    $("input[name=payload]").val(address);
 
-   $('.keystation-form').submit();
+   // $('.keystation-form').submit();
+   $(".pin-wrap").addClass("open");
 }
