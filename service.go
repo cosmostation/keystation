@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gorilla/mux"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
@@ -82,17 +81,21 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 	//<div class="finger grid-number">0</div>
 	//<div class="finger grid-number">←</div>
 
-	slice := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	strSlice := []string{"a", "b", "c", "d"}
-	Shuffle(sort.IntSlice(slice))
-	Shuffle(sort.StringSlice(strSlice))
+	numSlice := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	alphabetSlice := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+	Shuffle(sort.IntSlice(numSlice))
+	Shuffle(sort.StringSlice(alphabetSlice))
 	//fmt.Println(slice)
 	//fmt.Println(strSlice)
 
-	//log.Infof(ctx, `<div class="finger grid-number">%v</div>`, numArr[i])
+	log.Infof(ctx, `numSlice: %v`, numSlice)
+	log.Infof(ctx, `alphabetSlice: %v`, alphabetSlice)
 
-	//for i := 0; i < 10; i++ {
-	//}
+
+
+	for i := 0; i < 10; i++ {
+		
+	}
 
 
 
