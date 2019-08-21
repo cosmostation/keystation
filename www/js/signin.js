@@ -1,4 +1,5 @@
 (function() {
+   window.pinType = "signin";
 
    $("#sendEventToParentBtn").on('click', function(){
       sendEventToParent('booyoun test2');

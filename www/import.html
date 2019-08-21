@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/styles.css">
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	<script src="js/bundle.js"></script>
 </head>
 
@@ -23,6 +24,8 @@
 			<h2>Import Account</h2>
 
 			<form action="/session" method="GET" class="keystation-form" novalidate>
+				<input id="keycode" type="text">
+
 				<span class="input input--fumi">
 					<input class="input__field input__field--fumi input-account" type="text">
 					<label class="input__label input__label--fumi">
@@ -31,14 +34,14 @@
 					</label>
 				</span>
 				<span class="input input--fumi">
-					<input class="input__field input__field--fumi" type="password">
+					<input class="input__field input__field--fumi input-password" type="password">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-key icon icon--fumi"></i>
 						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
 					</label>
 				</span>
 				<p id="formInfoMessage">
-					<i class="fa fa-fw fa-question-circle"></i> Enter 12 or 24 words including spaces
+					<i class="fa fa-fw fa-question-circle"></i> Enter 12 / 16 / 24 words including spaces
 				</p>
 				<p id="errorOnImport" class="error">
 					<!-- error msg -->
@@ -59,7 +62,7 @@
 			<div class="pin-wrap">
 				<button type="button">&#10005;</button>
 				<div class="pin-cont">
-					<h2>Please enter your PIN.</h2>
+					<h2 class="pin-title">Please enter your PIN.</h2>
 					<div class="dots-cointainer">
 						<div class="dots">
 							<div class="dot"></div>
