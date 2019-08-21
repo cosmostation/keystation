@@ -7,7 +7,20 @@ import (
 	"math/rand"
 	"strings"
 	"regexp"
+	"time"
 )
+
+type Shufflable interface {
+	Len() int
+	Swap(i, j int)
+}
+
+func Shuffle(s Shufflable) {
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	for n := s.Len(); n > 0; n-- {
+		s.Swap(r.Intn(n), n-1)
+	}
+}
 
 func checkMAC(message string, messageMAC string, secret string) bool {
 	equalFlag := false
