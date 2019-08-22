@@ -180,6 +180,10 @@ textarea {
   background-color: #000;
 }
 
+.keystation-form>button>i{
+  font-size: 20px;
+  color: #05d2dd;
+}
 
 .keystation-form>p {
   text-align: left;
@@ -256,13 +260,13 @@ textarea {
 }
 
 .keystation-tx-info {
-  height: 230px;
+  height: 232px;
   overflow-y: auto;
   text-align: left;
   font-size: 13px;
   border-bottom: 1px solid #eeeeee;
-  padding-bottom: 16px;
-  padding-top: 16px;
+  padding-bottom: 12px;
+  padding-top: 12px;
 }
 
 .keystation-tx-info>h3 {
