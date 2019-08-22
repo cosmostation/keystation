@@ -82,7 +82,7 @@ textarea {
    display: flex;
    justify-content: space-between;
    height: 100vh;
-   /* color: #adadad; */
+   color: #adadad;
 }
 
 #app:before {
@@ -115,15 +115,16 @@ textarea {
 .side-left,
 .side-right {
    width: 300px;
-}
-
-.side-left {
-   padding-left: 2%;
    position: relative;
    z-index: 1;
 }
 
+.side-left {
+   padding-left: 2%;
+}
+
 .side-left>div {
+   position: relative;
    height: 100%;
    border-left: 1px solid rgba(255, 255, 255, 0.15);
    text-align: center;
@@ -136,20 +137,21 @@ textarea {
    background: #151314;
 }
 
+.side-left>div>img {
+   position: absolute;
+   right: 10px;
+   top: 80px;
+   height: calc(100% - 80px);
+   opacity: 0.2;
+}
+
 .main {
    position: relative;
    flex-grow: 1;
    border-left: 1px solid rgba(255, 255, 255, 0.15);
-   padding: 200px 20px 20px;
+   padding: 200px 0px 20px;
 }
 
-.main>img {
-   position: absolute;
-   left: 10px;
-   top: 60px;
-   height: calc(100% - 60px);
-   opacity: 0.2;
-}
 
 .mian-title {
    text-align: center;
@@ -157,7 +159,7 @@ textarea {
 }
 
 .mian-title>h2 {
-   font-size: 40px;
+   font-size: 50px;
    font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-weight: 500;
    color: #fff;
@@ -165,7 +167,7 @@ textarea {
 }
 
 .mian-title>p {
-   font-size: 16px;
+   font-size: 18px;
 }
 
 .mian-title>span {
@@ -177,17 +179,82 @@ textarea {
    display: inline-block;
    color: #9c6cff;
    border: 1px solid #9c6cff;
-   padding: 10px 25px;
+   padding: 10px 50px;
    font-size: 16px;
 }
 
 .main-content {
+   position: relative;
+   z-index: 1;
    display: flex;
-   justify-content: space-between
+   justify-content: center;
 }
 
 .main-content>div {
-   width: 50%;
+   max-width: 500px;
+   padding: 0 45px;
+   font-size: 16px;
+}
+
+.main-content>div>strong {
+   display: block;
+   margin-bottom: 10px;
+   font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-weight: 400;
+   color: #fff;
+   font-size: 20px;
+   letter-spacing: 1px;
+}
+
+
+.main-content>div>p {
+   margin-bottom: 15px;
+}
+
+.main-content>div>a {
+   display: inline-block;
+   padding: 10px 50px;
+   border: 1px solid #fff;
+   color: #fff;
+}
+
+.main-content>div>a  > i{
+   margin-right: 10px;
+}
+
+.advantage-list {}
+
+.advantage-list>li {
+   line-height: 2;
+}
+
+.advantage-list>li>i {
+   margin-right: 8px;
+   color: #07b9c5;
+}
+
+
+
+
+
+.side-right {}
+
+.side-right>a {
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   padding: 30px 0;
+   text-align: center;
+   background: rgba(255, 255, 255, 0.1);
+   border: 1px solid transparent;
+   font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
+   transition: 0.3s;
+}
+
+.side-right>a:hover {
+   border-color: #fff;
+   background: rgba(255, 255, 255, 0.2);
 }
 
 

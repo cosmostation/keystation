@@ -5,8 +5,8 @@
  * Updated :2019.08.22
  */
 
- /* web fonts */
- @import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR|Open+Sans");
+/* web fonts */
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR|Open+Sans");
 
 /* Custom
    ========================================================================== */
@@ -191,10 +191,11 @@ textarea {
   color: #F44336;
 }
 
-.tx-btn-wrap{
-  margin-top: 46px;
+.tx-btn-wrap {
+  margin-top: 24px;
   overflow: hidden;
 }
+
 .tx-btn-wrap>button {
   float: right;
   width: 30%;
@@ -209,12 +210,13 @@ textarea {
   background-color: #000
 }
 
-.tx-btn-wrap>button.cancel{
+.tx-btn-wrap>button.cancel {
   float: left;
   background: #eaeaea;
   color: #484848;
 }
-.tx-btn-wrap>button.cancel:hover{
+
+.tx-btn-wrap>button.cancel:hover {
   background-color: #e2e2e2;
 }
 
@@ -241,7 +243,6 @@ textarea {
 .keystation-url-info {
   margin-top: -24px;
   font-size: 13px;
-  margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid #eeeeee;
 }
@@ -249,15 +250,19 @@ textarea {
 .keystation-url-info>strong {
   display: block;
 }
-.keystation-url-info>strong i{
+
+.keystation-url-info>strong i {
   color: #3aae1e;
 }
 
 .keystation-tx-info {
+  height: 230px;
+  overflow-y: auto;
   text-align: left;
   font-size: 13px;
   border-bottom: 1px solid #eeeeee;
   padding-bottom: 16px;
+  padding-top: 16px;
 }
 
 .keystation-tx-info>h3 {
@@ -278,9 +283,16 @@ textarea {
 .keystation-tx-info>p {
   margin-bottom: 4px;
   color: #222;
+  word-break: break-all;
 }
-.keystation-tx-info>p>span{margin-right: 3px;}
-.keystation-form>button.tx-sign-btn{margin-top: 30px;}
+
+.keystation-tx-info>p>span {
+  margin-right: 3px;
+}
+
+.keystation-form>button.tx-sign-btn {
+  margin-top: 30px;
+}
 
 
 /* Media query
@@ -303,7 +315,7 @@ textarea {
 
 /* PIN
  ========================================================================== */
-.pin-wrap{
+.pin-wrap {
   display: none;
   z-index: 100;
   position: absolute;
@@ -317,11 +329,12 @@ textarea {
   align-items: center;
   padding: 20px 30px;
 }
-.pin-wrap.open{
+
+.pin-wrap.open {
   display: flex;
 }
 
-.pin-wrap> button{
+.pin-wrap>button {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -329,14 +342,16 @@ textarea {
   padding: 10px 14px;
   color: #ccc;
 }
-.pin-wrap> button:hover{
+
+.pin-wrap>button:hover {
   color: #000;
 }
 
-.pin-cont{
+.pin-cont {
   width: 100%;
 }
-.pin-cont>h2{
+
+.pin-cont>h2 {
   font-weight: normal;
   font-size: 16px;
   margin-bottom: 40px;
