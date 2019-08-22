@@ -120,7 +120,7 @@
 		// value html codes
 		var valueResult = "";
 		for (var key in value) {
-			if (key != "amount") {
+			if (typeof value[key] != "object") {
 				valueResult += '<span>' + key + '</span>';
 				valueResult += '<p>' + value[key] + '</p>';
 			}
