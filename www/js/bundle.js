@@ -1,10 +1,19 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const cosmosjs = require("../src");
 
-getKeyStationMainAddress = function (mnemonic, hdPath) {
-    const chainId = "cosmoshub-2";
-    const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId);
-    cosmos.setBech32MainPrefix("cosmos");
+getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
+    var chainId2 = "";
+    switch (prefix) {
+        case "cosmos":
+            chainId2 = "cosmoshub-2";
+            break;
+        case "iris":
+            chainId2 = "irishub";
+            break;
+    }
+
+    const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId2);
+    cosmos.setBech32MainPrefix(prefix);
     // cosmos.setPath("44'/118'/0'/0/0");
     cosmos.setPath(hdPath);
     const address = cosmos.getAddress(mnemonic);
@@ -12,35 +21,36 @@ getKeyStationMainAddress = function (mnemonic, hdPath) {
     return address;
 }
 
-// [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
-// const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
-// const mnemonic = window.mnemonic;
-// const chainId = "cosmoshub-2";
-// const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId);
-// cosmos.setBech32MainPrefix("cosmos");
-// cosmos.setPath("m/44'/118'/0'/0/0");
-// const address = cosmos.getAddress(mnemonic);
-// const ecpairPriv = cosmos.getECPairPriv(mnemonic);
+signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
+    var prefix = "";
+    if (chainId2.indexOf("cosmos") != -1) {
+        prefix = "cosmos";
+    } else if (chainId2.indexOf("iris") != -1) {
+        prefix = "iaa";
+    }
 
-// Generate MsgSend transaction and broadcast
-// cosmos.getAccounts(address).then(data => {
-// 	let stdSignMsg = cosmos.NewStdMsg({
-// 		type: "cosmos-sdk/MsgSend",
-// 		from_address: address,
-// 		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-// 		amountDenom: "uatom",
-// 		amount: 100000,		// 6 decimal places
-// 		feeDenom: "uatom",
-// 		fee: 5000,
-// 		gas: 200000,
-// 		memo: "",
-// 		account_number: data.value.account_number,
-// 		sequence: data.value.sequence
-// 	});
-//
-// 	const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
-// 	cosmos.broadcast(signedTx).then(response => console.log(response));
-// })
+    // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
+    // const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
+
+    const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId2);
+    cosmos.setBech32MainPrefix(prefix);
+    cosmos.setPath(hdPath);
+    const ecpairPriv = cosmos.getECPairPriv(mnemonic);
+
+    const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
+    console.log("signedTx: ", signedTx);
+    cosmos.broadcast(signedTx).then(response => {
+        console.log(response);
+
+        window.opener.postMessage(response, "*");
+        window.close();
+    }).catch(error => {
+        console.log(error);
+
+        window.opener.postMessage("error", "*");
+        window.close();
+    })
+}
 
 },{"../src":140}],2:[function(require,module,exports){
 // base-x encoding / decoding
