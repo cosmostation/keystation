@@ -175,6 +175,7 @@ textarea {
   background-color: #000;
 }
 
+
 .keystation-form>p {
   text-align: left;
   font-size: 13px;
@@ -183,6 +184,33 @@ textarea {
 .keystation-form>p.error {
   display: none;
   color: #F44336;
+}
+
+.tx-btn-wrap{
+  margin-top: 46px;
+  overflow: hidden;
+}
+.tx-btn-wrap>button {
+  float: right;
+  width: 30%;
+  background: #2d2c2c;
+  height: 50px;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.tx-btn-wrap>button:hover {
+  background-color: #000
+}
+
+.tx-btn-wrap>button.cancle{
+  float: left;
+  background: #eaeaea;
+  color: #484848;
+}
+.tx-btn-wrap>button.cancle:hover{
+  background-color: #e2e2e2;
 }
 
 .inner>a {
