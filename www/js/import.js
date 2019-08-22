@@ -33,6 +33,9 @@ function submitForm() {
       return;
    }
 
+   // loader
+   $("#importBtn").html('<i class="fa fa-spinner fa-spin"></i>');
+
    var hdPath = getParameterByName('path'); // "lorem"
    console.log("hdPath: ", hdPath);
 

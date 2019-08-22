@@ -49,7 +49,7 @@
 				<div class="tx-btn-wrap">
 					<button type="button" class="cancel" onclick="denyHandler()">Deny</button>
 					<!-- <button type="submit" class="tx-sign-btn">Allow</button> -->
-					<button type="button" onclick="signTxHandler()">Allow</button>
+					<button type="button" onclick="signTxHandler()" id="allowBtn">Allow</button>
 				</div>
 			</form>
 		</div>
@@ -189,6 +189,9 @@
 				console.log("Could not retrieve account stored in Keychain.");
 				return;
 			}
+
+			// loader
+			$("#allowBtn").html('<i class="fa fa-spinner fa-spin"></i>');
 
 			var hdPath = getParameterByName('path');
 			console.log("hdPath: ", hdPath);
