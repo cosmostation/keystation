@@ -1,10 +1,15 @@
+/**
+ * http://keystation.cosmostation.io/
+ * Since : 2019.08.19
+ * Author : Lee Song-hyeon
+ * Updated :2019.08.22
+ */
+
+ /* web fonts */
+ @import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR|Open+Sans");
+
 /* Custom
    ========================================================================== */
-
-/* Noto Sans Korean */
-@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR|Open+Sans");
-
-
 
 html {
   height: 100%;
@@ -204,12 +209,12 @@ textarea {
   background-color: #000
 }
 
-.tx-btn-wrap>button.cancle{
+.tx-btn-wrap>button.cancel{
   float: left;
   background: #eaeaea;
   color: #484848;
 }
-.tx-btn-wrap>button.cancle:hover{
+.tx-btn-wrap>button.cancel:hover{
   background-color: #e2e2e2;
 }
 
