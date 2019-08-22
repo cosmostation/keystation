@@ -9,7 +9,6 @@
 	<!-- css -->
 	<link rel="stylesheet" href="css/normalize.custom.css">
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/set2.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<!-- js -->
 	<!-- js -->
@@ -24,20 +23,22 @@
 			<h2>Sign Transaction</h2>
 			<form class="keystation-form">
             <div class="keystation-url-info">
-               <strong><i class="fa fa-fw fa-lock"></i> http://wallet.cosmostation.io</strong> is using secure and private connection
+               <strong><i class="fa fa-fw fa-lock"></i> {{.Client}}</strong> is using secure and private connection
             </div>
             <div class="keystation-tx-info">
-               <h3 class="send">SEND</h3>
-               <span>From</span>
-               <p>iaa180z3qagykwpr7v6htawvh7z3n5t7zw6w0zjvc2</p>
-               <span>To</span>
-               <p>iaa1wcsa554l5lx99ylu94ujlxuu6jkvacvpp63ajc</p>
-               <span>Amount</span>
-               <p><span>2,430.928540000000000000</span>IRIS</p>
-               <span>Tx Fee</span>
-               <p><span>0.071460000000000000</span>IRIS</p>
-               <span>Memo</span>
-               <p>keystation</p>
+				<!--
+				<h3 class="send">SEND</h3>
+				<span>From</span>
+				<p>iaa180z3qagykwpr7v6htawvh7z3n5t7zw6w0zjvc2</p>
+				<span>To</span>
+				<p>iaa1wcsa554l5lx99ylu94ujlxuu6jkvacvpp63ajc</p>
+				<span>Amount</span>
+				<p><span>2,430.928540000000000000</span>IRIS</p>
+				<span>Tx Fee</span>
+				<p><span>0.071460000000000000</span>IRIS</p>
+				<span>Memo</span>
+				<p>keystation</p>
+				-->
             </div>
             <button type="submit" class="tx-sign-btn">전송</button>
 			</form>
@@ -47,5 +48,101 @@
 	<!-- #app end -->
 	<script src="js/classie.js"></script>
 	<script src="js/common.js"></script>
+	<script>
+		function getDecimalPlace(denom) {
+			var decimalPlace = 0;
+			switch (denom) {
+				case "uatom":
+					decimalPlace = 0.000001;
+					break;
+				case "iris-atto":
+					decimalPlace = 0.000000000000000001;
+					break;
+			}
+			return decimalPlace;
+		}
+
+		function getSymbol(denom) {
+			var symbol = "";
+			switch (denom) {
+				case "uatom":
+					symbol = "ATOM";
+					break;
+				case "iris-atto":
+					symbol = "IRIS";
+					break;
+			}
+			return symbol;
+		}
+
+		var txObj = JSON.parse({{.Payload}});
+		console.log("txObj: ", txObj);
+
+		var msgType = "";
+		var value = new Object;
+		var amount = new Object;
+		var fee = new Object;
+		var memo = "";
+
+		for (var key in txObj) {
+			// console.log(key);
+			// console.log(txObj[key]);
+			// console.log("-------------------");
+			if (key == "msgs") {
+				var msgObj = txObj[key];
+				for (var key2 in msgObj) {
+					console.log(key2);
+					console.log(msgObj[key2]);
+					var valueObj = msgObj[key2]
+					for (var key3 in valueObj) {
+						console.log(key3);
+						console.log(valueObj[key3]);
+
+						if (key3 == "type") {
+							msgType = valueObj[key3];
+						} else if (key3 == "value") {
+							value = valueObj[key3];
+						}
+					}
+				}
+			} else if (key == "memo") {
+				memo = txObj[key];
+			} else if (key == "fee") {
+				fee = txObj[key];
+			}
+		}
+
+		console.log("Type: ", msgType);
+		console.log("Value: ", value);
+		console.log("Fee: ", fee);
+		console.log("Memo: ", memo);
+
+		// value html codes
+		var valueResult = "";
+		for (var key in value) {
+			if (key != "amount") {
+				valueResult += '<span>' + key + '</span>';
+				valueResult += '<p>' + value[key] + '</p>';
+			}
+		}
+
+		// amount html codes
+		var amountResult = String(value.amount[0].amount * getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
+
+		// fee html codes
+		var feeResult = String(fee.amount[0].amount * getDecimalPlace(fee.amount[0].denom)) + " " + getSymbol(fee.amount[0].denom);
+
+		var htmlCode =
+				'<h3 class="send">' + msgType + '</h3>' +
+				valueResult +
+				'<span>Amount</span>' +
+				'<p>' + amountResult + '</p>' +
+				'<span>Fee</span>' +
+				'<p>' + feeResult + '</p>' +
+				'<span>Memo</span>' +
+				'<p>' + memo + '</p><br>';
+
+		$(".keystation-tx-info").html(htmlCode);
+	</script>
 </body>
 </html>

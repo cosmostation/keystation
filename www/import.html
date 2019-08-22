@@ -31,20 +31,21 @@
 					</label>
 				</span>
 				<span class="input input--fumi">
-					<input class="input__field input__field--fumi" type="password">
+					<input class="input__field input__field--fumi input-password" type="password">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-key icon icon--fumi"></i>
 						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
 					</label>
 				</span>
 				<p id="formInfoMessage">
-					<i class="fa fa-fw fa-question-circle"></i> Enter 12 or 24 words including spaces
+					<i class="fa fa-fw fa-question-circle"></i> Enter 12 / 16 / 24 words including spaces
 				</p>
 				<p id="errorOnImport" class="error">
 					<!-- error msg -->
 					<i class="fa fa-fw fa-exclamation-circle"></i> <span></span>
 				</p>
 				<input type="hidden" name="client" value="{{.Client}}">
+				<input type="hidden" name="path" value="{{.Path}}">
 				<input type="hidden" name="payload" value="{{.Payload}}">
 				<button type="button" id="importBtn">Next</button>
 			</form>
@@ -53,70 +54,6 @@
 
 			<div class="form-fotter">
 				<a href="#!"><i class="fa fa-fw fa-github"></i></a>
-			</div>
-
-			<!-- pin -->
-			<div class="pin-wrap">
-				<button type="button">&#10005;</button>
-				<div class="pin-cont">
-					<h2>Please enter your PIN.</h2>
-					<div class="dots-cointainer">
-						<div class="dots">
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div class="dot"></div>
-							<div>+</div>
-							<div class="dot"></div>
-						</div>
-					</div>
-		
-					<div class="wrapper-number">
-						<div class="finger grid-number">1</div>
-						<div class="finger grid-number">2</div>
-						<div class="finger grid-number">3</div>
-						<div class="finger grid-number">4</div>
-						<div class="finger grid-number">5</div>
-						<div class="finger grid-number">6</div>
-						<div class="finger grid-number">7</div>
-						<div class="finger grid-number">8</div>
-						<div class="finger grid-number">9</div>
-						<div class="grid-number"></div>
-						<div class="finger grid-number">0</div>
-						<div class="finger grid-number">←</div>
-					</div>
-		
-					<div class="wrapper-alphabet">
-						<div class="finger grid-number">A</div>
-						<div class="finger grid-number">B</div>
-						<div class="finger grid-number">C</div>
-						<div class="finger grid-number">D</div>
-						<div class="finger grid-number">E</div>
-						<div class="finger grid-number">F</div>
-						<div class="finger grid-number">G</div>
-						<div class="finger grid-number">H</div>
-						<div class="finger grid-number">I</div>
-						<div class="finger grid-number">J</div>
-						<div class="finger grid-number">K</div>
-						<div class="finger grid-number">L</div>
-						<div class="finger grid-number">M</div>
-						<div class="finger grid-number">N</div>
-						<div class="finger grid-number">O</div>
-						<div class="finger grid-number">P</div>
-						<div class="finger grid-number">Q</div>
-						<div class="finger grid-number">R</div>
-						<div class="finger grid-number">S</div>
-						<div class="finger grid-number">T</div>
-						<div class="finger grid-number">U</div>
-						<div class="finger grid-number">V</div>
-						<div class="finger grid-number">W</div>
-						<div class="finger grid-number">X</div>
-						<div class="finger grid-number">Y</div>
-						<div class="finger grid-number">Z</div>
-						<div class="grid-number"></div>
-						<div class="finger grid-number">←</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<!-- inner end -->
@@ -127,7 +64,6 @@
 	<script src="js/classie.js"></script>
 	<script src="js/input.js"></script>
 	<script src="js/import.js"></script>
-	<script src="js/pin.js"></script>
 </body>
 
 </html>
