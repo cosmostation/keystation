@@ -1,11 +1,20 @@
 package main
 
 import (
+	"html/template"
 	"math/rand"
 	"sort"
 	"strconv"
 	"time"
 )
+
+func getSummaryHtmlFromMsg() template.HTML {
+
+
+
+
+	return ""
+}
 
 type Shufflable interface {
 	Len() int

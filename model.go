@@ -22,3 +22,9 @@ type ImportForm struct {
 	Path string
 	Payload string
 }
+
+type txTemplateParams struct {
+	Client string
+	Path string
+	Payload string
+}
