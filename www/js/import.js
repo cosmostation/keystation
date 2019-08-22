@@ -33,7 +33,7 @@ function submitForm() {
       return;
    }
 
-   var hdPath = getParameterByName('payload'); // "lorem"
+   var hdPath = getParameterByName('path'); // "lorem"
    console.log("hdPath: ", hdPath);
 
    var hdPathArr = hdPath.split("/");

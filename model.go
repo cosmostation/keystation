@@ -8,6 +8,7 @@ type signInTemplateParams struct {
 type importTemplateParams struct {
 	QueryUrl string
 	Client string
+	Path string
 	Payload string
 }
 
@@ -18,5 +19,6 @@ type sessionTemplateParams struct {
 
 type ImportForm struct {
 	Client string
+	Path string
 	Payload string
 }

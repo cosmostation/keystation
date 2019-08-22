@@ -28,6 +28,12 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	path, err := url.QueryUnescape(vars["path"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	payload, err := url.QueryUnescape(vars["payload"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -35,11 +41,13 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Infof(ctx, "client: %v", client)
+	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
 
 	params := importTemplateParams{}
-	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&payload=" + url.QueryEscape(payload)
+	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Client = client
+	params.Path = path
 	params.Payload = payload
 
 	importTemplate.Execute(w, params)
@@ -56,6 +64,12 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	path, err := url.QueryUnescape(vars["path"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	payload, err := url.QueryUnescape(vars["payload"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -63,10 +77,11 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Infof(ctx, "client: %v", client)
+	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
 
 	params := signInTemplateParams{}
-	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&payload=" + url.QueryEscape(payload)
+	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 
 	signInTemplate.Execute(w, params)
 	return
@@ -78,10 +93,17 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	// HTML 폼 전송 처리
 	importForm := ImportForm{
 		Client: r.FormValue("client"),
+		Path: r.FormValue("path"),
 		Payload: r.FormValue("payload"),
 	}
 
 	client, err := url.QueryUnescape(importForm.Client)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	path, err := url.QueryUnescape(importForm.Path)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -94,10 +116,11 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Infof(ctx, "client: %v", client)
+	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
 
 	params := sessionTemplateParams{}
-	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&payload=" + url.QueryEscape(payload)
+	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Payload = payload
 
 	sessionTemplate.Execute(w, params)
