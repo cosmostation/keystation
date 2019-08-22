@@ -13,6 +13,8 @@
 	<!-- js -->
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/big.js/5.2.2/big.min.js"></script>
+	<script src="js/bundle.js"></script>
 	<script src="js/common.js"></script>
 </head>
 
@@ -22,27 +24,32 @@
 			<h1><img src="img/keystation_logo_.png" alt="" width="145"></h1>
 			<h2>Sign Transaction</h2>
 			<form class="keystation-form">
-            <div class="keystation-url-info">
-               <strong><i class="fa fa-fw fa-lock"></i> {{.Client}}</strong> is using secure and private connection
-            </div>
-            <div class="keystation-tx-info">
-				<!--
-				<h3 class="send">SEND</h3>
-				<span>From</span>
-				<p>iaa180z3qagykwpr7v6htawvh7z3n5t7zw6w0zjvc2</p>
-				<span>To</span>
-				<p>iaa1wcsa554l5lx99ylu94ujlxuu6jkvacvpp63ajc</p>
-				<span>Amount</span>
-				<p><span>2,430.928540000000000000</span>IRIS</p>
-				<span>Tx Fee</span>
-				<p><span>0.071460000000000000</span>IRIS</p>
-				<span>Memo</span>
-				<p>keystation</p>
-				-->
-            </div>
-            <div class="tx-btn-wrap">
-					<button type="button" class="cancel">취소</button>
-					<button type="submit" class="tx-sign-btn">전송</button>
+				<input style="display:none;" type="text" tabindex="-1"
+					   spellcheck="false">
+				<input style="display:none;" type="password" autocomplete="current-password" tabindex="-1"
+					   spellcheck="false">
+				<div class="keystation-url-info">
+				   <strong><i class="fa fa-fw fa-lock"></i> {{.Client}}</strong> is using secure and private connection
+				</div>
+				<div class="keystation-tx-info">
+					<!--
+					<h3 class="send">SEND</h3>
+					<span>From</span>
+					<p>iaa180z3qagykwpr7v6htawvh7z3n5t7zw6w0zjvc2</p>
+					<span>To</span>
+					<p>iaa1wcsa554l5lx99ylu94ujlxuu6jkvacvpp63ajc</p>
+					<span>Amount</span>
+					<p><span>2,430.928540000000000000</span>IRIS</p>
+					<span>Tx Fee</span>
+					<p><span>0.071460000000000000</span>IRIS</p>
+					<span>Memo</span>
+					<p>keystation</p>
+					-->
+				</div>
+				<div class="tx-btn-wrap">
+					<button type="button" class="cancel" onclick="denyHandler()">Deny</button>
+					<!-- <button type="submit" class="tx-sign-btn">Allow</button> -->
+					<button type="button" onclick="signTxHandler()">Allow</button>
 				</div>
 			</form>
 		</div>
@@ -78,9 +85,11 @@
 			return symbol;
 		}
 
-		var txObj = JSON.parse({{.Payload}});
+		var txObj = new Object;
+		txObj = JSON.parse({{.Payload}});
 		console.log("txObj: ", txObj);
 
+		chainIdFromTx = "";
 		var msgType = "";
 		var value = new Object;
 		var amount = new Object;
@@ -112,6 +121,8 @@
 				memo = txObj[key];
 			} else if (key == "fee") {
 				fee = txObj[key];
+			} else if (key == "chain_id") {
+				chainIdFromTx = txObj[key];
 			}
 		}
 
@@ -119,21 +130,29 @@
 		console.log("Value: ", value);
 		console.log("Fee: ", fee);
 		console.log("Memo: ", memo);
+		console.log("chainIdFromTx: ", chainIdFromTx);
 
 		// value html codes
 		var valueResult = "";
 		for (var key in value) {
-			if (key != "amount") {
+			if (typeof value[key] != "object") {
 				valueResult += '<span>' + key + '</span>';
 				valueResult += '<p>' + value[key] + '</p>';
 			}
 		}
 
 		// amount html codes
-		var amountResult = String(value.amount[0].amount * getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
+		var amountResult = "";
+		if (value.amount.length === undefined) {
+			amountResult = new Big(value.amount.amount).times(getDecimalPlace(value.amount.denom)) + " " + getSymbol(value.amount.denom);
+		} else {
+			amountResult = new Big(value.amount[0].amount).times(getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
+		}
+
+		// var amountResult = new Big(value.amount[0].amount).times(getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
 
 		// fee html codes
-		var feeResult = String(fee.amount[0].amount * getDecimalPlace(fee.amount[0].denom)) + " " + getSymbol(fee.amount[0].denom);
+		var feeResult = new Big(fee.amount[0].amount).times(getDecimalPlace(fee.amount[0].denom)) + " " + getSymbol(fee.amount[0].denom);
 
 		var htmlCode =
 				'<h3 class="send">' + msgType + '</h3>' +
@@ -146,6 +165,54 @@
 				'<p>' + memo + '</p><br>';
 
 		$(".keystation-tx-info").html(htmlCode);
+	</script>
+	<script>
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+					results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+
+		function denyHandler() {
+			window.opener.postMessage("deny", "*");
+			window.close();
+		}
+
+		function signTxHandler() {
+			var password 	= $("input[type=password]").val();
+
+			if ($.trim(password) == "") {
+				console.log("Could not retrieve account stored in Keychain.");
+				return;
+			}
+
+			var hdPath = getParameterByName('path');
+			console.log("hdPath: ", hdPath);
+
+			var hdPathArr = hdPath.split("/");
+			var hdPathResult = "";
+			for (var i = 0; i < hdPathArr.length; i++) {
+				hdPathResult += String(hdPathArr[i]);
+				if (i < 3) {
+					// 44, 118, 0
+					if (hdPathArr[i].indexOf("'") == -1) {
+						hdPathResult += "'";
+					}
+				}
+
+				if (i < hdPathArr.length - 1) {
+					hdPathResult += "/";
+				}
+			}
+
+			var stdSignMsg = new Object;
+			stdSignMsg.json = JSON.parse({{.Payload}});
+			signTxByKeyStation($.trim(password), hdPathResult, chainIdFromTx, stdSignMsg);
+		}
 	</script>
 </body>
 </html>

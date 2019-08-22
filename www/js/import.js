@@ -52,7 +52,9 @@ function submitForm() {
       }
    }
 
-   var address = getKeyStationMainAddress($.trim(password), hdPathResult);
+   var prefix = getParameterByName('payload');
+
+   var address = getKeyStationMainAddress($.trim(password), hdPathResult, prefix);
    $("input[name=payload]").val(address);
 
    $('.keystation-form').submit();

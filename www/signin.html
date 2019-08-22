@@ -60,7 +60,9 @@
 				}
 			}
 
-			var address = getKeyStationMainAddress($.trim(password), hdPathResult);
+			var prefix = getParameterByName('payload');
+
+			var address = getKeyStationMainAddress($.trim(password), hdPathResult, prefix);
 
 			window.opener.postMessage(address, "*");
 			window.close();
