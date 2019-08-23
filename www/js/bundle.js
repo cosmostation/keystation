@@ -2,7 +2,7 @@
 const cosmosjs = require("../src");
 
 getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
-    var chainId2 = "";
+    var chainId2 = ""
     switch (prefix) {
         case "cosmos":
             chainId2 = "cosmoshub-2";
@@ -28,9 +28,6 @@ signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
     } else if (chainId2.indexOf("iris") != -1) {
         prefix = "iaa";
     }
-
-    // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
-    // const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 
     const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId2);
     cosmos.setBech32MainPrefix(prefix);

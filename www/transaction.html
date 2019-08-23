@@ -149,8 +149,6 @@
 			amountResult = new Big(value.amount[0].amount).times(getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
 		}
 
-		// var amountResult = new Big(value.amount[0].amount).times(getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
-
 		// fee html codes
 		var feeResult = new Big(fee.amount[0].amount).times(getDecimalPlace(fee.amount[0].denom)) + " " + getSymbol(fee.amount[0].denom);
 
