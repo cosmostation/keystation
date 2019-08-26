@@ -1,9 +1,9 @@
 # prod
-runtime: go112
+#runtime: go112
 
 # dev
-#runtime: go
-#api_version: go1
+runtime: go
+api_version: go1
 
 handlers:
   - url: /www
