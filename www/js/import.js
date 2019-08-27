@@ -1,4 +1,5 @@
 (function() {
+   window.pinType = "import";
 
    $("#importBtn").on('click', function(){
      submitForm();
@@ -60,5 +61,6 @@ function submitForm() {
    var address = getKeyStationMainAddress($.trim(password), hdPathResult, prefix);
    $("input[name=payload]").val(address);
 
-   $('.keystation-form').submit();
+   // $('.keystation-form').submit();
+   $(".pin-wrap").addClass("open");
 }

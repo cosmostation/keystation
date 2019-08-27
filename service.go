@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/mux"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
+	"html/template"
 	"net/http"
 	"net/url"
 	"strings"
@@ -50,6 +51,8 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 	params.Client = client
 	params.Path = path
 	params.Payload = payload
+	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
+	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
 	importTemplate.Execute(w, params)
 	return
@@ -83,6 +86,8 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 
 	params := signInTemplateParams{}
 	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
+	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
+	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
 	signInTemplate.Execute(w, params)
 	return

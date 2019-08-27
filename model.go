@@ -1,8 +1,12 @@
 package main
 
+import "html/template"
+
 type signInTemplateParams struct {
 	QueryUrl string
 	Payload string
+	ShuffledNumCode template.HTML
+	ShuffledAlphabetCode template.HTML
 }
 
 type importTemplateParams struct {
@@ -10,6 +14,8 @@ type importTemplateParams struct {
 	Client string
 	Path string
 	Payload string
+	ShuffledNumCode template.HTML
+	ShuffledAlphabetCode template.HTML
 }
 
 type sessionTemplateParams struct {
