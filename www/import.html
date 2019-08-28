@@ -23,6 +23,7 @@
 			<h1><img src="img/keystation_logo_.png" alt="KEYSTATION" width="145"></h1>
 			<h2>Import Account</h2>
 
+			<!-- 1. Account Name, Mnemonics -->
 			<form action="/session" method="GET" class="keystation-form" novalidate>
 				<span class="input input--fumi">
 					<input class="input__field input__field--fumi input-account" type="text">
@@ -31,8 +32,15 @@
 						<span class="input__label-content input__label-content--fumi">Account Name</span>
 					</label>
 				</span>
+				<!-- <span class="input input--fumi">
+					<input class="input__field input__field--fumi input-password" type="text">
+					<label class="input__label input__label--fumi">
+						<i class="fa fa-fw fa-key icon icon--fumi"></i>
+						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
+					</label>
+				</span> -->
 				<span class="input input--fumi">
-					<input class="input__field input__field--fumi input-password" type="password">
+					<textarea class="input__field input__field--fumi input-password"></textarea>
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-key icon icon--fumi"></i>
 						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
@@ -50,14 +58,10 @@
 				<input type="hidden" name="payload" value="{{.Payload}}">
 				<button type="button" id="importBtn">Next</button>
 			</form>
+			<!-- 1 END -->
 
-			<a href="{{.QueryUrl}}">Sign In</a>
 
-			<div class="form-fotter">
-				<a href="#!"><i class="fa fa-fw fa-github"></i></a>
-			</div>
-
-			<!-- pin -->
+			<!-- 2. pin ( pin-wrap.open )-->
 			<div class="pin-wrap">
 				<button type="button">&#10005;</button>
 				<div class="pin-cont">
@@ -82,7 +86,35 @@
 					</div>
 				</div>
 			</div>
-			<!-- pin end -->
+			<!-- 2 end -->
+
+			<!-- 3. re-enter -->
+			<form class="keystation-form re-enter-form">
+				<p>아래의 암호화된 니모닉을 확인 후 재입력 해주세요.</p>
+				<div class="pw-nnemonics">
+					<div>
+						<span><i class="fa fa-lock"></i>암호화 된 니모닉</span>
+						<button type="button"><i class="fa fa-files-o"></i>Copy</button>
+					</div>
+					<span>U2FsdGVkX1+kg3iR6tyh2A9VSC1huNMsHkpxm3UiC/Bk0Zv3yTE4x1IXye3oYOgIPT69IXcE0mvR0IgIUcoLKrqtCABz7OeO0CAGJ/Aj4zKq1ViDNJ3s4fHO556jBhGPy7IEEZLH6VnNcJKX2CS/9Mw4wzv67ey90tdPs40Xek6tFAcEju0H73FXj2zS6LUAvHIgewQMu8xyrPLvGX486PVSgx9gH7RTb9SJYrtTCNU=</span>
+				</div>
+				<span class="input input--fumi">
+					<input class="input__field input__field--fumi input-password" type="password">
+					<label class="input__label input__label--fumi">
+						<i class="fa fa-fw fa-key icon icon--fumi"></i>
+						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
+					</label>
+				</span>
+				<button type="button" id="importBtn">Next</button>
+			</form>
+			<!-- 3 end -->
+
+			<a href="{{.QueryUrl}}">Sign In</a>
+
+			<div class="form-fotter">
+				<a href="#!"><i class="fa fa-fw fa-github"></i></a>
+			</div>
+
 		</div>
 		<!-- inner end -->
 	</div>

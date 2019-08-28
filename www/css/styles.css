@@ -125,6 +125,15 @@ textarea {
   border-radius: 6px;
 }
 
+.keystation-form textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid transparent;
+  background: #f5f5f5;
+  border-radius: 6px;
+  line-height: 1.6;
+}
+
 /* .keystation-form input:focus{
   background-color: #fff;
   border-color: #9c6cff;
@@ -180,7 +189,7 @@ textarea {
   background-color: #000;
 }
 
-.keystation-form>button>i{
+.keystation-form>button>i {
   font-size: 20px;
   color: #05d2dd;
 }
@@ -229,7 +238,7 @@ textarea {
 }
 
 .form-fotter {
-  position: fixed;
+  position: absolute;
   right: 14px;
   bottom: 14px;
   text-align: right;
@@ -309,9 +318,9 @@ textarea {
     border-radius: 6px;
   }
 
-  .form-fotter {
+  /* .form-fotter {
     position: absolute;
-  }
+  } */
 }
 
 
@@ -542,3 +551,57 @@ textarea {
     transform: translate(0, -1px);
   }
 }
+
+
+.re-enter-form {
+  display: none;
+}
+
+.re-enter-form>p {
+  text-align: center;
+}
+
+.pw-nnemonics {
+  background: #f5f5f5;
+  border-radius: 6px;
+  margin: 14px 0 10px;
+  text-align: left;
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+
+.pw-nnemonics>div{
+  position: relative;
+  padding: 6px 14px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.pw-nnemonics>div> span{
+  font-size: 13px;
+  color: #696969;
+}
+.pw-nnemonics>div> span>i{
+  margin-right: 6px;
+}
+
+.pw-nnemonics>div>button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  padding: 0 14px;
+  border-left: 1px solid #e8e8e8;
+}
+.pw-nnemonics>div>button:hover{
+  background-color: #e8e8e8;
+}
+.pw-nnemonics>div>button >i{
+  margin-right: 6px;
+}
+
+.pw-nnemonics>span {
+  display: block;
+  padding: 10px 14px;
+  word-break: break-all;
+}
+
