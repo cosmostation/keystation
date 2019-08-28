@@ -31,7 +31,7 @@ function copyAddress() {
    var copyText = document.getElementById("encrypted-mnemonics-for-copy");
    copyText.select();
    document.execCommand("copy");
-   alert("Encrypted mnemonics are copied.");
+   alert("Encrypted mnemonic phrase is copied.");
 }
 
 function getParameterByName(name, url) {
