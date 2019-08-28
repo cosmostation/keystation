@@ -79,10 +79,10 @@
          if (input.length >= 5) {
             if (window.pinType == "import" && correct == "") {
                correct = input;
-               // Please enter your PIN again.
+               // Please confirm your PIN.
                setTimeout(function () {
                   // Change title
-                  $("#pin-title").text("Please enter your PIN again.");
+                  $("#pin-title").text("Please confirm your PIN.");
 
                   // Init Keypad
                   $(".wrapper-number").css("display", "grid");

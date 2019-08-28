@@ -549,6 +549,18 @@ textarea {
 .re-enter-form>p {
   text-align: center;
 }
+.re-enter-form > a{
+  display: block;
+  text-align: left;
+  font-size: 13px;
+  color: #a7a7a7;
+}
+.re-enter-form > a:hover{
+  text-decoration: underline;
+}
+.re-enter-form > a > i{
+  margin-right: 4px;
+}
 
 .pw-nnemonics {
   background: #f5f5f5;
