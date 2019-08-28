@@ -62,7 +62,8 @@
 			<div class="pin-wrap">
 				<button type="button">&#10005;</button>
 				<div class="pin-cont">
-					<h2 id="pin-title">Please enter your PIN.</h2>
+					<h2 id="pin-title">Please set your PIN.</h2>
+					<p>You are required to enter your PIN for every transaction request.<br><span>If lost, you cannot reset or recover your PIN.<br></span></p>
 					<div class="dots-cointainer">
 						<div class="dots">
 							<div class="dot"></div>
@@ -94,15 +95,20 @@
 						<button type="button" onclick="copyAddress();"><i class="fa fa-files-o"></i>Copy</button>
 					</div>
 					<input class="input__field input__field--fumi input-account" id="hidden-account" type="text" name="account" style="display: none">
-					<span id="encrypted-mnemonics"><!-- encrypted string --></span>
+					<span id="encrypted-mnemonics">
+						<!-- encrypted string -->
+					</span>
 				</div>
 				<span class="input input--fumi">
 					<input class="input__field input__field--fumi input-password" type="password">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-key icon icon--fumi"></i>
-						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
+						<span class="input__label-content input__label-content--fumi">암호화 된 니모닉</span>
 					</label>
 				</span>
+				<a href="#!" target="_blank">
+					<i class="fa fa-fw fa-question-circle"></i>왜 니모닉을 암호화해야 하나요?
+				</a>
 				<input type="hidden" name="client" value="{{.Client}}">
 				<input type="hidden" name="path" value="{{.Path}}">
 				<input type="hidden" name="payload" value="{{.Payload}}">
