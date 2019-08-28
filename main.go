@@ -21,24 +21,28 @@ func main() {
 	r.Path("/").HandlerFunc(indexHandler)
 	r.Path("/import").
 		Queries("client", "{client}").
+		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").
 		Queries("payload", "{payload}").
 		HandlerFunc(importHandler).
 		Methods("GET")
 	r.Path("/signin").
 		Queries("client", "{client}").
+		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").
 		Queries("payload", "{payload}").
 		HandlerFunc(signInHandler).
 		Methods("GET")
 	r.Path("/session").
 		Queries("client", "{client}").
+		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").
 		Queries("payload", "{payload}").
 		HandlerFunc(sessionInHandler).
 		Methods("GET")
 	r.Path("/tx").
 		Queries("client", "{client}").
+		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").
 		Queries("payload", "{payload}").
 		HandlerFunc(txHandler).

@@ -63,7 +63,7 @@
 				<button type="button">&#10005;</button>
 				<div class="pin-cont">
 					<h2 id="pin-title">Please set your PIN.</h2>
-					<p>You are required to enter your PIN for every transaction request.<br><span>If lost, you cannot reset or recover your PIN.<br></span></p>
+					<p>PIN is required for every transaction.<br><span>If lost, you cannot reset or recover your PIN.<br></span></p>
 					<div class="dots-cointainer">
 						<div class="dots">
 							<div class="dot"></div>
@@ -88,10 +88,10 @@
 
 			<!-- 3. re-enter -->
 			<form action="/session" method="GET" class="keystation-form re-enter-form" id="import-form2" novalidate>
-				<p>아래의 암호화된 니모닉을 확인 후 재입력 해주세요.</p>
+				<p>Please copy and paste the mnemonic encryption below.</p>
 				<div class="pw-nnemonics">
 					<div>
-						<span><i class="fa fa-lock"></i>암호화 된 니모닉</span>
+						<span><i class="fa fa-lock"></i>Encrypted mnemonic phrase</span>
 						<button type="button" onclick="copyAddress();"><i class="fa fa-files-o"></i>Copy</button>
 					</div>
 					<input class="input__field input__field--fumi input-account" id="hidden-account" type="text" name="account" style="display: none">
@@ -103,15 +103,16 @@
 					<input class="input__field input__field--fumi input-password" type="password">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-key icon icon--fumi"></i>
-						<span class="input__label-content input__label-content--fumi">암호화 된 니모닉</span>
+						<span class="input__label-content input__label-content--fumi">Encrypted mnemonic phrase</span>
 					</label>
 				</span>
 				<a href="#!" target="_blank">
-					<i class="fa fa-fw fa-question-circle"></i>왜 니모닉을 암호화해야 하나요?
+					<i class="fa fa-fw fa-question-circle"></i>Why do I have to encrypt my mnemonic phrase?
 				</a>
 				<input type="hidden" name="client" value="{{.Client}}">
 				<input type="hidden" name="path" value="{{.Path}}">
 				<input type="hidden" name="payload" value="{{.Payload}}">
+				<input type="hidden" name="lcd" value="{{.Lcd}}">
 				<input type="text" value="" id="encrypted-mnemonics-for-copy">
 				<button type="button" id="importBtn2">Next</button>
 			</form>
