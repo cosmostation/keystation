@@ -12,7 +12,7 @@ getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
             break;
     }
 
-    const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId2);
+    const cosmos = cosmosjs.network(window.lcd, chainId2);
     cosmos.setBech32MainPrefix(prefix);
     // cosmos.setPath("44'/118'/0'/0/0");
     cosmos.setPath(hdPath);
@@ -29,7 +29,7 @@ signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
         prefix = "iaa";
     }
 
-    const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId2);
+    const cosmos = cosmosjs.network(window.lcd, chainId2);
     cosmos.setBech32MainPrefix(prefix);
     cosmos.setPath(hdPath);
     const ecpairPriv = cosmos.getECPairPriv(mnemonic);

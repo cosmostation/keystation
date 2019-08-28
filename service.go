@@ -30,6 +30,12 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	lcd, err := url.QueryUnescape(vars["lcd"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	path, err := url.QueryUnescape(vars["path"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -45,10 +51,12 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, "client: %v", client)
 	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
+	log.Infof(ctx, "lcd: %v", lcd)
 
 	params := importTemplateParams{}
-	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
+	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Client = client
+	params.Lcd = lcd
 	params.Path = path
 	params.Payload = payload
 	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
@@ -68,6 +76,12 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	lcd, err := url.QueryUnescape(vars["lcd"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	path, err := url.QueryUnescape(vars["path"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -83,9 +97,11 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, "client: %v", client)
 	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
+	log.Infof(ctx, "lcd: %v", lcd)
 
 	params := signInTemplateParams{}
-	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
+	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
+	params.Lcd = lcd
 	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
 	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
@@ -109,6 +125,12 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	lcd, err := url.QueryUnescape(importForm.Lcd)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	path, err := url.QueryUnescape(importForm.Path)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -124,6 +146,7 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, "client: %v", client)
 	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
+	log.Infof(ctx, "lcd: %v", lcd)
 
 	payloadForQuery := ""
 	if payload != "cosmos" && payload != "iris" {
@@ -135,7 +158,7 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := sessionTemplateParams{}
-	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payloadForQuery)
+	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payloadForQuery)
 	params.Payload = payload	// address
 
 	sessionTemplate.Execute(w, params)
@@ -147,6 +170,12 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 
 	ctx := appengine.NewContext(r)
 	client, err := url.QueryUnescape(vars["client"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	lcd, err := url.QueryUnescape(vars["lcd"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -167,9 +196,11 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 	log.Infof(ctx, "client: %v", client)
 	log.Infof(ctx, "path: %v", path)
 	log.Infof(ctx, "payload: %v", payload)
+	log.Infof(ctx, "lcd: %v", lcd)
 
 	params := txTemplateParams{}
 	params.Client = client
+	params.Lcd = lcd
 	params.Path = path
 	params.Payload = payload
 	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number

@@ -49,7 +49,6 @@
 				</div>
 				<div class="tx-btn-wrap">
 					<button type="button" class="cancel" onclick="denyHandler()">Deny</button>
-					<!-- <button type="submit" class="tx-sign-btn">Allow</button> -->
 					<button type="button" onclick="requestSignTx()" id="allowBtn">Allow</button>
 				</div>
 			</form>
@@ -217,49 +216,9 @@
 			}
 
 			window.pinType = "tx";
+			window.lcd = {{.lcd}};
 			window.stdSignMsgByPayload = {{.Payload}};
 			$(".pin-wrap").addClass("open");
-		}
-
-		function signTxHandler() {
-			var password = $("input[type=password]").val();
-
-			if ($.trim(password) == "") {
-				alert("Could not retrieve account stored in Keychain.");
-				return;
-			}
-
-			var decrypted = CryptoJS.AES.decrypt($.trim(password), pinCode);
-			var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
-			console.log("decryptedMnemonics: ", decryptedMnemonics);
-
-
-			// // loader
-			// $("#allowBtn").html('<i class="fa fa-spinner fa-spin"></i>');
-
-
-			var hdPath = getParameterByName('path');
-			console.log("hdPath: ", hdPath);
-
-			var hdPathArr = hdPath.split("/");
-			var hdPathResult = "";
-			for (var i = 0; i < hdPathArr.length; i++) {
-				hdPathResult += String(hdPathArr[i]);
-				if (i < 3) {
-					// 44, 118, 0
-					if (hdPathArr[i].indexOf("'") == -1) {
-						hdPathResult += "'";
-					}
-				}
-
-				if (i < hdPathArr.length - 1) {
-					hdPathResult += "/";
-				}
-			}
-
-			var stdSignMsg = new Object;
-			stdSignMsg.json = JSON.parse({{.Payload}});
-			signTxByKeyStation(decryptedMnemonics, hdPathResult, chainIdFromTx, stdSignMsg);
 		}
 	</script>
 	<script src="js/pin.js"></script>

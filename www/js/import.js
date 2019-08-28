@@ -70,7 +70,8 @@ function submitForm() {
    // loader
    $("#importBtn").html('<i class="fa fa-spinner fa-spin"></i>');
 
-   var hdPath = getParameterByName('path'); // "lorem"
+   window.lcd = getParameterByName('lcd');
+   var hdPath = getParameterByName('path');
    console.log("hdPath: ", hdPath);
 
    var hdPathArr = hdPath.split("/");
