@@ -127,7 +127,7 @@ textarea {
 
 .keystation-form textarea {
   width: 100%;
-  height: 100px;
+  height: 120px;
   border: 1px solid transparent;
   background: #f5f5f5;
   border-radius: 6px;
@@ -307,25 +307,6 @@ textarea {
   margin-top: 30px;
 }
 
-
-/* Media query
- ========================================================================== */
-
-@media (min-width: 601px) {
-  .inner {
-    max-width: 500px;
-    border: 1px solid #e1e1e1;
-    border-radius: 6px;
-  }
-
-  /* .form-fotter {
-    position: absolute;
-  } */
-}
-
-
-
-
 /* PIN
  ========================================================================== */
 .pin-wrap {
@@ -365,11 +346,16 @@ textarea {
 }
 
 .pin-cont>h2 {
-  font-weight: normal;
   font-size: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
-
+.pin-cont > p{
+  margin-bottom: 40px;
+  font-size: 13px;
+}
+.pin-cont > p>span{
+ color: #f44336;
+}
 
 
 .dots-cointainer {
@@ -439,6 +425,9 @@ textarea {
   height: 60px;
   line-height: 3.5em;
   font-size: 18px;
+}
+.grid-number:active{
+  background: #f0f0f0;
 }
 
 .finger {
@@ -570,17 +559,18 @@ textarea {
   overflow: hidden;
 }
 
-.pw-nnemonics>div{
+.pw-nnemonics>div {
   position: relative;
   padding: 6px 14px;
   border-bottom: 1px solid #e8e8e8;
 }
 
-.pw-nnemonics>div> span{
+.pw-nnemonics>div>span {
   font-size: 13px;
   color: #696969;
 }
-.pw-nnemonics>div> span>i{
+
+.pw-nnemonics>div>span>i {
   margin-right: 6px;
 }
 
@@ -592,10 +582,12 @@ textarea {
   padding: 0 14px;
   border-left: 1px solid #e8e8e8;
 }
-.pw-nnemonics>div>button:hover{
+
+.pw-nnemonics>div>button:hover {
   background-color: #e8e8e8;
 }
-.pw-nnemonics>div>button >i{
+
+.pw-nnemonics>div>button>i {
   margin-right: 6px;
 }
 
@@ -614,4 +606,22 @@ textarea {
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+
+/* Media query
+ ========================================================================== */
+
+@media (max-width: 600px) {
+  .pin-wrap>button {
+    position: fixed;
+  }
+}
+
+@media (min-width: 601px) {
+  .inner {
+    max-width: 500px;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+  }
 }
