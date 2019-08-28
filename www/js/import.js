@@ -27,6 +27,13 @@
 
 })();
 
+function copyAddress() {
+   var copyText = document.getElementById("encrypted-mnemonics-for-copy");
+   copyText.select();
+   document.execCommand("copy");
+   alert("Encrypted mnemonics are copied.");
+}
+
 function getParameterByName(name, url) {
    if (!url) url = window.location.href;
    name = name.replace(/[\[\]]/g, '\\$&');

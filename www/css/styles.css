@@ -605,3 +605,13 @@ textarea {
   word-break: break-all;
 }
 
+#encrypted-mnemonics-for-copy {
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}

@@ -107,17 +107,18 @@
 
                   // PROCESS
                   var encrypted = CryptoJS.AES.encrypt(mnemonics, pinCode);
-                  var decrypted = CryptoJS.AES.decrypt(encrypted, pinCode);
+                  // var decrypted = CryptoJS.AES.decrypt(encrypted, pinCode);
                   // document.getElementById("demo0").innerHTML = mnemonics;
                   // document.getElementById("demo1").innerHTML = encrypted;
                   // document.getElementById("demo2").innerHTML = decrypted;
                   // document.getElementById("demo3").innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
 
                   console.log("encrypted: ", encrypted);
-                  console.log("decrypted: ", decrypted.toString(CryptoJS.enc.Utf8));
+                  // console.log("decrypted: ", decrypted.toString(CryptoJS.enc.Utf8));
 
                   setTimeout(function () {
                      $("#encrypted-mnemonics").text(encrypted);
+                     $("#encrypted-mnemonics-for-copy").val(encrypted);
                      $(".pin-wrap").removeClass("open");
                      // import page2
                      $("#import-form1").hide();
