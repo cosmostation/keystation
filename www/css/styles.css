@@ -347,7 +347,7 @@ textarea {
 
 .pin-cont>h2 {
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 }
 .pin-cont > p{
   margin-bottom: 40px;
@@ -624,13 +624,13 @@ textarea {
 /* Media query
  ========================================================================== */
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   .pin-wrap>button {
     position: fixed;
   }
 }
 
-@media (min-width: 601px) {
+@media (min-width: 501px) {
   .inner {
     max-width: 500px;
     border: 1px solid #e1e1e1;
