@@ -17,7 +17,7 @@
          input = input.substr(0, input.length - 1);
       }
 
-      $(".pin-title").text("Please enter your PIN.");
+      $("#pin-title").text("Please enter your PIN.");
 
       // Init Keypad
       $(".wrapper-number").css("display", "grid");
@@ -27,6 +27,20 @@
 
       $(".pin-wrap").removeClass("open");
    })
+
+   function showCorrectPinAnimation() {
+      dots.forEach(function (dot, index) {
+         dot.className += ' correct';
+      });
+   }
+
+   function showWrongPinAnimation() {
+      dots.forEach(function (dot, index) {
+         dot.className += ' wrong';
+      });
+      $(".wrapper-number").css("display", "grid");
+      $(".wrapper-alphabet").css("display", "none");
+   }
 
    numbers.forEach(function (number, index) {
       number.addEventListener('click', function () {
@@ -68,7 +82,7 @@
                // Please enter your PIN again.
                setTimeout(function () {
                   // Change title
-                  $(".pin-title").text("Please enter your PIN again.");
+                  $("#pin-title").text("Please enter your PIN again.");
 
                   // Init Keypad
                   $(".wrapper-number").css("display", "grid");
@@ -83,24 +97,12 @@
 
             } else if (window.pinType == "import" && correct.length == 5) {
                if (input !== correct) {
-                  dots.forEach(function (dot, index) {
-                     dot.className += ' wrong';
-                  });
-                  $(".wrapper-number").css("display", "grid");
-                  $(".wrapper-alphabet").css("display", "none");
+                  showWrongPinAnimation();
                } else {
-                  dots.forEach(function (dot, index) {
-                     dot.className += ' correct';
-                  });
-
-                  // next step
-
-                  // PIN으로 니모닉 암호화
-
-                  // input[type=password] 값을 암호화된 값으로 변경
+                  showCorrectPinAnimation();
 
                   // INIT
-                  var mnemonics = $('input[type="password"]').val();
+                  var mnemonics = $.trim($('.input-mnemonics').val());
                   var pinCode = input;
 
                   // PROCESS
@@ -114,22 +116,108 @@
                   console.log("encrypted: ", encrypted);
                   console.log("decrypted: ", decrypted.toString(CryptoJS.enc.Utf8));
 
-                  //$(input[type="password"]).value = encrypted;
-
-                  // $('input[type="password"]').val(encrypted);
-                  // console.log("pw input value: ", $('input[type="password"]').val());
-
-                  $(".input-password").val(encrypted);
-                  console.log("pw input value: ", $(".input-password").val());
-
-                  // submit
                   setTimeout(function () {
-                     $('.keystation-form').submit();
-                  }, 300);
-
+                     $("#encrypted-mnemonics").text(encrypted);
+                     $(".pin-wrap").removeClass("open");
+                     // import page2
+                     $("#import-form1").hide();
+                     $("#import-form2").show();
+                     $("#hidden-account").val($("#account").val());
+                  }, 500);
                }
-            } else if (window.pinType == "signin") {
-               
+            } else if (window.pinType == "signin" || window.pinType == "tx") {
+               // input 으로 decrypt 하기
+               console.log("input 으로 decrypt 하기");
+
+               var encryptedMnemonics = $.trim($("input[type=password]").val());
+               var pinCode = input;
+
+               try {
+                  var decrypted = CryptoJS.AES.decrypt(encryptedMnemonics, pinCode);
+                  var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
+                  console.log("decryptedMnemonics: ", decryptedMnemonics);
+
+                  if (decryptedMnemonics == "") {
+                     // wrong
+                     showWrongPinAnimation();
+                  } else {
+                     // correct
+                     showCorrectPinAnimation();
+
+                     if (window.pinType == "signin") {
+                        var hdPath = getParameterByName('path');
+                        console.log("hdPath: ", hdPath);
+
+                        var hdPathArr = hdPath.split("/");
+                        var hdPathResult = "";
+                        for (var i = 0; i < hdPathArr.length; i++) {
+                           hdPathResult += String(hdPathArr[i]);
+                           if (i < 3) {
+                              // 44, 118, 0
+                              if (hdPathArr[i].indexOf("'") == -1) {
+                                 hdPathResult += "'";
+                              }
+                           }
+
+                           if (i < hdPathArr.length - 1) {
+                              hdPathResult += "/";
+                           }
+                        }
+
+                        var prefix = getParameterByName('payload');
+                        var address = getKeyStationMainAddress(decryptedMnemonics, hdPathResult, prefix);
+
+                        setTimeout(function () {
+                           window.opener.postMessage(address, "*");
+                           window.close();
+                        }, 500);
+                     } else if (window.pinType == "tx") {
+                        var password = $("input[type=password]").val();
+
+                        if ($.trim(password) == "") {
+                           alert("Could not retrieve account stored in Keychain.");
+                           return;
+                        }
+
+                        var decrypted = CryptoJS.AES.decrypt($.trim(password), pinCode);
+                        var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
+                        console.log("decryptedMnemonics: ", decryptedMnemonics);
+
+
+                        // // loader
+                        // $("#allowBtn").html('<i class="fa fa-spinner fa-spin"></i>');
+
+
+                        var hdPath = getParameterByName('path');
+                        console.log("hdPath: ", hdPath);
+
+                        var hdPathArr = hdPath.split("/");
+                        var hdPathResult = "";
+                        for (var i = 0; i < hdPathArr.length; i++) {
+                           hdPathResult += String(hdPathArr[i]);
+                           if (i < 3) {
+                              // 44, 118, 0
+                              if (hdPathArr[i].indexOf("'") == -1) {
+                                 hdPathResult += "'";
+                              }
+                           }
+
+                           if (i < hdPathArr.length - 1) {
+                              hdPathResult += "/";
+                           }
+                        }
+
+                        var stdSignMsg = new Object;
+                        stdSignMsg.json = JSON.parse(window.stdSignMsgByPayload);
+                        signTxByKeyStation(decryptedMnemonics, hdPathResult, chainIdFromTx, stdSignMsg);
+                     }
+
+                  }
+               } catch (error) {
+                  console.log(error);
+                  // Error: Malformed UTF-8 data
+                  showWrongPinAnimation();
+               }
             }
 
             setTimeout(function () {

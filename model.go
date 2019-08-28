@@ -33,4 +33,6 @@ type txTemplateParams struct {
 	Client string
 	Path string
 	Payload string
+	ShuffledNumCode template.HTML
+	ShuffledAlphabetCode template.HTML
 }

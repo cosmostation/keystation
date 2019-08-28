@@ -13,6 +13,7 @@
 	<!-- js -->
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/big.js/5.2.2/big.min.js"></script>
 	<script src="js/bundle.js"></script>
 	<script src="js/common.js"></script>
@@ -49,9 +50,36 @@
 				<div class="tx-btn-wrap">
 					<button type="button" class="cancel" onclick="denyHandler()">Deny</button>
 					<!-- <button type="submit" class="tx-sign-btn">Allow</button> -->
-					<button type="button" onclick="signTxHandler()" id="allowBtn">Allow</button>
+					<button type="button" onclick="requestSignTx()" id="allowBtn">Allow</button>
 				</div>
 			</form>
+
+			<!-- pin -->
+			<div class="pin-wrap">
+				<button type="button">&#10005;</button>
+				<div class="pin-cont">
+					<h2>Please enter your PIN.</h2>
+					<div class="dots-cointainer">
+						<div class="dots">
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div>+</div>
+							<div class="dot"></div>
+						</div>
+					</div>
+
+					<div class="wrapper-number">
+						{{.ShuffledNumCode}}
+					</div>
+
+					<div class="wrapper-alphabet">
+						{{.ShuffledAlphabetCode}}
+					</div>
+				</div>
+			</div>
+			<!-- pin end -->
 		</div>
 		<!-- inner end -->
 	</div>
@@ -180,16 +208,35 @@
 			window.close();
 		}
 
-		function signTxHandler() {
-			var password 	= $("input[type=password]").val();
+		function requestSignTx() {
+			var password = $("input[type=password]").val();
 
 			if ($.trim(password) == "") {
-				console.log("Could not retrieve account stored in Keychain.");
+				alert("Could not retrieve account stored in Keychain.");
 				return;
 			}
 
-			// loader
-			$("#allowBtn").html('<i class="fa fa-spinner fa-spin"></i>');
+			window.pinType = "tx";
+			window.stdSignMsgByPayload = {{.Payload}};
+			$(".pin-wrap").addClass("open");
+		}
+
+		function signTxHandler() {
+			var password = $("input[type=password]").val();
+
+			if ($.trim(password) == "") {
+				alert("Could not retrieve account stored in Keychain.");
+				return;
+			}
+
+			var decrypted = CryptoJS.AES.decrypt($.trim(password), pinCode);
+			var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
+			console.log("decryptedMnemonics: ", decryptedMnemonics);
+
+
+			// // loader
+			// $("#allowBtn").html('<i class="fa fa-spinner fa-spin"></i>');
+
 
 			var hdPath = getParameterByName('path');
 			console.log("hdPath: ", hdPath);
@@ -212,8 +259,9 @@
 
 			var stdSignMsg = new Object;
 			stdSignMsg.json = JSON.parse({{.Payload}});
-			signTxByKeyStation($.trim(password), hdPathResult, chainIdFromTx, stdSignMsg);
+			signTxByKeyStation(decryptedMnemonics, hdPathResult, chainIdFromTx, stdSignMsg);
 		}
 	</script>
+	<script src="js/pin.js"></script>
 </body>
 </html>

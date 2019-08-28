@@ -172,6 +172,8 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 	params.Client = client
 	params.Path = path
 	params.Payload = payload
+	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
+	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
 	txTemplate.Execute(w, params)
 	return

@@ -2,7 +2,27 @@
    window.pinType = "import";
 
    $("#importBtn").on('click', function(){
-     submitForm();
+      // Account Name 빈 칸인가?
+      var account = $("#account").val();
+      var mnemonics = $("#mnemonics").val();
+
+      if ($.trim(account) == "") {
+         $("#formInfoMessage").hide();
+         $("#errorOnImport").show().find('span').text("Invalid account.");
+         return;
+      }
+
+      if ($.trim(mnemonics) == "") {
+         $("#formInfoMessage").hide();
+         $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
+         return;
+      }
+
+      $(".pin-wrap").addClass("open");
+   })
+
+   $("#importBtn2").on('click', function(){
+      submitForm();
    })
 
 })();
@@ -19,8 +39,8 @@ function getParameterByName(name, url) {
 
 // submit
 function submitForm() {
-   var account     = $(".input-account").val();
-   var password	= $("input[type=password]").val();
+   var account     = $("#hidden-account").val();
+   var mnemonics	   = $("#mnemonics").val();
 
    if ($.trim(account) == "") {
       $("#formInfoMessage").hide();
@@ -28,9 +48,15 @@ function submitForm() {
       return;
    }
 
-   if ($.trim(password) == "") {
+   if ($.trim(mnemonics) == "") {
       $("#formInfoMessage").hide();
       $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
+      return;
+   }
+
+   // 제공된 encrypted 값과 붙여넣기 한 값이 일치하는지 확인
+   if (document.getElementById("encrypted-mnemonics").innerText != $("input[type=password]").val() ) {
+      alert("Invalid encrypted mnemonics");
       return;
    }
 
@@ -58,9 +84,8 @@ function submitForm() {
 
    var prefix = getParameterByName('payload');
 
-   var address = getKeyStationMainAddress($.trim(password), hdPathResult, prefix);
+   var address = getKeyStationMainAddress($.trim(mnemonics), hdPathResult, prefix);
    $("input[name=payload]").val(address);
 
-   // $('.keystation-form').submit();
-   $(".pin-wrap").addClass("open");
+   $('.keystation-form').submit();
 }
