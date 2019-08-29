@@ -1,8 +1,7 @@
 (function() {
    window.pinType = "import";
 
-   $("#importBtn").on('click', function(){
-      // Account Name 빈 칸인가?
+   $("#importBtn").on('click', function() {
       var account = $("#account").val();
       var mnemonics = $("#mnemonics").val();
 
@@ -61,7 +60,7 @@ function submitForm() {
       return;
    }
 
-   // 제공된 encrypted 값과 붙여넣기 한 값이 일치하는지 확인
+   // Check encrypted mnemonic phrase and pasted value
    if (document.getElementById("encrypted-mnemonics").innerText != $("input[type=password]").val() ) {
       alert("Invalid encrypted mnemonics");
       return;

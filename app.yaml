@@ -1,13 +1,15 @@
 # prod
-#runtime: go112
+runtime: go112
 
 # dev
-runtime: go
-api_version: go1
+#runtime: go
+#api_version: go1
 
 handlers:
   - url: /www
     static_dir: www
+  - url: /lib
+    static_dir: www/lib
   - url: /js
     static_dir: www/js
   - url: /css

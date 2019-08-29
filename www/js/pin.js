@@ -8,9 +8,6 @@
 
    // pin close
    $(".pin-wrap > button").on('click', function(){
-      // $(".pin-wrap").removeClass("open");
-      // pin reset
-
       // Init PIN
       for (var i = 0; i < 5; i++) {
          dots[i].className = 'dot';
@@ -44,7 +41,6 @@
 
    numbers.forEach(function (number, index) {
       number.addEventListener('click', function () {
-         // <div class="grid-number">2</div> 에서 숫자를 제외한 나머지 제거
          var inputStr = number.outerHTML;
 
          if (inputStr.indexOf('<div class="finger grid-number">') != -1) {
@@ -105,16 +101,7 @@
                   var mnemonics = $.trim($('.input-mnemonics').val());
                   var pinCode = input;
 
-                  // PROCESS
                   var encrypted = CryptoJS.AES.encrypt(mnemonics, pinCode);
-                  // var decrypted = CryptoJS.AES.decrypt(encrypted, pinCode);
-                  // document.getElementById("demo0").innerHTML = mnemonics;
-                  // document.getElementById("demo1").innerHTML = encrypted;
-                  // document.getElementById("demo2").innerHTML = decrypted;
-                  // document.getElementById("demo3").innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
-
-                  console.log("encrypted: ", encrypted);
-                  // console.log("decrypted: ", decrypted.toString(CryptoJS.enc.Utf8));
 
                   setTimeout(function () {
                      $("#encrypted-mnemonics").text(encrypted);
@@ -127,16 +114,13 @@
                   }, 500);
                }
             } else if (window.pinType == "signin" || window.pinType == "tx") {
-               // input 으로 decrypt 하기
-               console.log("input 으로 decrypt 하기");
-
+               // decrypt input value
                var encryptedMnemonics = $.trim($("input[type=password]").val());
                var pinCode = input;
 
                try {
                   var decrypted = CryptoJS.AES.decrypt(encryptedMnemonics, pinCode);
                   var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
-                  console.log("decryptedMnemonics: ", decryptedMnemonics);
 
                   if (decryptedMnemonics == "") {
                      // wrong
@@ -147,8 +131,6 @@
 
                      if (window.pinType == "signin") {
                         var hdPath = getParameterByName('path');
-                        console.log("hdPath: ", hdPath);
-
                         var hdPathArr = hdPath.split("/");
                         var hdPathResult = "";
                         for (var i = 0; i < hdPathArr.length; i++) {
@@ -182,16 +164,11 @@
 
                         var decrypted = CryptoJS.AES.decrypt($.trim(password), pinCode);
                         var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
-                        console.log("decryptedMnemonics: ", decryptedMnemonics);
-
 
                         // // loader
                         // $("#allowBtn").html('<i class="fa fa-spinner fa-spin"></i>');
 
-
                         var hdPath = getParameterByName('path');
-                        console.log("hdPath: ", hdPath);
-
                         var hdPathArr = hdPath.split("/");
                         var hdPathResult = "";
                         for (var i = 0; i < hdPathArr.length; i++) {
@@ -233,5 +210,4 @@
          }, 1000);
       });
    });
-
 }());

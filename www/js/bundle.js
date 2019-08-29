@@ -44,7 +44,7 @@ signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
     }).catch(error => {
         console.log(error);
 
-        window.opener.postMessage("error", "*");
+        window.opener.postMessage(error.message, "*");
         window.close();
     })
 }
