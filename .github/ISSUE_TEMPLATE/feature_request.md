@@ -7,6 +7,12 @@ assignees: wannabit-booyoun
 
 ---
 
+<!-- < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < ☺ 
+v                            ✰  Thanks for opening an issue! ✰    
+v    Before smashing the submit button please review the template.
+v    Please also ensure that this is not a duplicate issue :)  
+☺ > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > >  -->
+
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
