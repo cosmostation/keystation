@@ -7,7 +7,7 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-키스테이션은 별도의 설치가 필요없는 탈중앙화된 키 인증 서비스입니다. 사용자의 키 정보를 사용자 브라우저의 Keychain에 안전하게 보관하면서 Cosmos 기반의 블록체인의 트랜잭션에 편리하게 서명할 수 있습니다. 웹 로그인, DEX 거래소, dApp 등 다양한 Cosmos SDK 서비스를 편리하고 안전하게 사용할 수 있습니다.
+Keystation is a decentralized key management/authentication tool that does not require any installation. User keys are securely stored in the web browser Keychain, allowing for users to conveniently sign transactions for networks and decentralized applications built with the Cosmos SDK. Keystation can be used as a secure and convenient authentication & key management tool for web login, decentralized exchanges, decentralized applications, and various services built with the Cosmos SDK.
 
 Example session:<br>
 <img width="200" alt="keystation1_" src="https://user-images.githubusercontent.com/34641838/63918685-1e045f00-ca78-11e9-9e8e-a50388ec7bce.png">
@@ -75,10 +75,7 @@ cosmos.getAccounts(address).then(data => {
 ```
 
 ## Security
-Keystation이 안전한 방식인지 점검해봅시다. 어떻게 Keystation은 사용자의 키를 안전하게 보관할까요?
-
-#### Keychain
-Chrome, Safai에서 사이트의 아이디와 비밀번호를 기억하고 보관하는 암호 관리 시스템입니다. Keystation은 별도의 Chrome, Safari의 암호 관리 시스템(키체인)에 사용자의 니모닉을 보관합니다. 이것은 사용자만 접근할 수 있으며 제3자가 접근하기 불가능합니다. 이뿐만 아니라 사용자의 니모닉을 AES 알고리즘으로 암호화하여 보안을 한층 더 강화하였습니다. 사용자의 PIN으로만 암호화된 니모닉에 접근할 수 있습니다.
+Keystation stores user mnemonic phrase on a key management system(Keychain) in Chrome and Safari. Only the user can access the keychain, and no third party is granted access. User mnemonic phrase is encrypted with AES algorithm for higher security before being stored. A PIN set by the user is required in order to access the encrypted mnemonic phrase.
 * [How secure is Chrome storing a password?](https://security.stackexchange.com/questions/170481/how-secure-is-chrome-storing-a-password)
 * [Manage saved passwords](https://support.google.com/chrome/answer/95606?co=GENIE.Platform%3DDesktop&hl=en)
 
