@@ -6,9 +6,7 @@
     Keystation 
 </h1>
 
-**
-:alien: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)
-**
+**:alien: Developed / Developing by** [Cosmostation](https://www.cosmostation.io/)
 
 ## Overview
 
@@ -92,11 +90,16 @@ Keystation stores user mnemonic phrase on a key management system, Keychain in C
 
 * [Manage saved passwords](https://support.google.com/chrome/answer/95606?co=GENIE.Platform%3DDesktop&hl=en)
 
+## Issues
+
+We welcome any type of issues. Please provide information in detail when you post issues or bugs.
+
 ## Contribution
 
-Any contributions, suggestions, improvements, and feature requests are welcome
+We welcome any contributions, suggestions, improvements, or feature requests.
 
-We are working on `CONTRIBUTING.md` at the moment. It will be updated soon.
+There will be `CONTRIBUTING.md` that describes rules and procedure. 
+It will be updated soon.
 
 ## Services and Community by Cosmostation
 
