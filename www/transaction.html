@@ -48,8 +48,8 @@
 					-->
 				</div>
 				<div class="tx-btn-wrap">
-					<button type="button" class="cancel" onclick="denyHandler()">Deny</button>
-					<button type="button" onclick="requestSignTx()" id="allowBtn">Allow</button>
+					<button type="button" class="cancel" onclick="denyHandler();">Deny</button>
+					<button type="button" onclick="requestSignTx();" id="allowBtn">Allow</button>
 				</div>
 			</form>
 
@@ -216,7 +216,7 @@
 			}
 
 			window.pinType = "tx";
-			window.lcd = {{.lcd}};
+			window.lcd = {{.Lcd}};
 			window.stdSignMsgByPayload = {{.Payload}};
 			$(".pin-wrap").addClass("open");
 		}
