@@ -6,9 +6,9 @@
     Keystation 
 </h1>
 
-<p>
+**
 :alien: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)
-</p>
+**
 
 ## Overview
 
