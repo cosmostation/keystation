@@ -10,7 +10,7 @@
 키스테이션은 별도의 설치가 필요없는 탈중앙화된 키 인증 서비스입니다. 사용자의 키 정보를 사용자 브라우저의 Keychain에 안전하게 보관하면서 Cosmos 기반의 블록체인의 트랜잭션에 편리하게 서명할 수 있습니다. 웹 로그인, DEX 거래소, dApp 등 다양한 Cosmos SDK 서비스를 편리하고 안전하게 사용할 수 있습니다.
 
 Example session:<br>
-<img width="200" alt="keystation1" src="https://user-images.githubusercontent.com/34641838/63916092-a2ec7a00-ca72-11e9-89e9-44c3bce8001d.png">
+<img width="200" alt="keystation1_" src="https://user-images.githubusercontent.com/34641838/63918685-1e045f00-ca78-11e9-9e8e-a50388ec7bce.png">
 <img width="200" alt="keystation2" src="https://user-images.githubusercontent.com/34641838/63916099-a7189780-ca72-11e9-8574-b6d0dca4551f.png">
 <img width="200" alt="keystation3" src="https://user-images.githubusercontent.com/34641838/63916106-a97af180-ca72-11e9-90da-ebf52526d75b.png">
 
