@@ -626,6 +626,10 @@ textarea {
   border: 0;
 }
 
+
+/* loader
+ ========================================================================== */
+
 .loader-wrap {
   display: none;
   z-index: 100;
@@ -793,11 +797,208 @@ textarea {
 
 
 
+
+
+
+
+
+
+
+
+
+
+/* test */
+/* compleat
+ ========================================================================== */
+
+ .test-wrap {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: opacity .3s 0s;
+}
+
+.test-wrap.open {
+  opacity: 1;
+  visibility: visible;
+}
+/* Transition Layer */
+.cd-transition-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+.cd-transition-layer .bg-layer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateY(-50%) translateX(-2%);
+          transform: translateY(-50%) translateX(-2%);
+  /* its dimentions will be overwritten using jQuery to proportionally fit the viewport */
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+.cd-transition-layer.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.cd-transition-layer.visible .bg-layer {
+  -webkit-transform: translateY(-50%) translateX(-98%);
+          transform: translateY(-50%) translateX(-98%);
+}
+.cd-transition-layer.opening .bg-layer, .cd-transition-layer.closing .bg-layer {
+  -webkit-animation-duration: .8s;
+          animation-duration: .8s;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+.no-cssanimations .cd-transition-layer {
+  display: none;
+}
+
+/* -------------------------------- 
+
+Gummy Effect
+
+-------------------------------- */
+.gummy-transition .cd-btn {
+  background: #3f5074;
+  color: #f2f2f2;
+  border-radius: 50em;
+}
+.gummy-transition .cd-main-content {
+  background: #001d5b;
+}
+.gummy-transition .cd-modal {
+  background: #ef8692;
+}
+.gummy-transition .cd-modal .modal-content {
+  color: #f2f2f2;
+}
+.gummy-transition .cd-modal .modal-close::before,
+.gummy-transition .cd-modal .modal-close::after {
+  background: #f2f2f2;
+}
+.gummy-transition .cd-modal .modal-close {
+  background: #cb727c;
+}
+.gummy-transition .cd-modal .modal-close:hover {
+  background: #a75e66;
+}
+.gummy-transition .cd-transition-layer .bg-layer {
+  /* sprite composed of 25 frames */
+  width: 2500%;
+  background-image: url(../img/gummy.png);
+}
+.gummy-transition .cd-transition-layer.opening .bg-layer {
+  -webkit-animation: cd-sequence 0.8s steps(24) forwards;
+          animation: cd-sequence 0.8s steps(24) forwards;
+}
+.gummy-transition .cd-transition-layer.closing .bg-layer {
+  -webkit-animation: cd-sequence 0.8s steps(24) forwards reverse;
+          animation: cd-sequence 0.8s steps(24) forwards reverse;
+}
+
+
+/* -------------------------------- 
+
+Animations
+
+-------------------------------- */
+@-webkit-keyframes cd-sequence {
+  0% {
+    /* translateX(-2%) is used to horizontally center the first frame inside the viewport */
+    -webkit-transform: translateY(-50%) translateX(-2%);
+            transform: translateY(-50%) translateX(-2%);
+  }
+  100% {
+    /* translateX(-98%) (2% + 96) is used to horizontally center the last frame inside the viewport  */
+    -webkit-transform: translateY(-50%) translateX(-98%);
+            transform: translateY(-50%) translateX(-98%);
+  }
+}
+@keyframes cd-sequence {
+  0% {
+    /* translateX(-2%) is used to horizontally center the first frame inside the viewport */
+    -webkit-transform: translateY(-50%) translateX(-2%);
+            transform: translateY(-50%) translateX(-2%);
+  }
+  100% {
+    /* translateX(-98%) (2% + 96) is used to horizontally center the last frame inside the viewport  */
+    -webkit-transform: translateY(-50%) translateX(-98%);
+            transform: translateY(-50%) translateX(-98%);
+  }
+}
+@-webkit-keyframes cd-sequence-2 {
+  0% {
+    -webkit-transform: translateY(-50%) translateX(-1.3158%);
+            transform: translateY(-50%) translateX(-1.3158%);
+  }
+  100% {
+    -webkit-transform: translateY(-50%) translateX(-98.6842%);
+            transform: translateY(-50%) translateX(-98.6842%);
+  }
+}
+@keyframes cd-sequence-2 {
+  0% {
+    -webkit-transform: translateY(-50%) translateX(-1.3158%);
+            transform: translateY(-50%) translateX(-1.3158%);
+  }
+  100% {
+    -webkit-transform: translateY(-50%) translateX(-98.6842%);
+            transform: translateY(-50%) translateX(-98.6842%);
+  }
+}
+@-webkit-keyframes cd-sequence-3 {
+  0% {
+    -webkit-transform: translateY(-50%) translateX(-2.5%);
+            transform: translateY(-50%) translateX(-2.5%);
+  }
+  100% {
+    -webkit-transform: translateY(-50%) translateX(-97.5%);
+            transform: translateY(-50%) translateX(-97.5%);
+  }
+}
+@keyframes cd-sequence-3 {
+  0% {
+    -webkit-transform: translateY(-50%) translateX(-2.5%);
+            transform: translateY(-50%) translateX(-2.5%);
+  }
+  100% {
+    -webkit-transform: translateY(-50%) translateX(-97.5%);
+            transform: translateY(-50%) translateX(-97.5%);
+  }
+}
+
+
+
+
 /* Media query
  ========================================================================== */
 
-@media (max-width: 500px) {
+ @media (max-width: 500px) {
   .pin-wrap>button {
+    position: fixed;
+  }
+  .cd-transition-layer {
     position: fixed;
   }
 }
