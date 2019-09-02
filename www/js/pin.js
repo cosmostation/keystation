@@ -62,9 +62,6 @@
                input += inputStr;
                dots[input.length - 1].className += ' active';
             }
-
-            console.log("inputStr: ", inputStr);
-            console.log("input: ", input);
          }
 
          if (input.length == 4) {
