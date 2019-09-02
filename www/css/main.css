@@ -391,24 +391,32 @@ textarea {
       padding-right: 15px;
    }
 
-   .main-begin-img {
-      display: none;
+   .main-begin {
+      position: relative;
+      padding-top: 60px;
    }
 
    .main-begin-txt>h4 {
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
    }
 
-   .main-begin-txt>h4::before {
-      content: "";
-      position: absolute;
-      left: 2px;
-      top: -10px;
-      width: 46px;
-      height: 2px;
-      background-color: #9c6cff;
+   .main-begin-img {
+      padding-right: 15px;
    }
+
+   .main-begin-img>img {
+      max-width: none;
+   }
+
+   /* 
+   
+   */
 }
+
+@media (max-width: 850px) {}
 
 @media (max-width: 700px) {
    .main-features-list {
@@ -417,6 +425,24 @@ textarea {
 
    .main-features-list>li {
       margin-bottom: 20px;
+   }
+   
+   .main-begin{
+      display: block;
+   }
+
+   .main-begin-txt>p{
+      margin-top: 16px;
+   }
+
+   .main-begin-txt>h4::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: -10px;
+      width: 50px;
+      height: 3px;
+      background-color: #9c6cff;
    }
 }
 
