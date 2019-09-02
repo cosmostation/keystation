@@ -2,7 +2,7 @@
  * http://keystation.cosmostation.io/
  * Since : 2019.08.22
  * Author : Lee Song-hyeon
- * Updated :2019.08.22
+ * Updated :2019.09.02
  */
 
 /* web fonts */
@@ -81,7 +81,7 @@ textarea {
    position: relative;
    display: flex;
    justify-content: space-between;
-   height: 100vh;
+   min-height: 100vh;
    color: #858585;
 }
 
@@ -96,18 +96,16 @@ textarea {
    background-color: rgba(255, 255, 255, 0.15);
 }
 
+
 #app:after {
-   content: "";
+   content: url(../img/cosmos_img.svg);
    display: block;
-   position: absolute;
-   right: 0px;
-   bottom: 0px;
+   position: fixed;
+   right: -20px;
+   top: 20%;
    width: 40%;
-   height: 77%;
    opacity: 0.15;
-   background: url(../img/cosmos_img.svg) no-repeat;
    background-size: cover;
-   background-position: 40px 40px;
 }
 
 #app>div {}
@@ -119,12 +117,12 @@ textarea {
    width: 300px;
 }
 
-.side-left {
-}
-.side-left:before{
+.side-left {}
+
+.side-left:before {
    content: "";
    position: absolute;
-   top:0;
+   top: 0;
    left: 10%;
    width: 1px;
    height: 100%;
@@ -138,12 +136,20 @@ textarea {
    padding-top: 32px;
 }
 
+.side-left h1 {
+   position: absolute;
+   width: 200px;
+   top: 32px;
+   left: 16%;
+}
+
 .side-left h1 img {
    width: 200px;
    padding: 0 5%;
    background: #151314;
 }
 
+/*
 .side-left>div>img {
    position: absolute;
    left: 10%;
@@ -152,12 +158,21 @@ textarea {
    margin-left: 20px;
    opacity: 0.2;
 }
+*/
+.side-left>div>img {
+   position: fixed;
+   left: 3%;
+   top: 0;
+   height: 100%;
+   opacity: 0.2;
+}
 
 .side-right {}
-.side-right:before{
+
+.side-right:before {
    content: "";
    position: absolute;
-   top:0;
+   top: 0;
    right: 10%;
    width: 1px;
    height: 100%;
@@ -182,10 +197,47 @@ textarea {
    background: rgba(255, 255, 255, 0.2);
 }
 
+.footer-social-links {
+   z-index: 2;
+   position: absolute;
+   bottom: 10px;
+   right: 3%;
+}
+
+.footer-social-links>a {
+   display: inline-block;
+   width: 35px;
+   height: 35px;
+   line-height: 35px;
+   border-radius: 50%;
+   background-color: #252525;
+   margin-left: 5px;
+   font-size: 16px;
+   transition: 0.5s;
+   text-align: center;
+}
+
+.footer-social-links>a:hover {
+   color: #fff;
+}
+
+.footer-social-links>em {
+   display: block;
+   margin-top: 10px;
+   text-align: right;
+}
+
+/* .footer-social-links>em>a {
+   text-decoration: underline;
+}
+.footer-social-links>em>a:hover{
+   color: #fff;
+} */
+
 .main {
    position: relative;
    flex-grow: 1;
-   padding: 144px 0px 20px;
+   padding: 144px 0px 200px;
 }
 
 
@@ -215,6 +267,7 @@ textarea {
 
 
 .mian-title>a {
+   overflow: hidden;
    display: inline-block;
    width: 200px;
    height: 45px;
@@ -224,12 +277,22 @@ textarea {
    font-size: 16px;
    text-align: left;
    padding: 0 20px;
+   transition: 0.5s;
+}
+
+.mian-title>a>span {
+   float: right;
+}
+
+.mian-title>a:hover {
+   background-color: #05d2dd;
+   color: #fff;
 }
 
 
 .main-content {
-  width: 950px;
-  margin: 0 auto;
+   width: 950px;
+   margin: 0 auto;
 }
 
 .main-features-list {
@@ -249,6 +312,7 @@ textarea {
    line-height: 1;
    font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 .main-features-list>li>h4 {
    margin-bottom: 2px;
    font-size: 24px;
@@ -257,26 +321,27 @@ textarea {
    font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.main-features-list>li>p{
+.main-features-list>li>p {
    line-height: 1.6;
 }
 
-.main-begin{
+.main-begin {
    display: flex;
    justify-content: space-between;
 }
 
-.main-begin-img{
+.main-begin-img {
    max-width: 280px;
    flex-grow: 1;
 }
-.main-begin-img > img{
+
+.main-begin-img>img {
    width: 268px;
 }
-.main-begin-txt{
-   
-}
-.main-begin-txt > h4{
+
+.main-begin-txt {}
+
+.main-begin-txt>h4 {
    margin-bottom: 14px;
    line-height: 1;
    font-size: 36px;
@@ -284,7 +349,8 @@ textarea {
    color: #fff;
    font-family: 'Montserrat', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.main-begin-txt > p{
+
+.main-begin-txt>p {
    line-height: 1.6;
 }
 
@@ -299,4 +365,63 @@ textarea {
 /* Media query
  ========================================================================== */
 
-@media (max-width: 601px) {}
+@media (max-width: 1000px) {
+
+   .side-left,
+   .side-right {
+      width: 1px;
+   }
+
+   .side-left:before,
+   .side-right:before {
+      display: none;
+   }
+
+   .main {
+      padding-left: 40px;
+      padding-right: 40px;
+   }
+
+   .main-content {
+      width: 100%;
+   }
+
+   .main-features-list>li {
+      max-width: none;
+      padding-right: 15px;
+   }
+
+   .main-begin-img {
+      display: none;
+   }
+
+   .main-begin-txt>h4 {
+      position: relative;
+   }
+
+   .main-begin-txt>h4::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: -10px;
+      width: 46px;
+      height: 2px;
+      background-color: #9c6cff;
+   }
+}
+
+@media (max-width: 700px) {
+   .main-features-list {
+      display: block;
+   }
+
+   .main-features-list>li {
+      margin-bottom: 20px;
+   }
+}
+
+@media (max-width: 670px) {
+   .mian-title>h2 {
+      font-size: 32px;
+   }
+}
