@@ -71,7 +71,6 @@ function submitForm() {
 
    window.lcd = getParameterByName('lcd');
    var hdPath = getParameterByName('path');
-   console.log("hdPath: ", hdPath);
 
    var hdPathArr = hdPath.split("/");
    var hdPathResult = "";

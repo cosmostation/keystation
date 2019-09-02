@@ -35,15 +35,10 @@ signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
     const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
     const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
-    console.log("signedTx: ", signedTx);
     cosmos.broadcast(signedTx).then(response => {
-        console.log(response);
-
         window.opener.postMessage(response, "*");
         window.close();
     }).catch(error => {
-        console.log(error);
-
         window.opener.postMessage(error.message, "*");
         window.close();
     })
