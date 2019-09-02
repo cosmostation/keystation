@@ -6,6 +6,8 @@ runtime: go112
 #api_version: go1
 
 handlers:
+  - url: /favicon.ico
+    static_dir: www/img/favicon.ico
   - url: /www
     static_dir: www
   - url: /lib
@@ -18,7 +20,5 @@ handlers:
     static_dir: www/img
   - url: /fonts
     static_dir: www/fonts
-  - url: /favicon.ico
-    static_dir: www/favicon.ico
   - url: /.*
     script: auto
