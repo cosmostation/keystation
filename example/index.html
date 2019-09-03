@@ -3,10 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>KEYSTATION Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://keystation.cosmostation.io/lib/keystation.js"></script>
 </head>
 <body>
 	<button onclick="login();">Keystation Login</button>
+	<br>
+	<br>
+	<textarea name="txJson" cols="120" rows="5" placeholder="Replace txJson to your own tx msg." >{"account_number":"18012","chain_id":"cosmoshub-2","fee":{"amount":[{"amount":"5000","denom":"uatom"}],"gas":"200000"},"memo":"","msgs":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"10000","denom":"uatom"}],"from_address":"cosmos1z67fshyr48pa9a6htdz4qd0zullfk6y0fgvxv7","to_address":"cosmos10nv3yj0jdxf02vxyc0tavf97fdvppdth6wmcn3"}}],"sequence":"25"}</textarea>
 	<br>
 	<br>
 	<button onclick="send();">Transfer</button>
@@ -29,10 +33,7 @@
 		}
 
 		function send() {
-			// Replace txJson to your own tx msg.
-			var txJson = {"account_number":"18012","chain_id":"cosmoshub-2","fee":{"amount":[{"amount":"5000","denom":"uatom"}],"gas":"200000"},"memo":"","msgs":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"10000","denom":"uatom"}],"from_address":"cosmos1z67fshyr48pa9a6htdz4qd0zullfk6y0fgvxv7","to_address":"cosmos10nv3yj0jdxf02vxyc0tavf97fdvppdth6wmcn3"}}],"sequence":"24"};
-
-			var txJsonStr = JSON.stringify(txJson);
+			var txJsonStr = $.trim($("textarea").val());
 			var popup = keystation.openWindow("transaction", txJsonStr);
 			var popupTick = setInterval(function() {
 				if (popup.closed) {
