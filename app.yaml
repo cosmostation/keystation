@@ -22,3 +22,4 @@ handlers:
     static_dir: www/fonts
   - url: /.*
     script: auto
+    secure: always
