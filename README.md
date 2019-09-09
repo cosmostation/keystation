@@ -51,6 +51,7 @@ var popup = keystation.openWindow("transaction", txJsonStr);
 ```js
 // add an EventListener
 window.addEventListener("message", function(e) {
+    if (e.origin != "https://keystation.cosmostation.io") return;
     console.log(e.data);
 } , false);
 ```
