@@ -122,7 +122,7 @@
 
 		var txObj = new Object;
 		txObj = JSON.parse({{.Payload}});
-		console.log("txObj: ", txObj);
+		// console.log("txObj: ", txObj);
 
 		chainIdFromTx = "";
 		var msgType = "";
@@ -138,12 +138,12 @@
 			if (key == "msgs") {
 				var msgObj = txObj[key];
 				for (var key2 in msgObj) {
-					console.log(key2);
-					console.log(msgObj[key2]);
+					// console.log(key2);
+					// console.log(msgObj[key2]);
 					var valueObj = msgObj[key2]
 					for (var key3 in valueObj) {
-						console.log(key3);
-						console.log(valueObj[key3]);
+						// console.log(key3);
+						// console.log(valueObj[key3]);
 
 						if (key3 == "type") {
 							msgType = valueObj[key3];
@@ -161,11 +161,11 @@
 			}
 		}
 
-		console.log("Type: ", msgType);
-		console.log("Value: ", value);
-		console.log("Fee: ", fee);
-		console.log("Memo: ", memo);
-		console.log("chainIdFromTx: ", chainIdFromTx);
+		// console.log("Type: ", msgType);
+		// console.log("Value: ", value);
+		// console.log("Fee: ", fee);
+		// console.log("Memo: ", memo);
+		// console.log("chainIdFromTx: ", chainIdFromTx);
 
 		// value html codes
 		var valueResult = "";
@@ -178,10 +178,12 @@
 
 		// amount html codes
 		var amountResult = "";
-		if (value.amount.length === undefined) {
-			amountResult = new Big(value.amount.amount).times(getDecimalPlace(value.amount.denom)) + " " + getSymbol(value.amount.denom);
-		} else {
-			amountResult = new Big(value.amount[0].amount).times(getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
+		if (typeof(value.amount) != "undefined") {
+			if (value.amount.length === undefined) {
+				amountResult = new Big(value.amount.amount).times(getDecimalPlace(value.amount.denom)) + " " + getSymbol(value.amount.denom);
+			} else {
+				amountResult = new Big(value.amount[0].amount).times(getDecimalPlace(value.amount[0].denom)) + " " + getSymbol(value.amount[0].denom);
+			}
 		}
 
 		// fee html codes
@@ -189,9 +191,15 @@
 
 		var htmlCode =
 				'<h3 class="send">' + msgType + '</h3>' +
-				valueResult +
-				'<span>Amount</span>' +
-				'<p>' + amountResult + '</p>' +
+				valueResult;
+
+		if (amountResult != "") {
+			htmlCode +=
+					'<span>Amount</span>' +
+					'<p>' + amountResult + '</p>';
+		}
+
+		htmlCode +=
 				'<span>Fee</span>' +
 				'<p>' + feeResult + '</p>' +
 				'<span>Memo</span>' +

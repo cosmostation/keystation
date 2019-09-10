@@ -186,7 +186,6 @@
                         stdSignMsg.json = JSON.parse(window.stdSignMsgByPayload);
                         signTxByKeyStation(decryptedMnemonics, hdPathResult, chainIdFromTx, stdSignMsg);
                      }
-
                   }
                } catch (error) {
                   console.log(error);
