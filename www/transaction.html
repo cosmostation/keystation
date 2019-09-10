@@ -130,6 +130,7 @@
 		var amount = new Object;
 		var fee = new Object;
 		var memo = "";
+		var multiMsgCount = 0;
 
 		for (var key in txObj) {
 			// console.log(key);
@@ -148,7 +149,13 @@
 						if (key3 == "type") {
 							msgType = valueObj[key3];
 						} else if (key3 == "value") {
-							value = valueObj[key3];
+							if (Object.keys(value).length == 0) {
+								value = valueObj[key3];
+							} else {
+								multiMsgCount++;
+							}
+
+							// console.log("value: ", value);
 						}
 					}
 				}
@@ -174,6 +181,10 @@
 				valueResult += '<span>' + key + '</span>';
 				valueResult += '<p>' + value[key] + '</p>';
 			}
+		}
+
+		if (multiMsgCount > 0) {
+			msgType += ' +' + multiMsgCount;
 		}
 
 		// amount html codes
