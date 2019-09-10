@@ -43,6 +43,12 @@ function getParameterByName(name, url) {
    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+function cleanMnemonics(mnemonics) {
+   mnemonics = mnemonics.split(",").join(" ");
+   mnemonics = mnemonics.replace(/ +/g, " ");   // Replace connected spaces with one space
+   return mnemonics;
+}
+
 // submit
 function submitForm() {
    var account     = $("#hidden-account").val();
@@ -90,7 +96,7 @@ function submitForm() {
 
    var prefix = getParameterByName('payload');
 
-   var address = getKeyStationMainAddress($.trim(mnemonics), hdPathResult, prefix);
+   var address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix);
    $("input[name=payload]").val(address);
 
    $('.keystation-form').submit();

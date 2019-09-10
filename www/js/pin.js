@@ -1,5 +1,4 @@
 (function () {
-
    var input = '';
    var correct = '';
    var dots = document.querySelectorAll('.dot'), numbers = document.querySelectorAll('.grid-number');
@@ -37,6 +36,12 @@
       });
       $(".wrapper-number").css("display", "grid");
       $(".wrapper-alphabet").css("display", "none");
+   }
+
+   function cleanMnemonics(mnemonics) {
+      mnemonics = mnemonics.split(",").join(" ");
+      mnemonics = mnemonics.replace(/ +/g, " ");   // Replace connected spaces with one space
+      return mnemonics;
    }
 
    numbers.forEach(function (number, index) {
@@ -95,7 +100,7 @@
                   showCorrectPinAnimation();
 
                   // INIT
-                  var mnemonics = $.trim($('.input-mnemonics').val());
+                  var mnemonics = cleanMnemonics($('.input-mnemonics').val());
                   var pinCode = input;
 
                   var encrypted = CryptoJS.AES.encrypt(mnemonics, pinCode);
