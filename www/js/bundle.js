@@ -7,7 +7,7 @@ getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
         case "cosmos":
             chainId2 = "cosmoshub-2";
             break;
-        case "iris":
+        case "iaa":
             chainId2 = "irishub";
             break;
     }
