@@ -36,7 +36,7 @@ keystation.path = "44/118/0/0/0";
 
 ```js
 // open popup window for sign-in
-var prefix = "cosmos";
+var prefix = "cosmos";  // Cosmos prefix: cosmos, Iris prefix: iaa
 var popup = keystation.openWindow("signin", prefix);
 ```
 
