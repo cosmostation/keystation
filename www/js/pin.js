@@ -173,6 +173,7 @@
                         var hdPath = getParameterByName('path');
                         var hdPathArr = hdPath.split("/");
                         var hdPathResult = "";
+
                         for (var i = 0; i < hdPathArr.length; i++) {
                            hdPathResult += String(hdPathArr[i]);
                            if (i < 3) {
@@ -189,7 +190,22 @@
 
                         var stdSignMsg = new Object;
                         stdSignMsg.json = JSON.parse(window.stdSignMsgByPayload);
-                        signTxByKeyStation(decryptedMnemonics, hdPathResult, chainIdFromTx, stdSignMsg);
+
+                        // IRIS exception handling
+                        if (stdSignMsg.json.chain_id == "irishub") {
+                           if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
+                               stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
+                               stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
+                              stdSignMsg.jsonForSigningIrisTx = JSON.parse(window.stdSignMsgByPayload);
+                              delete stdSignMsg.jsonForSigningIrisTx.msgs[0].type;
+                              var tempJsonObj = stdSignMsg.jsonForSigningIrisTx.msgs[0].value;
+                              stdSignMsg.jsonForSigningIrisTx.msgs[0] = tempJsonObj;
+                              signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
+                           }
+                           return;
+                        }
+
+                        signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                      }
                   }
                } catch (error) {
