@@ -192,16 +192,14 @@
                         stdSignMsg.json = JSON.parse(window.stdSignMsgByPayload);
 
                         // IRIS exception handling
-                        if (stdSignMsg.json.chain_id == "irishub") {
-                           if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
-                               stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
-                               stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
-                              stdSignMsg.jsonForSigningIrisTx = JSON.parse(window.stdSignMsgByPayload);
-                              delete stdSignMsg.jsonForSigningIrisTx.msgs[0].type;
-                              var tempJsonObj = stdSignMsg.jsonForSigningIrisTx.msgs[0].value;
-                              stdSignMsg.jsonForSigningIrisTx.msgs[0] = tempJsonObj;
-                              signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
-                           }
+                        if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
+                            stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
+                            stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
+                           stdSignMsg.jsonForSigningIrisTx = JSON.parse(window.stdSignMsgByPayload);
+                           delete stdSignMsg.jsonForSigningIrisTx.msgs[0].type;
+                           var tempJsonObj = stdSignMsg.jsonForSigningIrisTx.msgs[0].value;
+                           stdSignMsg.jsonForSigningIrisTx.msgs[0] = tempJsonObj;
+                           signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                            return;
                         }
 

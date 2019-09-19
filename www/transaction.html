@@ -133,19 +133,11 @@
 		var multiMsgCount = 0;
 
 		for (var key in txObj) {
-			// console.log(key);
-			// console.log(txObj[key]);
-			// console.log("-------------------");
 			if (key == "msgs") {
 				var msgObj = txObj[key];
 				for (var key2 in msgObj) {
-					// console.log(key2);
-					// console.log(msgObj[key2]);
 					var valueObj = msgObj[key2]
 					for (var key3 in valueObj) {
-						// console.log(key3);
-						// console.log(valueObj[key3]);
-
 						if (key3 == "type") {
 							msgType = valueObj[key3];
 						} else if (key3 == "value") {
@@ -154,8 +146,6 @@
 							} else {
 								multiMsgCount++;
 							}
-
-							// console.log("value: ", value);
 						}
 					}
 				}
@@ -168,14 +158,9 @@
 			}
 		}
 
-		// console.log("Type: ", msgType);
-		// console.log("Value: ", value);
-		// console.log("Fee: ", fee);
-		// console.log("Memo: ", memo);
-		// console.log("chainIdFromTx: ", chainIdFromTx);
-
 		// value html codes
 		var valueResult = "";
+		var exceptionAmountResult = "";
 		for (var key in value) {
 			if (typeof value[key] != "object") {
 				valueResult += '<span>' + key + '</span>';
@@ -199,6 +184,16 @@
 
 		// fee html codes
 		var feeResult = new Big(fee.amount[0].amount).times(getDecimalPlace(fee.amount[0].denom)) + " " + getSymbol(fee.amount[0].denom);
+
+		// IRIS exception handling about SEND type
+		if (msgType == "irishub/bank/Send") {
+			valueResult += '<span>inputs</span>';
+			valueResult += '<p>' + value.inputs[0].address + '</p>';
+			valueResult += '<span>outputs</span>';
+			valueResult += '<p>' + value.outputs[0].address + '</p>';
+
+			amountResult = new Big(value.outputs[0].coins[0].amount).times(getDecimalPlace(value.outputs[0].coins[0].denom)) + " " + getSymbol(value.outputs[0].coins[0].denom);
+		}
 
 		var htmlCode =
 				'<h3 class="send">' + msgType + '</h3>' +

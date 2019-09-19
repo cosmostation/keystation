@@ -34,7 +34,18 @@ signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
     cosmos.setPath(hdPath);
     const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
-    const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
+    let signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
+
+    // IRIS exception handling about "irishub/stake/BeginRedelegate" type
+    if (signedTx.tx.msg[0].type == "irishub/stake/BeginRedelegate") {
+        // The key of "shares" is using to sign for IRIS Redelegate.
+        // After signing, you have to replace the "shares" key name to "shares_amount".
+        // It is an exception to "irishub/stake/BeginRedelegate".
+        var txBodyStr = JSON.stringify(signedTx);
+        txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
+        signedTx = JSON.parse(txBodyStr);
+    }
+
     cosmos.broadcast(signedTx).then(response => {
         window.opener.postMessage(response, "*");
         window.close();
