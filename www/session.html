@@ -34,12 +34,13 @@
 	<div id="app">
 		<div class="inner">
 			<h1><img src="img/keystation_logo_.png" alt="" width="145"></h1>
-			<h2>Save your Account to Keychain</h2>
+			<h2 id="session-page-title">Save your Account to Keychain</h2>
 			<form class="keystation-form">
-            <p>Keystation uses a mnemonic phrase from Keychain to sign transactions for networks built with the Cosmos-SDK.</p>
-			<button type="button" onclick="sendEventToParent({{.Payload}})">Next</button>
+				<img src="img/keychain.png" alt="" width="100%"><br><br>
+				<p>You MUST press "Save" in order to complete registration of your account. If this pop-up does not appear, please press the Key logo on the top right corner of your browser.</p>
+				<button type="button" onclick="sendEventToParent({{.Payload}})">Next</button>
 			</form>
-			<a href="{{.QueryUrl}}">Try Register Again</a>
+			<a href="https://support.google.com/chrome/answer/95606?co=GENIE.Platform%3DDesktop&hl=en" target="_blank">How can I manage saved mnemonics?</a>
 			<div class="form-fotter">
 				<a href="https://github.com/cosmostation/keystation" target="_blank"><i class="fa fa-fw fa-github"></i></a>
 			</div>

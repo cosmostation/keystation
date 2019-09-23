@@ -1032,3 +1032,20 @@
 	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
+
+.notification-modal {
+	display: none;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+	width: 350px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 10;
+	top: 0%;
+	margin-top: 20px;
+	left: 50%;
+	margin-left: -175px;
+}

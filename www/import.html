@@ -31,7 +31,7 @@
 	<div id="app">
 		<div class="inner">
 			<h1><img src="img/keystation_logo_.png" alt="KEYSTATION" width="145"></h1>
-			<h2>Import Account</h2>
+			<h2>Create Account</h2>
 
 			<!-- 1. Account Name, Mnemonics -->
 			<form class="keystation-form" id="import-form1" novalidate>
@@ -42,13 +42,6 @@
 						<span class="input__label-content input__label-content--fumi">Account Name</span>
 					</label>
 				</span>
-				<!-- <span class="input input--fumi">
-					<input class="input__field input__field--fumi input-password" type="text">
-					<label class="input__label input__label--fumi">
-						<i class="fa fa-fw fa-key icon icon--fumi"></i>
-						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
-					</label>
-				</span> -->
 				<span class="input input--fumi">
 					<textarea class="input__field input__field--fumi input-mnemonics" id="mnemonics"></textarea>
 					<label class="input__label input__label--fumi">
@@ -97,6 +90,10 @@
 			<!-- 2 end -->
 
 			<!-- 3. re-enter -->
+			<div class="notification-modal">
+				<!-- Encrypted mnemonic phrase is copied. -->
+			</div>
+
 			<form action="/session" method="GET" class="keystation-form re-enter-form" id="import-form2" novalidate>
 				<p>Please copy and paste the mnemonic encryption below.</p>
 				<div class="pw-nnemonics">

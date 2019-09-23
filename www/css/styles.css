@@ -100,6 +100,12 @@ textarea {
   margin-bottom: 40px;
 }
 
+#session-page-title {
+  font-weight: normal;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
 .keystation-form {
   position: relative;
   margin-bottom: 20px;

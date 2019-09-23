@@ -1,3 +1,7 @@
+function countWords(str) {
+   return str.trim().split(/\s+/).length;
+}
+
 (function() {
    window.pinType = "import";
 
@@ -17,6 +21,15 @@
          return;
       }
 
+      if (countWords($.trim(mnemonics)) != 12 &&
+          countWords($.trim(mnemonics)) != 16 &&
+          countWords($.trim(mnemonics)) != 24) {
+         $("#formInfoMessage").hide();
+         $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
+         // TODO: Check validation of mnemonics
+         return;
+      }
+
       $(".pin-wrap").addClass("open");
    })
 
@@ -30,7 +43,11 @@ function copyAddress() {
    var copyText = document.getElementById("encrypted-mnemonics-for-copy");
    copyText.select();
    document.execCommand("copy");
-   alert("Encrypted mnemonic phrase is copied.");
+   $(".notification-modal").text("Encrypted mnemonic phrase is copied.");
+   $(".notification-modal").show();
+   setTimeout(function() {
+      $(".notification-modal").hide();
+   }, 2000);
 }
 
 function getParameterByName(name, url) {
@@ -68,7 +85,11 @@ function submitForm() {
 
    // Check encrypted mnemonic phrase and pasted value
    if (document.getElementById("encrypted-mnemonics").innerText != $("input[type=password]").val() ) {
-      alert("Invalid encrypted mnemonics");
+      $(".notification-modal").text("Encrypted mnemonic phrase does not match.");
+      $(".notification-modal").show();
+      setTimeout(function() {
+         $(".notification-modal").hide();
+      }, 2000);
       return;
    }
 
