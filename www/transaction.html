@@ -222,6 +222,8 @@
 			valueResult += '<p>' + value.outputs[0].address + '</p>';
 
 			amountResult = new Big(value.outputs[0].coins[0].amount).times(getDecimalPlace(value.outputs[0].coins[0].denom)) + " " + getSymbol(value.outputs[0].coins[0].denom);
+		} else if (msgType == "irishub/stake/MsgDelegate") {
+			amountResult = new Big(value.delegation.amount).times(getDecimalPlace(value.delegation.denom)) + " " + getSymbol(value.delegation.denom);
 		}
 
 		var htmlCode =
@@ -262,7 +264,7 @@
 			var password = $("input[type=password]").val();
 
 			if ($.trim(password) == "") {
-				alert("Could not retrieve account stored in Keychain.");
+				alert("You cannot sign transactions in private mode.");
 				return;
 			}
 
