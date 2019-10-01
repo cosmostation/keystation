@@ -26,12 +26,7 @@ func GetShuffledNum() string {
 	// Make these codes
 	//<div class="finger grid-number">1</div>
 	//<div class="finger grid-number">2</div>
-	//<div class="finger grid-number">3</div>
-	//<div class="finger grid-number">4</div>
-	//<div class="finger grid-number">5</div>
-	//<div class="finger grid-number">6</div>
-	//<div class="finger grid-number">7</div>
-	//<div class="finger grid-number">8</div>
+	//...
 	//<div class="finger grid-number">9</div>
 	//<div class="grid-number"></div>
 	//<div class="finger grid-number">0</div>
@@ -56,29 +51,7 @@ func GetShuffledAlphabet() string {
 	// Make these codes
 	//<div class="finger grid-number">A</div>
 	//<div class="finger grid-number">B</div>
-	//<div class="finger grid-number">C</div>
-	//<div class="finger grid-number">D</div>
-	//<div class="finger grid-number">E</div>
-	//<div class="finger grid-number">F</div>
-	//<div class="finger grid-number">G</div>
-	//<div class="finger grid-number">H</div>
-	//<div class="finger grid-number">I</div>
-	//<div class="finger grid-number">J</div>
-	//<div class="finger grid-number">K</div>
-	//<div class="finger grid-number">L</div>
-	//<div class="finger grid-number">M</div>
-	//<div class="finger grid-number">N</div>
-	//<div class="finger grid-number">O</div>
-	//<div class="finger grid-number">P</div>
-	//<div class="finger grid-number">Q</div>
-	//<div class="finger grid-number">R</div>
-	//<div class="finger grid-number">S</div>
-	//<div class="finger grid-number">T</div>
-	//<div class="finger grid-number">U</div>
-	//<div class="finger grid-number">V</div>
-	//<div class="finger grid-number">W</div>
-	//<div class="finger grid-number">X</div>
-	//<div class="finger grid-number">Y</div>
+	//...
 	//<div class="finger grid-number">Z</div>
 	//<div class="grid-number"></div>
 	//<div class="finger grid-number">←</div>

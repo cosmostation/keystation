@@ -2,8 +2,6 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/log"
 	"html/template"
 	"net/http"
 	"net/url"
@@ -23,7 +21,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func importHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	ctx := appengine.NewContext(r)
 	client, err := url.QueryUnescape(vars["client"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -47,11 +44,6 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	log.Infof(ctx, "client: %v", client)
-	log.Infof(ctx, "path: %v", path)
-	log.Infof(ctx, "payload: %v", payload)
-	log.Infof(ctx, "lcd: %v", lcd)
 
 	params := importTemplateParams{}
 	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
@@ -69,7 +61,6 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 func signInHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	ctx := appengine.NewContext(r)
 	client, err := url.QueryUnescape(vars["client"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -94,11 +85,6 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Infof(ctx, "client: %v", client)
-	log.Infof(ctx, "path: %v", path)
-	log.Infof(ctx, "payload: %v", payload)
-	log.Infof(ctx, "lcd: %v", lcd)
-
 	params := signInTemplateParams{}
 	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Lcd = lcd
@@ -110,8 +96,6 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func sessionInHandler(w http.ResponseWriter, r *http.Request) {
-	ctx := appengine.NewContext(r)
-
 	// HTML 폼 전송 처리
 	importForm := ImportForm{
 		Client: r.FormValue("client"),
@@ -143,11 +127,6 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Infof(ctx, "client: %v", client)
-	log.Infof(ctx, "path: %v", path)
-	log.Infof(ctx, "payload: %v", payload)
-	log.Infof(ctx, "lcd: %v", lcd)
-
 	payloadForQuery := ""
 	if payload != "cosmos" && payload != "iris" {
 		if strings.Index(payload, "cosmos") == 0 {
@@ -168,7 +147,6 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 func txHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	ctx := appengine.NewContext(r)
 	client, err := url.QueryUnescape(vars["client"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -192,11 +170,6 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	log.Infof(ctx, "client: %v", client)
-	log.Infof(ctx, "path: %v", path)
-	log.Infof(ctx, "payload: %v", payload)
-	log.Infof(ctx, "lcd: %v", lcd)
 
 	params := txTemplateParams{}
 	params.Client = client

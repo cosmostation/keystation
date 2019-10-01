@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"github.com/gorilla/mux"
-	"google.golang.org/appengine"
+	"os"
 )
 
 var (
@@ -50,5 +52,13 @@ func main() {
 
 	// The path "/" matches everything not matched by some other path.
 	http.Handle("/", r)
-	appengine.Main()
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		log.Printf("Defaulting to port %s", port)
+	}
+
+	log.Printf("Listening on port %s", port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
