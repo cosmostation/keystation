@@ -28,7 +28,7 @@ body {
 }
 
 p {
-  word-break: keep-all;
+  /*word-break: keep-all;*/
 }
 
 textarea {
@@ -211,14 +211,15 @@ textarea {
 }
 
 .tx-btn-wrap {
-  margin-top: 24px;
+  margin-top: 30px;
   overflow: hidden;
 }
 
 .tx-btn-wrap>button {
   float: right;
   width: 30%;
-  background: #2d2c2c;
+  /*background: #2d2c2c;*/
+  background: #9c6cff;
   height: 50px;
   color: #fff;
   border-radius: 6px;
@@ -226,7 +227,8 @@ textarea {
 }
 
 .tx-btn-wrap>button:hover {
-  background-color: #000
+  /*background-color: #000*/
+  background-color: #8354e4;
 }
 
 .tx-btn-wrap>button.cancel {
@@ -275,7 +277,7 @@ textarea {
 }
 
 .keystation-tx-info {
-  height: 232px;
+  height: 216px;
   overflow-y: auto;
   text-align: left;
   font-size: 13px;
@@ -307,6 +309,22 @@ textarea {
 
 .keystation-tx-info>p>span {
   margin-right: 3px;
+}
+
+.keystation-tx-json {
+  height: 96px;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 13px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: #222;
+  color: #ccc;
+  border-radius: 6px;
+  margin-top: 18px;
+  word-break: break-all;
 }
 
 .keystation-form>button.tx-sign-btn {
