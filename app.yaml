@@ -1,9 +1,4 @@
-# prod
 runtime: go111
-
-# dev
-#runtime: go
-#api_version: go1
 
 handlers:
   - url: /favicon.ico

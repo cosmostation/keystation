@@ -42,7 +42,7 @@ var popup = keystation.openWindow("signin", prefix);
 
 ```js
 // generate a transaction
-var txJson = {"account_number":"18012","chain_id":"cosmoshub-3","fee":{"amount":[{"amount":"5000","denom":"uatom"}],"gas":"200000"},"memo":"","msgs":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"10000","denom":"uatom"}],"from_address":"cosmos1z67fshyr48pa9a6htdz4qd0zullfk6y0fgvxv7","to_address":"cosmos10nv3yj0jdxf02vxyc0tavf97fdvppdth6wmcn3"}}],"sequence":"24"};
+var txJson = {"account_number":"18012","chain_id":"cosmoshub-2","fee":{"amount":[{"amount":"5000","denom":"uatom"}],"gas":"200000"},"memo":"","msgs":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"10000","denom":"uatom"}],"from_address":"cosmos1z67fshyr48pa9a6htdz4qd0zullfk6y0fgvxv7","to_address":"cosmos10nv3yj0jdxf02vxyc0tavf97fdvppdth6wmcn3"}}],"sequence":"24"};
 
 var txJsonStr = JSON.stringify(txJson);
 var popup = keystation.openWindow("transaction", txJsonStr);
@@ -75,8 +75,8 @@ cosmos.getAccounts(address).then(data => {
 		fee: 5000,
 		gas: 200000,
 		memo: "",
-		account_number: data.result.value.account_number,
-		sequence: data.result.value.sequence
+		account_number: data.value.account_number,
+		sequence: data.value.sequence
 	});
     
 	console.log(stdSignMsg.json);   // txJson
