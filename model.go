@@ -23,9 +23,11 @@ type importTemplateParams struct {
 type sessionTemplateParams struct {
 	QueryUrl string
 	Payload string
+	Account string
 }
 
 type ImportForm struct {
+	Account string
 	Client string
 	Lcd string
 	Path string
@@ -33,6 +35,7 @@ type ImportForm struct {
 }
 
 type txTemplateParams struct {
+	Account string
 	Client string
 	Lcd string
 	Path string

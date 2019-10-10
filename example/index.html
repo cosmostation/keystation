@@ -21,6 +21,10 @@
 		keystation.lcd = "https://lcd-do-not-abuse.cosmostation.io";
 		keystation.path = "44/118/0/0/0";
 
+		// The account parameter is required for users having multiple keychain accounts.
+		// Remember it and use to sign a transaction
+		var keystationAccount = "";
+
 		function login() {
 			var prefix = "cosmos";
 			var popup = keystation.openWindow("signin", prefix);
@@ -34,7 +38,7 @@
 
 		function send() {
 			var txJsonStr = $.trim($("textarea").val());
-			var popup = keystation.openWindow("transaction", txJsonStr);
+			var popup = keystation.openWindow("transaction", txJsonStr, keystationAccount);
 			var popupTick = setInterval(function() {
 				if (popup.closed) {
 					clearInterval(popupTick);
@@ -46,6 +50,8 @@
 		window.addEventListener("message", function(e) {
 			if (e.origin != "https://keystation.cosmostation.io") return;
 			console.log(e.data);
+			// e.data.account : User's keychain account. Remember this account!
+			keystationAccount = e.data.account;
 			document.getElementById("result").innerHTML = JSON.stringify(e.data);
 		} , false);
 	</script>

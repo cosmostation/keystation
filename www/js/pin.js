@@ -152,8 +152,13 @@
                         var prefix = getParameterByName('payload');
                         var address = getKeyStationMainAddress(decryptedMnemonics, hdPathResult, prefix);
 
+                        var msgObj = {
+                           "address": address,
+                           "account": $(".input-account").val()
+                        }
+
                         setTimeout(function () {
-                           window.opener.postMessage(address, "*");
+                           window.opener.postMessage(msgObj, "*");
                            window.close();
                         }, 500);
                      } else if (window.pinType == "tx") {

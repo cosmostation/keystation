@@ -30,7 +30,8 @@ function Keystation(client, lcd, path) {
 	this.keystationUrl = "https://keystation.cosmostation.io";
 }
 
-Keystation.prototype.openWindow = function(type, payload) {
+Keystation.prototype.openWindow = function(type, payload, account = "") {
+	// The account parameter is required for users having multiple keychain accounts.
 	var apiUrl = "";
 	switch (type) {
 		case "signin":
@@ -41,5 +42,5 @@ Keystation.prototype.openWindow = function(type, payload) {
 			break;
 	}
 
-	return PopupCenter(this.keystationUrl + '/' + apiUrl + '?client=' + encodeURIComponent(this.client) + '&lcd=' + encodeURIComponent(this.lcd) + '&path=' + encodeURIComponent(this.path) + '&payload=' + encodeURIComponent(payload),'','400','690', {toolbar:1, resizable:1, location:1, menubar:1, status:1});
+	return PopupCenter(this.keystationUrl + '/' + apiUrl + '?account=' + encodeURIComponent(account) + '&client=' + encodeURIComponent(this.client) + '&lcd=' + encodeURIComponent(this.lcd) + '&path=' + encodeURIComponent(this.path) + '&payload=' + encodeURIComponent(payload),'','400','690', {toolbar:1, resizable:1, location:1, menubar:1, status:1});
 }

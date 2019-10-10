@@ -98,9 +98,16 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	// HTML 폼 전송 처리
 	importForm := ImportForm{
+		Account: r.FormValue("account"),
 		Client: r.FormValue("client"),
 		Path: r.FormValue("path"),
 		Payload: r.FormValue("payload"),
+	}
+
+	account, err := url.QueryUnescape(importForm.Account)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	client, err := url.QueryUnescape(importForm.Client)
@@ -139,6 +146,7 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	params := sessionTemplateParams{}
 	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payloadForQuery)
 	params.Payload = payload	// address
+	params.Account = account	// keychain account
 
 	sessionTemplate.Execute(w, params)
 	return
@@ -146,6 +154,12 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 
 func txHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
+
+	account, err := url.QueryUnescape(vars["account"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	client, err := url.QueryUnescape(vars["client"])
 	if err != nil {
@@ -172,6 +186,7 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := txTemplateParams{}
+	params.Account = account
 	params.Client = client
 	params.Lcd = lcd
 	params.Path = path

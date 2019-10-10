@@ -36,6 +36,7 @@ func main() {
 		HandlerFunc(signInHandler).
 		Methods("GET")
 	r.Path("/session").
+		Queries("account", "{account}").
 		Queries("client", "{client}").
 		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").
@@ -43,6 +44,7 @@ func main() {
 		HandlerFunc(sessionInHandler).
 		Methods("GET")
 	r.Path("/tx").
+		Queries("account", "{account}").
 		Queries("client", "{client}").
 		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").

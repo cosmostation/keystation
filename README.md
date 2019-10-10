@@ -32,6 +32,9 @@ var keystation = new Keystation();
 keystation.client = "YOUR_WEB_URL";
 keystation.lcd = "https://lcd-do-not-abuse.cosmostation.io";
 keystation.path = "44/118/0/0/0";
+
+// The account parameter is required for users having multiple keychain accounts.
+var keystationAccount = "";
 ```
 
 ```js
@@ -45,7 +48,7 @@ var popup = keystation.openWindow("signin", prefix);
 var txJson = {"account_number":"18012","chain_id":"cosmoshub-2","fee":{"amount":[{"amount":"5000","denom":"uatom"}],"gas":"200000"},"memo":"","msgs":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"10000","denom":"uatom"}],"from_address":"cosmos1z67fshyr48pa9a6htdz4qd0zullfk6y0fgvxv7","to_address":"cosmos10nv3yj0jdxf02vxyc0tavf97fdvppdth6wmcn3"}}],"sequence":"24"};
 
 var txJsonStr = JSON.stringify(txJson);
-var popup = keystation.openWindow("transaction", txJsonStr);
+var popup = keystation.openWindow("transaction", txJsonStr, keystationAccount);
 ```
 
 ```js
@@ -53,8 +56,11 @@ var popup = keystation.openWindow("transaction", txJsonStr);
 window.addEventListener("message", function(e) {
     if (e.origin != "https://keystation.cosmostation.io") return;
     console.log(e.data);
+    // e.data.account : User's keychain account. Remember this account!
+	keystationAccount = e.data.account;
 } , false);
 ```
+If the user is log in as Alice, he or she should use Alice account to sign transaction.
 
 ## Supporting Transaction Message Types
 
