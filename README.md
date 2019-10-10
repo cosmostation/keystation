@@ -57,7 +57,7 @@ window.addEventListener("message", function(e) {
     if (e.origin != "https://keystation.cosmostation.io") return;
     console.log(e.data);
     // e.data.account : User's keychain account. Remember this account!
-	keystationAccount = e.data.account;
+    keystationAccount = e.data.account;
 } , false);
 ```
 If the user is log in as Alice, he or she should use Alice account to sign transaction.
