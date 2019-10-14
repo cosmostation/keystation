@@ -210,6 +210,15 @@ textarea {
   color: #F44336;
 }
 
+.keystation-form>p.information-text {
+  color: #cccccc;
+}
+
+.keystation-form>p>i {
+  font-size: 20px;
+  vertical-align: bottom;
+}
+
 .tx-btn-wrap {
   margin-top: 30px;
   overflow: hidden;

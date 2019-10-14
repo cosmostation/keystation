@@ -30,9 +30,9 @@
 		if( ev.target.value.trim() === '' ) {
 			classie.remove( ev.target.parentNode, 'input--filled' );
 		}
-   }
+    }
    
-   // addClass
-   $('.input--fumi').addClass("input--filled");
+	// addClass
+	$('.input--fumi').addClass("input--filled");
 
 })();

@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/input.css">
 	<link rel="stylesheet" href="css/styles.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- js -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
@@ -46,7 +47,7 @@
 
 			if ($.trim(password) == "") {
 				$("#formInfoMessage").hide();
-				$("#errorOnSignIn").show().find('span').text("Could not retrieve account stored in Keychain.");
+				$("#errorOnSignIn").show().find('span').text("Could not retrieve account stored in Keychain. Press the button below the Import Wallet.");
 				return;
 			}
 
@@ -68,20 +69,23 @@
 					<input class="input__field input__field--fumi input-account" type="text">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-user icon icon--fumi"></i>
-						<span class="input__label-content input__label-content--fumi">Account Name</span>
+						<span class="input__label-content input__label-content--fumi">Wallet Name</span>
 					</label>
 				</span>
 				<input style="display:none;" type="password" autocomplete="current-password" tabindex="-1"
 					spellcheck="false">
-				<p id="formInfoMessage">　</p>
+				<p id="formInfoMessage" class="information-text">
+					<i class="fa fa-fw fa-question-circle"></i> Unavailable in guest mode or incognito mode.
+				</p>
 				<p id="errorOnSignIn" class="error">
 					<!-- error msg -->
 					<i class="fa fa-fw fa-exclamation-circle"></i> <span></span>
 				</p>
+
 				<button type="button" onclick="sendEventToParent()" id="nextBtn">Next</button>
 			</form>
 
-			<a href="{{.QueryUrl}}">Create Account</a>
+			<a href="{{.QueryUrl}}">Import Wallet</a>
 
 			<div class="form-fotter">
 				<a href="https://github.com/cosmostation/keystation" target="_blank"><i class="fa fa-fw fa-github"></i></a>

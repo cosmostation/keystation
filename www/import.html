@@ -31,7 +31,7 @@
 	<div id="app">
 		<div class="inner">
 			<h1><img src="img/keystation_logo_.png" alt="KEYSTATION" width="145"></h1>
-			<h2>Create Account</h2>
+			<h2>Import Wallet</h2>
 
 			<!-- 1. Account Name, Mnemonics -->
 			<form class="keystation-form" id="import-form1" novalidate>
@@ -39,7 +39,7 @@
 					<input class="input__field input__field--fumi input-account" id="account" type="text">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-user icon icon--fumi"></i>
-						<span class="input__label-content input__label-content--fumi">Account Name</span>
+						<span class="input__label-content input__label-content--fumi">Wallet Name</span>
 					</label>
 				</span>
 				<span class="input input--fumi">
@@ -49,8 +49,8 @@
 						<span class="input__label-content input__label-content--fumi">Mnemonics</span>
 					</label>
 				</span>
-				<p id="formInfoMessage">
-					<i class="fa fa-fw fa-question-circle"></i> Enter 12 / 16 / 24 words including spaces
+				<p id="formInfoMessage" class="information-text">
+					<i class="fa fa-fw fa-question-circle"></i> Enter 12 / 16 / 24 words including spaces. Mnemonic phrase is encrypted and stored in Keychain.
 				</p>
 				<p id="errorOnImport" class="error">
 					<!-- error msg -->
@@ -101,19 +101,20 @@
 						<span><i class="fa fa-lock"></i>Encrypted mnemonic phrase</span>
 						<button type="button" onclick="copyAddress();"><i class="fa fa-files-o"></i>Copy</button>
 					</div>
-					<input class="input__field input__field--fumi input-account" id="hidden-account" type="text" name="account" style="display: none">
+					<!-- <input class="input__field input__field--fumi input-account" id="hidden-account" type="text" name="account" style="display: none" value=""> -->
 					<span id="encrypted-mnemonics">
 						<!-- encrypted string -->
 					</span>
 				</div>
 				<span class="input input--fumi">
+					<input class="input__field input__field--fumi" id="hidden-account" type="text" name="account" style="display: none" value="">
 					<input class="input__field input__field--fumi input-password" type="password">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-key icon icon--fumi"></i>
 						<span class="input__label-content input__label-content--fumi">Encrypted mnemonic phrase</span>
 					</label>
 				</span>
-				<a href="#!" target="_blank">
+				<a href="https://medium.com/cosmostation/introducing-keystation-end-to-end-encrypted-key-manager-for-dapps-built-with-the-cosmos-sdk-37dac753feb5" target="_blank">
 					<i class="fa fa-fw fa-question-circle"></i>Why do I have to encrypt my mnemonic phrase?
 				</a>
 				<input type="hidden" name="client" value="{{.Client}}">
