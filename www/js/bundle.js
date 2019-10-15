@@ -46,10 +46,18 @@
             }
 
             cosmos.broadcast(signedTx).then(response => {
-                window.opener.postMessage(response, "*");
+                try {
+                    window.opener.postMessage(response, "*");
+                } catch(event) {
+                    console.log(event);
+                }
                 window.close();
             }).catch(error => {
-                window.opener.postMessage(error.message, "*");
+                try {
+                    window.opener.postMessage(error.message, "*");
+                } catch(event) {
+                    console.log(event);
+                }
                 window.close();
             })
         }

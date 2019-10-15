@@ -28,7 +28,11 @@
 				"address": address,
 				"account": account
 			}
-			window.opener.postMessage(msgObj, "*");
+			try {
+				window.opener.postMessage(msgObj, "*");
+			} catch(event) {
+				console.log(event);
+			}
 			window.close();
 		}
 	</script>

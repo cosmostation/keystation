@@ -158,7 +158,11 @@
                         }
 
                         setTimeout(function () {
-                           window.opener.postMessage(msgObj, "*");
+                           try {
+                              window.opener.postMessage(msgObj, "*");
+                           } catch(event) {
+                              console.log(event);
+                           }
                            window.close();
                         }, 500);
                      } else if (window.pinType == "tx") {
