@@ -10,6 +10,9 @@
                 case "iaa":
                     chainId2 = "irishub";
                     break;
+                case "kava":
+                    chainId2 = "kava-2";
+                    break;
             }
 
             const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -26,6 +29,8 @@
                 prefix = "cosmos";
             } else if (chainId2.indexOf("iris") != -1) {
                 prefix = "iaa";
+            } else if (chainId2.indexOf("kava") != -1) {
+                prefix = "kava";
             }
 
             const cosmos = cosmosjs.network(window.lcd, chainId2);

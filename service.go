@@ -96,7 +96,7 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func sessionInHandler(w http.ResponseWriter, r *http.Request) {
-	// HTML 폼 전송 처리
+	// HTML Form
 	importForm := ImportForm{
 		Account: r.FormValue("account"),
 		Client: r.FormValue("client"),
