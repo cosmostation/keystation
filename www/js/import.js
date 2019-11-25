@@ -68,16 +68,16 @@ function cleanMnemonics(mnemonics) {
 
 // submit
 function submitForm() {
-   var account     = $("#hidden-account").val();
-   var mnemonics	   = $("#mnemonics").val();
+   var account       = $.trim($("#hidden-account").val());
+   var mnemonics     = $.trim($("#mnemonics").val());
 
-   if ($.trim(account) == "") {
+   if (account == "") {
       $("#formInfoMessage").hide();
       $("#errorOnImport").show().find('span').text("Invalid account.");
       return;
    }
 
-   if ($.trim(mnemonics) == "") {
+   if (mnemonics == "") {
       $("#formInfoMessage").hide();
       $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
       return;
