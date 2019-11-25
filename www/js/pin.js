@@ -100,7 +100,7 @@
                   showCorrectPinAnimation();
 
                   // INIT
-                  var mnemonics = cleanMnemonics($('.input-mnemonics').val());
+                  var mnemonics = cleanMnemonics($.trim($('.input-mnemonics').val()));
                   var pinCode = input;
 
                   var encrypted = CryptoJS.AES.encrypt(mnemonics, pinCode);
