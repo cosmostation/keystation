@@ -5,7 +5,7 @@
             var chainId2 = ""
             switch (prefix) {
                 case "cosmos":
-                    chainId2 = "cosmoshub-2";
+                    chainId2 = "cosmoshub-3";
                     break;
                 case "iaa":
                     chainId2 = "irishub";
