@@ -30,7 +30,7 @@ Keystation is a decentralized keychain-based authenticator that **DOES NOT requi
 // initializing configuration
 var keystation = new Keystation();
 keystation.client = "YOUR_WEB_URL";
-keystation.lcd = "https://lcd-do-not-abuse.cosmostation.io";
+keystation.lcd = "https://lcd-cosmos-free.cosmostation.io/";
 keystation.path = "44/118/0/0/0";
 
 // The account parameter is required for users having multiple keychain accounts.
