@@ -64,25 +64,34 @@ If the user is log in as Alice, he or she should use Alice account to sign trans
 
 ## Supporting Transaction Message Types
 
-You can find currently supporting meesage types in [our CosmosJS library](https://github.com/cosmostation/cosmosjs#supporting-message-types-updating)
+You can find currently supporting meesage types in [our CosmosJS library](https://github.com/cosmostation/cosmosjs/blob/master/docs/SUPPORTING_MSG_TYPES.md)
 
 ## How to Create txJson
 
 ```js
 // CosmosJS supports to create tx for Cosmos
 cosmos.getAccounts(address).then(data => {
-	let stdSignMsg = cosmos.NewStdMsg({
-            type: "cosmos-sdk/MsgSend",
-            from_address: address,
-            to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-            amountDenom: "uatom",
-            amount: 100000,		// 6 decimal places
-            feeDenom: "uatom",
-            fee: 5000,
-            gas: 200000,
-            memo: "",
-            account_number: data.result.value.account_number,
-            sequence: data.result.value.sequence
+	let stdSignMsg = cosmos.newStdMsg({
+        msgs: [
+            {
+                type: "cosmos-sdk/MsgSend",
+                value: {
+                    amount: [
+                        {
+                            amount: String(100000),
+                            denom: "uatom"
+                        }
+                    ],
+                    from_address: address,
+                    to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
+                }
+            }
+        ],
+        chain_id: chainId,
+        fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+        memo: "",
+        account_number: String(data.result.value.account_number),
+        sequence: String(data.result.value.sequence)
 	});
     
 	console.log(stdSignMsg.json);   // txJson
