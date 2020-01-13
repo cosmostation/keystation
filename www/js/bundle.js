@@ -40,15 +40,15 @@
 
             let signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 
-            // IRIS exception handling about "irishub/stake/BeginRedelegate" type
-            if (signedTx.tx.msg[0].type == "irishub/stake/BeginRedelegate") {
-                // The key of "shares" is using to sign for IRIS Redelegate.
-                // After signing, you have to replace the "shares" key name to "shares_amount".
-                // It is an exception to "irishub/stake/BeginRedelegate".
-                var txBodyStr = JSON.stringify(signedTx);
-                txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
-                signedTx = JSON.parse(txBodyStr);
-            }
+            // // IRIS exception handling about "irishub/stake/BeginRedelegate" type
+            // if (signedTx.tx.msg[0].type == "irishub/stake/BeginRedelegate") {
+            //     // The key of "shares" is using to sign for IRIS Redelegate.
+            //     // After signing, you have to replace the "shares" key name to "shares_amount".
+            //     // It is an exception to "irishub/stake/BeginRedelegate".
+            //     var txBodyStr = JSON.stringify(signedTx);
+            //     txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
+            //     signedTx = JSON.parse(txBodyStr);
+            // }
 
             cosmos.broadcast(signedTx).then(response => {
                 try {
@@ -28803,30 +28803,35 @@
 
     },{"bn.js":62,"minimalistic-assert":105,"minimalistic-crypto-utils":106}],87:[function(require,module,exports){
         module.exports={
-            "_from": "elliptic@^6.4.0",
+            "_args": [
+                [
+                    "elliptic@6.4.1",
+                    "/Users/booyoun/Documents/HTML/cosmosjs"
+                ]
+            ],
+            "_from": "elliptic@6.4.1",
             "_id": "elliptic@6.4.1",
             "_inBundle": false,
             "_integrity": "sha512-BsXLz5sqX8OHcsh7CqBMztyXARmGQ3LWPtGjJi6DiJHq5C/qvi9P3OqgswKSDftbu8+IoI/QDTAm2fFnQ9SZSQ==",
             "_location": "/elliptic",
             "_phantomChildren": {},
             "_requested": {
-                "type": "range",
+                "type": "version",
                 "registry": true,
-                "raw": "elliptic@^6.4.0",
+                "raw": "elliptic@6.4.1",
                 "name": "elliptic",
                 "escapedName": "elliptic",
-                "rawSpec": "^6.4.0",
+                "rawSpec": "6.4.1",
                 "saveSpec": null,
-                "fetchSpec": "^6.4.0"
+                "fetchSpec": "6.4.1"
             },
             "_requiredBy": [
                 "/secp256k1",
                 "/tiny-secp256k1"
             ],
             "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.4.1.tgz",
-            "_shasum": "c2d0b7776911b86722c632c3c06c60f2f819939a",
-            "_spec": "elliptic@^6.4.0",
-            "_where": "/Users/booyoun/Documents/HTML/cosmosjs/node_modules/tiny-secp256k1",
+            "_spec": "6.4.1",
+            "_where": "/Users/booyoun/Documents/HTML/cosmosjs",
             "author": {
                 "name": "Fedor Indutny",
                 "email": "fedor@indutny.com"
@@ -28834,7 +28839,6 @@
             "bugs": {
                 "url": "https://github.com/indutny/elliptic/issues"
             },
-            "bundleDependencies": false,
             "dependencies": {
                 "bn.js": "^4.4.0",
                 "brorand": "^1.0.1",
@@ -28844,7 +28848,6 @@
                 "minimalistic-assert": "^1.0.0",
                 "minimalistic-crypto-utils": "^1.0.0"
             },
-            "deprecated": false,
             "description": "EC cryptography",
             "devDependencies": {
                 "brfs": "^1.4.3",
@@ -34296,13 +34299,12 @@
         (function (Buffer){
             /*
     Developed / Developing by Cosmostation
-
     [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
 */
 
             'use strict'
 
-            const fetch = require("node-fetch");
+            const fetch = require('node-fetch').default;
             const bip39 = require('bip39');
             const bip32 = require('bip32');
             const bech32 = require('bech32');
@@ -34375,12 +34377,10 @@
 
             Cosmos.prototype.getAccounts = function(address) {
                 let accountsApi = "";
-                if (this.chainId.indexOf("cosmoshub") != -1 ||
-                    this.chainId.indexOf("kava") != -1 ||
-                    this.chainId.indexOf("gaia") != -1) {
-                    accountsApi = "/auth/accounts/";
-                } else if (this.chainId.indexOf("irishub") != -1) {
+                if (this.chainId.indexOf("irishub") != -1) {
                     accountsApi = "/bank/accounts/";
+                } else {
+                    accountsApi = "/auth/accounts/";
                 }
                 return fetch(this.url + accountsApi + address)
                     .then(response => response.json())
@@ -34408,583 +34408,82 @@
                 return ecpair.privateKey;
             }
 
-            Cosmos.prototype.NewStdMsg = function(input) {
+            Cosmos.prototype.newStdMsg = function(input) {
                 const stdSignMsg = new Object;
+                stdSignMsg.json = input;
 
-                if (input.type == "cosmos-sdk/MsgSend") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        amount: [
-                                            {
-                                                amount: String(input.amount),
-                                                denom: input.amountDenom
-                                            }
-                                        ],
-                                        from_address: input.from_address,
-                                        to_address: input.to_address
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgDelegate") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        amount: {
-                                            amount: String(input.amount),
-                                            denom: input.amountDenom
-                                        },
-                                        delegator_address: input.delegator_address,
-                                        validator_address: input.validator_address
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgUndelegate") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        amount: {
-                                            amount: String(input.amount),
-                                            denom: input.amountDenom
-                                        },
-                                        delegator_address: input.delegator_address,
-                                        validator_address: input.validator_address
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgWithdrawDelegationReward") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegator_address: input.delegator_address,
-                                        validator_address: input.validator_address
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgSubmitProposal") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        description: input.description,
-                                        initial_deposit: [
-                                            {
-                                                amount: String(input.initialDepositAmount),
-                                                denom: input.initialDepositDenom
-                                            }
-                                        ],
-                                        proposal_type: input.proposal_type,
-                                        proposer: input.proposer,
-                                        title: input.title
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgDeposit") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        amount: [
-                                            {
-                                                amount: String(input.amount),
-                                                denom: input.amountDenom
-                                            }
-                                        ],
-                                        depositor: input.depositor,
-                                        proposal_id: String(input.proposal_id)
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgVote") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        option: input.option,
-                                        proposal_id: String(input.proposal_id),
-                                        voter: input.voter
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgBeginRedelegate") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        amount: {
-                                            amount: String(input.amount),
-                                            denom: input.amountDenom
-                                        },
-                                        delegator_address: input.delegator_address,
-                                        validator_dst_address: input.validator_dst_address,
-                                        validator_src_address: input.validator_src_address
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "cosmos-sdk/MsgModifyWithdrawAddress") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegator_address: input.delegator_address,
-                                        withdraw_address: input.withdraw_address
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "irishub/bank/Send") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        inputs: [
-                                            {
-                                                address: input.inputsAddress,
-                                                coins: [
-                                                    {
-                                                        denom: input.inputsCoinsDenom,
-                                                        amount: String(input.inputsCoinsAmount)
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        outputs: [
-                                            {
-                                                address: input.outputsAddress,
-                                                coins: [
-                                                    {
-                                                        denom:input.outputsCoinsDenom,
-                                                        amount: String(input.outputsCoinsAmount)
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-
+                // Exception
+                if (input.msgs[0].type == "irishub/bank/Send") {
                     stdSignMsg.jsonForSigningIrisTx =
                         {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
                             msgs: [
                                 {
                                     inputs: [
                                         {
-                                            address: input.inputsAddress,
+                                            address: input.msgs[0].value.inputs[0].address,
                                             coins: [
                                                 {
-                                                    denom: input.inputsCoinsDenom,
-                                                    amount: String(input.inputsCoinsAmount)
+                                                    denom: input.msgs[0].value.inputs[0].coins[0].denom,
+                                                    amount: input.msgs[0].value.inputs[0].coins[0].amount
                                                 }
                                             ]
                                         }
                                     ],
                                     outputs: [
                                         {
-                                            address: input.outputsAddress,
+                                            address: input.msgs[0].value.outputs[0].address,
                                             coins: [
                                                 {
-                                                    denom:input.outputsCoinsDenom,
-                                                    amount: String(input.outputsCoinsAmount)
+                                                    denom: input.msgs[0].value.outputs[0].coins[0].denom,
+                                                    amount: input.msgs[0].value.outputs[0].coins[0].amount
                                                 }
                                             ]
                                         }
                                     ]
                                 }
                             ],
-                            sequence: String(input.sequence)
+                            chain_id: input.msgs[0].chain_id,
+                            fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
+                            memo: input.msgs[0].memo,
+                            account_number: input.msgs[0].account_number,
+                            sequence: input.msgs[0].sequence
                         }
-                } else if (input.type == "irishub/stake/MsgDelegate") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegation: {
-                                            amount: String(input.amount),
-                                            denom: input.amountDenom
-                                        },
-                                        delegator_addr: input.delegator_addr,
-                                        validator_addr: input.validator_addr
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "irishub/stake/BeginUnbonding") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        shares_amount: String(input.amount) + ".0000000000",
-                                        delegator_addr: input.delegator_addr,
-                                        validator_addr: input.validator_addr
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-
+                } else if (input.msgs[0].type == "irishub/stake/BeginUnbonding") {
                     stdSignMsg.jsonForSigningIrisTx =
                         {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
                             msgs: [
                                 {
-                                    shares_amount: String(input.amount) + ".0000000000",
-                                    delegator_addr: input.delegator_addr,
-                                    validator_addr: input.validator_addr
+                                    shares_amount: String(input.msgs[0].value.shares_amount),
+                                    delegator_addr: input.msgs[0].value.delegator_addr,
+                                    validator_addr: input.msgs[0].value.validator_addr
                                 }
                             ],
-                            sequence: String(input.sequence)
+                            chain_id: input.msgs[0].chain_id,
+                            fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
+                            memo: input.msgs[0].memo,
+                            account_number: input.msgs[0].account_number,
+                            sequence: input.msgs[0].sequence
                         }
-                } else if (input.type == "irishub/distr/MsgWithdrawDelegationReward") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegator_addr: input.delegator_addr,
-                                        validator_addr: input.validator_addr
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "irishub/distr/MsgWithdrawDelegationRewardsAll") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegator_addr: input.delegator_addr
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "irishub/distr/MsgModifyWithdrawAddress") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegator_addr: input.delegator_addr,
-                                        withdraw_addr: input.withdraw_addr
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-                } else if (input.type == "irishub/stake/BeginRedelegate") {
-                    stdSignMsg.json =
-                        {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
-                            msgs: [
-                                {
-                                    type: input.type,
-                                    value: {
-                                        delegator_addr: input.delegator_addr,
-                                        validator_src_addr: input.validator_src_addr,
-                                        validator_dst_addr: input.validator_dst_addr,
-                                        shares_amount: String(input.shares_amount) + ".0000000000"		// IRIS Exception) For broadcasting, shares_amount is correct.
-                                    }
-                                }
-                            ],
-                            sequence: String(input.sequence)
-                        }
-
+                } else if (input.msgs[0].type == "irishub/stake/BeginRedelegate") {
                     stdSignMsg.jsonForSigningIrisTx =
                         {
-                            account_number: String(input.account_number),
-                            chain_id: this.chainId,
-                            fee: {
-                                amount: [
-                                    {
-                                        amount: String(input.fee),
-                                        denom: input.feeDenom
-                                    }
-                                ],
-                                gas: String(input.gas)
-                            },
-                            memo: input.memo,
                             msgs: [
                                 {
-                                    delegator_addr: input.delegator_addr,
-                                    validator_src_addr: input.validator_src_addr,
-                                    validator_dst_addr: input.validator_dst_addr,
-                                    shares: String(input.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
+                                    delegator_addr: input.msgs[0].value.delegator_addr,
+                                    validator_src_addr: input.msgs[0].value.validator_src_addr,
+                                    validator_dst_addr: input.msgs[0].value.validator_dst_addr,
+                                    shares: String(input.msgs[0].value.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
                                 }
                             ],
-                            sequence: String(input.sequence)
+                            chain_id: input.msgs[0].chain_id,
+                            fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
+                            memo: input.msgs[0].memo,
+                            account_number: input.msgs[0].account_number,
+                            sequence: input.msgs[0].sequence
                         }
-                } else {
-                    throw new Error("No such input.type: " + input.type)
                 }
 
                 stdSignMsg.bytes = convertStringToBytes(JSON.stringify(sortObject(stdSignMsg.json)));
-
                 return stdSignMsg;
             }
 
@@ -35003,27 +34502,7 @@
                 let signObj = secp256k1.sign(buf, ecpairPriv);
                 var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
                 let signedTx = new Object;
-                if (this.chainId.indexOf("cosmoshub") != -1 ||
-                    this.chainId.indexOf("kava") != -1 ||
-                    this.chainId.indexOf("gaia") != -1) {
-                    signedTx = {
-                        "tx": {
-                            "msg": stdSignMsg.json.msgs,
-                            "fee": stdSignMsg.json.fee,
-                            "signatures": [
-                                {
-                                    "signature": signatureBase64,
-                                    "pub_key": {
-                                        "type": "tendermint/PubKeySecp256k1",
-                                        "value": getPubKeyBase64(ecpairPriv)
-                                    }
-                                }
-                            ],
-                            "memo": stdSignMsg.json.memo
-                        },
-                        "mode": modeType
-                    }
-                } else if (this.chainId.indexOf("irishub") != -1) {
+                if (this.chainId.indexOf("irishub") != -1) {
                     signedTx = {
                         "tx": {
                             "msg": stdSignMsg.json.msgs,
@@ -35043,6 +34522,33 @@
                         },
                         "mode": modeType
                     }
+
+                    // The key of "shares" is using to sign for IRIS Redelegate.
+                    // After signing, you have to replace the "shares" key name to "shares_amount".
+                    // It is an exception to "irishub/stake/BeginRedelegate".
+                    if (stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
+                        var txBodyStr = JSON.stringify(signedTx);
+                        txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
+                        signedTx = JSON.parse(txBodyStr);
+                    }
+                } else {
+                    signedTx = {
+                        "tx": {
+                            "msg": stdSignMsg.json.msgs,
+                            "fee": stdSignMsg.json.fee,
+                            "signatures": [
+                                {
+                                    "signature": signatureBase64,
+                                    "pub_key": {
+                                        "type": "tendermint/PubKeySecp256k1",
+                                        "value": getPubKeyBase64(ecpairPriv)
+                                    }
+                                }
+                            ],
+                            "memo": stdSignMsg.json.memo
+                        },
+                        "mode": modeType
+                    }
                 }
 
                 return signedTx;
@@ -35050,12 +34556,10 @@
 
             Cosmos.prototype.broadcast = function(signedTx) {
                 let broadcastApi = "";
-                if (this.chainId.indexOf("cosmoshub") != -1 ||
-                    this.chainId.indexOf("kava") != -1 ||
-                    this.chainId.indexOf("gaia") != -1) {
-                    broadcastApi = "/txs";
-                } else if (this.chainId.indexOf("irishub") != -1) {
+                if (this.chainId.indexOf("irishub") != -1) {
                     broadcastApi = "/tx/broadcast";
+                } else {
+                    broadcastApi = "/txs";
                 }
 
                 return fetch(this.url + broadcastApi, {
@@ -44658,7 +44162,7 @@
                     debug('maybeReadMore read 0');
                     stream.read(0);
                     if (len === state.length)
-                    // didn't get any data, stop spinning.
+                        // didn't get any data, stop spinning.
                         break;else len = state.length;
                 }
                 state.readingMore = false;
