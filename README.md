@@ -64,7 +64,7 @@ If the user is log in as Alice, he or she should use Alice account to sign trans
 
 ## Supporting Transaction Message Types
 
-You can find currently supporting meesage types in [our CosmosJS library](https://github.com/cosmostation/cosmosjs/blob/master/docs/SUPPORTING_MSG_TYPES.md)
+You can find currently supporting meesage types in [our CosmosJS library](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)
 
 ## How to Create txJson
 
