@@ -156,6 +156,7 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	account, err := url.QueryUnescape(vars["account"])
+	
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

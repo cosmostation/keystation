@@ -2,6 +2,25 @@ function countWords(str) {
    return str.trim().split(/\s+/).length;
 }
 
+function cleanMnemonics(mnemonics) {
+   mnemonics = mnemonics.replace(/\n/g, " ");   // Replace line break to one space
+   mnemonics = mnemonics.split(",").join(" ");
+   mnemonics = mnemonics.replace(/ +/g, " ");   // Replace connected spaces with one space
+   return mnemonics;
+}
+
+function isMnemonicsValid(mnemonics) {
+   var validFlag = true;
+   // To check the checksum, it is a process to check whether there is an error in creating an address, so you can input any path and prefix.
+   try {
+      window.lcd = getParameterByName('lcd');
+      getKeyStationMainAddress(cleanMnemonics(mnemonics), "44/118/0/0/0", "cosmos");
+   } catch (e) {
+      validFlag = false;
+   }
+   return validFlag;
+}
+
 (function() {
    window.pinType = "import";
 
@@ -17,7 +36,7 @@ function countWords(str) {
 
       if ($.trim(mnemonics) == "") {
          $("#formInfoMessage").hide();
-         $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
+         $("#errorOnImport").show().find('span').text("Mnemonics is not valid.");
          return;
       }
 
@@ -25,7 +44,14 @@ function countWords(str) {
           countWords($.trim(mnemonics)) != 16 &&
           countWords($.trim(mnemonics)) != 24) {
          $("#formInfoMessage").hide();
-         $("#errorOnImport").show().find('span').text("Invalid mnemonics.");
+         $("#errorOnImport").show().find('span').text("Mnemonics is not valid.");
+         // TODO: Check validation of mnemonics
+         return;
+      }
+
+      if (!isMnemonicsValid(mnemonics)) {
+         $("#formInfoMessage").hide();
+         $("#errorOnImport").show().find('span').text("Invalid mnemonics checksum error.");
          // TODO: Check validation of mnemonics
          return;
       }
@@ -58,12 +84,6 @@ function getParameterByName(name, url) {
    if (!results) return null;
    if (!results[2]) return '';
    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-function cleanMnemonics(mnemonics) {
-   mnemonics = mnemonics.split(",").join(" ");
-   mnemonics = mnemonics.replace(/ +/g, " ");   // Replace connected spaces with one space
-   return mnemonics;
 }
 
 // submit
@@ -118,6 +138,9 @@ function submitForm() {
    var prefix = getParameterByName('payload');
 
    var address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix);
+
+   console.log("[test] address: ", address);
+
    $("input[name=payload]").val(address);
 
    $('.keystation-form').submit();
