@@ -56,6 +56,8 @@ function isMnemonicsValid(mnemonics) {
          return;
       }
 
+      $("#mnemonics").val(cleanMnemonics(mnemonics));
+
       $(".pin-wrap").addClass("open");
    })
 

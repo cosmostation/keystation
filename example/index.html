@@ -5,6 +5,7 @@
 	<title>KEYSTATION Example</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://keystation.cosmostation.io/lib/keystation.js"></script>
+	<!-- <script src="http://localhost:8080/lib/keystation.js"></script> -->
 </head>
 <body>
 	<button onclick="login();">Keystation Login</button>
@@ -49,6 +50,7 @@
 
 		window.addEventListener("message", function(e) {
 			if (e.origin != "https://keystation.cosmostation.io") return;
+			// if (e.origin != "http://localhost:8080") return;
 			console.log(e.data);
 			// e.data.account : User's keychain account. Remember this account!
 			keystationAccount = e.data.account;
