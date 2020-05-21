@@ -1,20 +1,11 @@
-runtime: go111
+runtime: go112
 
 handlers:
-  - url: /favicon.ico
-    static_dir: www/img/favicon.ico
   - url: /www
-    static_dir: www
-  - url: /lib
-    static_dir: www/lib
-  - url: /js
-    static_dir: www/js
-  - url: /css
-    static_dir: www/css
-  - url: /img
-    static_dir: www/img
-  - url: /fonts
-    static_dir: www/fonts
+    static_files: www
+    upload: www
+
   - url: /.*
-    script: auto
     secure: always
+    redirect_http_response_code: 301
+    script: auto

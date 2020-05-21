@@ -1,8 +1,8 @@
-package main
+package model
 
 import "html/template"
 
-type signInTemplateParams struct {
+type SignInTemplateParams struct {
 	QueryUrl string
 	Lcd string
 	Payload string
@@ -10,7 +10,7 @@ type signInTemplateParams struct {
 	ShuffledAlphabetCode template.HTML
 }
 
-type importTemplateParams struct {
+type ImportTemplateParams struct {
 	QueryUrl string
 	Client string
 	Lcd string
@@ -20,7 +20,7 @@ type importTemplateParams struct {
 	ShuffledAlphabetCode template.HTML
 }
 
-type sessionTemplateParams struct {
+type SessionTemplateParams struct {
 	QueryUrl string
 	Payload string
 	Account string
@@ -34,7 +34,7 @@ type ImportForm struct {
 	Payload string
 }
 
-type txTemplateParams struct {
+type TxTemplateParams struct {
 	Account string
 	Client string
 	Lcd string

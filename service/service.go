@@ -1,4 +1,4 @@
-package main
+package service
 
 import (
 	"github.com/gorilla/mux"
@@ -6,9 +6,19 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"keystation/model"
+	"keystation/util"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+var (
+	indexTemplate = template.Must(template.ParseFiles("www/index.html"))
+	importTemplate = template.Must(template.ParseFiles("www/import.html"))
+	signInTemplate = template.Must(template.ParseFiles("www/signin.html"))
+	sessionTemplate = template.Must(template.ParseFiles("www/session.html"))
+	txTemplate = template.Must(template.ParseFiles("www/transaction.html"))
+)
+
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
@@ -18,7 +28,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func importHandler(w http.ResponseWriter, r *http.Request) {
+func ImportHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	client, err := url.QueryUnescape(vars["client"])
@@ -45,20 +55,20 @@ func importHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	params := importTemplateParams{}
+	params := model.ImportTemplateParams{}
 	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Client = client
 	params.Lcd = lcd
 	params.Path = path
 	params.Payload = payload
-	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
-	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
+	params.ShuffledNumCode = template.HTML(util.GetShuffledNum())			// Keypad of shuffled number
+	params.ShuffledAlphabetCode = template.HTML(util.GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
 	importTemplate.Execute(w, params)
 	return
 }
 
-func signInHandler(w http.ResponseWriter, r *http.Request) {
+func SignInHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	client, err := url.QueryUnescape(vars["client"])
@@ -85,19 +95,19 @@ func signInHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	params := signInTemplateParams{}
+	params := model.SignInTemplateParams{}
 	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Lcd = lcd
-	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
-	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
+	params.ShuffledNumCode = template.HTML(util.GetShuffledNum())			// Keypad of shuffled number
+	params.ShuffledAlphabetCode = template.HTML(util.GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
 	signInTemplate.Execute(w, params)
 	return
 }
 
-func sessionInHandler(w http.ResponseWriter, r *http.Request) {
+func SessionInHandler(w http.ResponseWriter, r *http.Request) {
 	// HTML Form
-	importForm := ImportForm{
+	importForm := model.ImportForm{
 		Account: r.FormValue("account"),
 		Client: r.FormValue("client"),
 		Path: r.FormValue("path"),
@@ -143,7 +153,7 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	params := sessionTemplateParams{}
+	params := model.SessionTemplateParams{}
 	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payloadForQuery)
 	params.Payload = payload	// address
 	params.Account = account	// keychain account
@@ -152,7 +162,7 @@ func sessionInHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func txHandler(w http.ResponseWriter, r *http.Request) {
+func TxHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
 	account, err := url.QueryUnescape(vars["account"])
@@ -186,14 +196,14 @@ func txHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	params := txTemplateParams{}
+	params := model.TxTemplateParams{}
 	params.Account = account
 	params.Client = client
 	params.Lcd = lcd
 	params.Path = path
 	params.Payload = payload
-	params.ShuffledNumCode = template.HTML(GetShuffledNum())			// Keypad of shuffled number
-	params.ShuffledAlphabetCode = template.HTML(GetShuffledAlphabet())	// Keypad of shuffled alphabet
+	params.ShuffledNumCode = template.HTML(util.GetShuffledNum())			// Keypad of shuffled number
+	params.ShuffledAlphabetCode = template.HTML(util.GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
 	txTemplate.Execute(w, params)
 	return
