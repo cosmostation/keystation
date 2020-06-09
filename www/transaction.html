@@ -103,13 +103,12 @@
 			var decimalPlace = 0;
 			switch (denom) {
 				case "uatom":
+				case "uband":
+				case "ukava":
 					decimalPlace = 0.000001;
 					break;
 				case "iris-atto":
 					decimalPlace = 0.000000000000000001;
-					break;
-				case "ukava":
-					decimalPlace = 0.000001;
 					break;
 			}
 			return decimalPlace;
@@ -126,6 +125,9 @@
 					break;
 				case "ukava":
 					symbol = "KAVA";
+					break;
+				case "uband":
+					symbol = "BAND";
 					break;
 			}
 			return symbol;

@@ -14,6 +14,9 @@
                 case "kava":
                     chainId2 = "kava-2";
                     break;
+                case "band":
+                    chainId2 = "band-wenchang-mainnet";
+                    break;
             }
 
             const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -32,6 +35,8 @@
                 prefix = "iaa";
             } else if (chainId2.indexOf("kava") != -1) {
                 prefix = "kava";
+            } else if (chainId2.indexOf("band") != -1) {
+                prefix = "band";
             }
 
             const cosmos = cosmosjs.network(window.lcd, chainId2);
