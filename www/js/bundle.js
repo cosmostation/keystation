@@ -1,77 +1,83 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
-        const cosmosjs = require("../src");
+  const cosmosjs = require("../src");
 
-        getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
-            var chainId2 = ""
-            switch (prefix) {
-                case "cosmos":
-                    chainId2 = "cosmoshub-3";
-                    break;
-                case "iaa":
-                    chainId2 = "irishub";
-                    break;
-                case "kava":
-                    chainId2 = "kava-2";
-                    break;
-                case "band":
-                    chainId2 = "band-wenchang-mainnet";
-                    break;
-            }
+  getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
+      var chainId2 = ""
+      switch (prefix) {
+          case "cosmos":
+              chainId2 = "cosmoshub-3";
+              break;
+          case "iaa":
+              chainId2 = "irishub";
+              break;
+          case "kava":
+              chainId2 = "kava-3";
+              break;
+          case "band":
+              chainId2 = "band-wenchang-mainnet";
+              break;
+      }
 
-            const cosmos = cosmosjs.network(window.lcd, chainId2);
-            cosmos.setBech32MainPrefix(prefix);
-            cosmos.setPath(hdPath);
-            const address = cosmos.getAddress(mnemonic);
+      const cosmos = cosmosjs.network(window.lcd, chainId2);
+      cosmos.setBech32MainPrefix(prefix);
+      cosmos.setPath(hdPath);
+      const address = cosmos.getAddress(mnemonic);
 
-            return address;
-        }
+      return address;
+  }
 
-        signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
-            var prefix = "";
-            if (chainId2.indexOf("cosmos") != -1) {
-                prefix = "cosmos";
-            } else if (chainId2.indexOf("iris") != -1) {
-                prefix = "iaa";
-            } else if (chainId2.indexOf("kava") != -1) {
-                prefix = "kava";
-            } else if (chainId2.indexOf("band") != -1) {
-                prefix = "band";
-            }
+  signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
+      var prefix = "";
+      if (chainId2.indexOf("cosmos") != -1) {
+          prefix = "cosmos";
+      } else if (chainId2.indexOf("iris") != -1) {
+          prefix = "iaa";
+      } else if (chainId2.indexOf("kava") != -1) {
+          prefix = "kava";
+      } else if (chainId2.indexOf("band") != -1) {
+          prefix = "band";
+      }
 
-            const cosmos = cosmosjs.network(window.lcd, chainId2);
-            cosmos.setBech32MainPrefix(prefix);
-            cosmos.setPath(hdPath);
-            const ecpairPriv = cosmos.getECPairPriv(mnemonic);
+      const cosmos = cosmosjs.network(window.lcd, chainId2);
+      cosmos.setBech32MainPrefix(prefix);
+      cosmos.setPath(hdPath);
+      const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
-            let signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
+      let signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 
-            // // IRIS exception handling about "irishub/stake/BeginRedelegate" type
-            // if (signedTx.tx.msg[0].type == "irishub/stake/BeginRedelegate") {
-            //     // The key of "shares" is using to sign for IRIS Redelegate.
-            //     // After signing, you have to replace the "shares" key name to "shares_amount".
-            //     // It is an exception to "irishub/stake/BeginRedelegate".
-            //     var txBodyStr = JSON.stringify(signedTx);
-            //     txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
-            //     signedTx = JSON.parse(txBodyStr);
-            // }
+      // // IRIS exception handling about "irishub/stake/BeginRedelegate" type
+      // if (signedTx.tx.msg[0].type == "irishub/stake/BeginRedelegate") {
+      //     // The key of "shares" is using to sign for IRIS Redelegate.
+      //     // After signing, you have to replace the "shares" key name to "shares_amount".
+      //     // It is an exception to "irishub/stake/BeginRedelegate".
+      //     var txBodyStr = JSON.stringify(signedTx);
+      //     txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
+      //     signedTx = JSON.parse(txBodyStr);
+      // }
 
-            cosmos.broadcast(signedTx).then(response => {
-                try {
-                    window.opener.postMessage(response, "*");
-                } catch(event) {
-                    console.log(event);
-                }
-                window.close();
-            }).catch(error => {
-                try {
-                    window.opener.postMessage(error.message, "*");
-                } catch(event) {
-                    console.log(event);
-                }
-                window.close();
-            })
-        }
+      // Debug
+      // if (stdSignMsg.json.msgs[0].value.from_address == "[KAVA_ADDRESS]") {
+      //     console.log("signedTx: ", JSON.stringify(signedTx));
+      //     return;
+      // }
+
+      cosmos.broadcast(signedTx).then(response => {
+          try {
+              window.opener.postMessage(response, "*");
+          } catch(event) {
+              console.log(event);
+          }
+          window.close();
+      }).catch(error => {
+          try {
+              window.opener.postMessage(error.message, "*");
+          } catch(event) {
+              console.log(event);
+          }
+          window.close();
+      })
+  }
 
 },{"../src":140}],2:[function(require,module,exports){
 'use strict'
@@ -34522,7 +34528,7 @@ Cosmos.prototype.newStdMsg = function(input) {
 }
 
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
-	// The supported return types includes "block"(return after tx commit), "sync"(return afer CheckTx) and "async"(return right away).
+	// The supported return types includes "block"(return after tx commit), "sync"(return after CheckTx) and "async"(return right away).
 	let signMessage = new Object;
 	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
 		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
@@ -34531,6 +34537,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	} else {
 		signMessage = stdSignMsg.json;
 	}
+
 	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
@@ -34572,6 +34579,8 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		        "fee": stdSignMsg.json.fee,
 		        "signatures": [
 		            {
+		            	"account_number": stdSignMsg.json.account_number,
+		            	"sequence": stdSignMsg.json.sequence,
 		                "signature": signatureBase64,
 		                "pub_key": {
 		                    "type": "tendermint/PubKeySecp256k1",
