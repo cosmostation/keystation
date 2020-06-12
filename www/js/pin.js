@@ -150,7 +150,7 @@
                         }
 
                         var prefix = getParameterByName('payload');
-                        var address = getKeyStationMainAddress(decryptedMnemonics, hdPathResult, prefix);
+                        var address = getKeyStationMainAddress(decryptedMnemonics, hdPathResult, prefix, false);
 
                         var msgObj = {
                            "address": address,

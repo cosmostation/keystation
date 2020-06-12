@@ -2,7 +2,7 @@
 
   const cosmosjs = require("../src");
 
-  getKeyStationMainAddress = function (mnemonic, hdPath, prefix) {
+  getKeyStationMainAddress = function (mnemonic, hdPath, prefix, checkSum = true) {
       var chainId2 = ""
       switch (prefix) {
           case "cosmos":
@@ -22,7 +22,7 @@
       const cosmos = cosmosjs.network(window.lcd, chainId2);
       cosmos.setBech32MainPrefix(prefix);
       cosmos.setPath(hdPath);
-      const address = cosmos.getAddress(mnemonic);
+      const address = cosmos.getAddress(mnemonic, checkSum);
 
       return address;
   }
@@ -46,7 +46,7 @@
 
       let signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 
-      // // IRIS exception handling about "irishub/stake/BeginRedelegate" type
+      // * IRIS exception handling about "irishub/stake/BeginRedelegate" type
       // if (signedTx.tx.msg[0].type == "irishub/stake/BeginRedelegate") {
       //     // The key of "shares" is using to sign for IRIS Redelegate.
       //     // After signing, you have to replace the "shares" key name to "shares_amount".
@@ -56,7 +56,7 @@
       //     signedTx = JSON.parse(txBodyStr);
       // }
 
-      // Debug
+      // * Debug
       // if (stdSignMsg.json.msgs[0].value.from_address == "[KAVA_ADDRESS]") {
       //     console.log("signedTx: ", JSON.stringify(signedTx));
       //     return;
@@ -34423,12 +34423,12 @@ Cosmos.prototype.getAccounts = function(address) {
 	.then(response => response.json())
 }
 
-Cosmos.prototype.getAddress = function(mnemonic) {
+Cosmos.prototype.getAddress = function(mnemonic, checkSum = true) {
 	if (typeof mnemonic !== "string") {
 	    throw new Error("mnemonic expects a string")
 	}
-	if (!bip39.validateMnemonic(mnemonic)) {
-	    throw new Error("mnemonic phrases have invalid checksums")
+	if (checkSum) {
+		if (!bip39.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
 	}
 	const seed = bip39.mnemonicToSeed(mnemonic);
 	const node = bip32.fromSeed(seed);
@@ -34537,7 +34537,6 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	} else {
 		signMessage = stdSignMsg.json;
 	}
-
 	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
