@@ -14,7 +14,11 @@ function isMnemonicsValid(mnemonics) {
    // To check the checksum, it is a process to check whether there is an error in creating an address, so you can input any path and prefix.
    try {
       window.lcd = getParameterByName('lcd');
-      getKeyStationMainAddress(cleanMnemonics(mnemonics), "44/118/0/0/0", "cosmos");
+      if (window.option == "disablechecksum") {
+         getKeyStationMainAddress(cleanMnemonics(mnemonics), "44/118/0/0/0", "cosmos", false);
+      } else {
+         getKeyStationMainAddress(cleanMnemonics(mnemonics), "44/118/0/0/0", "cosmos");
+      }
    } catch (e) {
       validFlag = false;
    }
@@ -139,7 +143,12 @@ function submitForm() {
 
    var prefix = getParameterByName('payload');
 
-   var address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix);
+   var address = "";
+   if (window.option == "disablechecksum") {
+      address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix, false);
+   } else {
+      address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix);
+   }
 
    console.log("[test] address: ", address);
 

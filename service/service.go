@@ -55,12 +55,24 @@ func ImportHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	option := ""
+	if vars["option"] != "" {
+		option, err = url.QueryUnescape(vars["option"])
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+
 	params := model.ImportTemplateParams{}
 	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Client = client
 	params.Lcd = lcd
 	params.Path = path
 	params.Payload = payload
+	if option == "disablechecksum" {
+		params.Option = option
+	}
 	params.ShuffledNumCode = template.HTML(util.GetShuffledNum())			// Keypad of shuffled number
 	params.ShuffledAlphabetCode = template.HTML(util.GetShuffledAlphabet())	// Keypad of shuffled alphabet
 
@@ -96,7 +108,7 @@ func SignInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := model.SignInTemplateParams{}
-	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
+	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload) + "&option="
 	params.Lcd = lcd
 	params.ShuffledNumCode = template.HTML(util.GetShuffledNum())			// Keypad of shuffled number
 	params.ShuffledAlphabetCode = template.HTML(util.GetShuffledAlphabet())	// Keypad of shuffled alphabet
@@ -154,7 +166,7 @@ func SessionInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := model.SessionTemplateParams{}
-	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payloadForQuery)
+	params.QueryUrl = "import?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payloadForQuery) + "&option="
 	params.Payload = payload	// address
 	params.Account = account	// keychain account
 

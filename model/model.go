@@ -16,6 +16,7 @@ type ImportTemplateParams struct {
 	Lcd string
 	Path string
 	Payload string
+	Option string
 	ShuffledNumCode template.HTML
 	ShuffledAlphabetCode template.HTML
 }

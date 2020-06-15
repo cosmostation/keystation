@@ -18,6 +18,7 @@ func main() {
 		Queries("lcd", "{lcd}").
 		Queries("path", "{path}").
 		Queries("payload", "{payload}").
+		Queries("option", "{option}").
 		HandlerFunc(service.ImportHandler).
 		Methods("GET")
 	r.Path("/signin").
