@@ -136,6 +136,9 @@
 				case "uband":
 					symbol = "BAND";
 					break;
+				default:
+					symbol = denom.toUpperCase();
+					break;
 			}
 			return symbol;
 		}
