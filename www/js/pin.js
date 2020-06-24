@@ -100,7 +100,12 @@
                   showCorrectPinAnimation();
 
                   // INIT
-                  var mnemonics = cleanMnemonics($.trim($('.input-mnemonics').val()));
+                  var mnemonics = "";
+                  if (window.option == "disablechecksum") {
+                     mnemonics = $.trim($('.input-mnemonics').val());
+                  } else {
+                     mnemonics = cleanMnemonics($.trim($('.input-mnemonics').val()));
+                  }
                   var pinCode = input;
 
                   var encrypted = CryptoJS.AES.encrypt(mnemonics, pinCode);

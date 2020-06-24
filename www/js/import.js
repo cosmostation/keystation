@@ -15,7 +15,7 @@ function isMnemonicsValid(mnemonics) {
    try {
       window.lcd = getParameterByName('lcd');
       if (window.option == "disablechecksum") {
-         getKeyStationMainAddress(cleanMnemonics(mnemonics), "44/118/0/0/0", "cosmos", false);
+         getKeyStationMainAddress(mnemonics, "44/118/0/0/0", "cosmos", false);
       } else {
          getKeyStationMainAddress(cleanMnemonics(mnemonics), "44/118/0/0/0", "cosmos");
       }
@@ -60,7 +60,11 @@ function isMnemonicsValid(mnemonics) {
          return;
       }
 
-      $("#mnemonics").val(cleanMnemonics(mnemonics));
+      if (window.option == "disablechecksum") {
+         $("#mnemonics").val(mnemonics);
+      } else {
+         $("#mnemonics").val(cleanMnemonics(mnemonics));
+      }
 
       $(".pin-wrap").addClass("open");
    })
@@ -145,7 +149,7 @@ function submitForm() {
 
    var address = "";
    if (window.option == "disablechecksum") {
-      address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix, false);
+      address = getKeyStationMainAddress(mnemonics, hdPathResult, prefix, false);
    } else {
       address = getKeyStationMainAddress(cleanMnemonics(mnemonics), hdPathResult, prefix);
    }
