@@ -65,6 +65,7 @@ func ImportHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := model.ImportTemplateParams{}
+	// TODO: Modify: path to be used without auto harden by adding like &version=2. import.js and pin.js files need to be modified
 	params.QueryUrl = "signin?client=" + url.QueryEscape(client) + "&lcd=" + url.QueryEscape(lcd) + "&path=" + url.QueryEscape(path) + "&payload=" + url.QueryEscape(payload)
 	params.Client = client
 	params.Lcd = lcd
