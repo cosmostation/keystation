@@ -15,7 +15,7 @@
               chainId2 = "kava-3";
               break;
           case "band":
-              chainId2 = "band-wenchang-mainnet";
+              chainId2 = "band-guanyu-mainnet";
               break;
       }
 
