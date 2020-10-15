@@ -12,10 +12,16 @@
               chainId2 = "irishub";
               break;
           case "kava":
-              chainId2 = "kava-3";
+              chainId2 = "kava-4";
               break;
           case "band":
               chainId2 = "band-guanyu-mainnet";
+              break;
+          case "star":
+              chainId2 = "iov-mainnet-2";
+              break;
+          case "secret":
+              chainId2 = "secret-2";
               break;
       }
 
@@ -37,6 +43,10 @@
           prefix = "kava";
       } else if (chainId2.indexOf("band") != -1) {
           prefix = "band";
+      } else if (chainId2.indexOf("iov") != -1) {
+          prefix = "star";
+      } else if (chainId2.indexOf("secret") != -1) {
+          prefix = "secret";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
