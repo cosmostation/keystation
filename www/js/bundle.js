@@ -57,6 +57,8 @@
           prefix = "akash";
       } else if (chainId2.indexOf("shentu") != -1) {
           prefix = "certik";
+      } else if (chainId2.indexOf("stargate-final") != -1) {
+          prefix = "cosmos";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -34420,7 +34422,9 @@ Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
 	if (this.chainId.indexOf("irishub") != -1) {
 		accountsApi = "/bank/accounts/";
-	} else {
+	} else if (this.chainId.indexOf("stargate-final") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else {
 		accountsApi = "/auth/accounts/";
 	}
 	return fetch(this.url + accountsApi + address)
