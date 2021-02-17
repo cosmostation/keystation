@@ -102,12 +102,6 @@
 		function getDecimalPlace(denom) {
 			var decimalPlace = 0;
 			switch (denom) {
-				case "uatom":
-				case "uband":
-				case "ukava":
-				case "uatk":
-					decimalPlace = 0.000001;
-					break;
 				case "iris-atto":
 					decimalPlace = 0.000000000000000001;
 					break;
@@ -118,6 +112,9 @@
 				case "bnb":
 					decimalPlace = 0.00000001;
 					break;
+				default:
+					decimalPlace = 0.000001;
+					break;
 			}
 			return decimalPlace;
 		}
@@ -125,22 +122,12 @@
 		function getSymbol(denom) {
 			var symbol = "";
 			switch (denom) {
-				case "uatom":
-					symbol = "ATOM";
-					break;
 				case "iris-atto":
 					symbol = "IRIS";
 					break;
-				case "ukava":
-					symbol = "KAVA";
-					break;
-				case "uband":
-					symbol = "BAND";
-					break;
-				case "uatk":
-					symbol = "ATK";
-					break;
 				default:
+					// removed init u
+					denom = denom.substring(1, denom.length);
 					symbol = denom.toUpperCase();
 					break;
 			}

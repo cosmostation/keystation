@@ -26,6 +26,9 @@
           case "akash":
               chainId2 = "akashnet-1";
               break;
+          case "certik":
+              chainId2 = "shentu-1";
+              break;
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -52,6 +55,8 @@
           prefix = "secret";
       } else if (chainId2.indexOf("akash") != -1) {
           prefix = "akash";
+      } else if (chainId2.indexOf("shentu") != -1) {
+          prefix = "certik";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
