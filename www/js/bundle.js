@@ -6,7 +6,7 @@
       var chainId2 = ""
       switch (prefix) {
           case "cosmos":
-              chainId2 = "cosmoshub-3";
+              chainId2 = "cosmoshub-4";
               break;
           case "iaa":
               chainId2 = "irishub";
@@ -59,6 +59,8 @@
           prefix = "certik";
       } else if (chainId2.indexOf("stargate-final") != -1) {
           prefix = "cosmos";
+      } else if (chainId2.indexOf("bifrost") != -1) {
+          prefix = "iaa";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -34419,14 +34421,18 @@ Cosmos.prototype.setPath = function(path) {
 }
 
 Cosmos.prototype.getAccounts = function(address) {
-	let accountsApi = "";
-	if (this.chainId.indexOf("irishub") != -1) {
-		accountsApi = "/bank/accounts/";
-	} else if (this.chainId.indexOf("stargate-final") != -1) {
+    let accountsApi = "";
+    if (this.chainId.indexOf("cosmos") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("stargate-final") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("bifrost") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("irishub") != -1) {
+        accountsApi = "/bank/accounts/";
     } else {
-		accountsApi = "/auth/accounts/";
-	}
+        accountsApi = "/auth/accounts/";
+    }
 	return fetch(this.url + accountsApi + address)
 	.then(response => response.json())
 }
