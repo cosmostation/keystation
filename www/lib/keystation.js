@@ -59,5 +59,5 @@ Keystation.prototype.openWindow = function(type, payload, account = "") {
 			break;
 	}
 
-	return PopupCenter(this.keystationUrl + '/' + apiUrl + '?account=' + encodeURIComponent(account) + '&client=' + encodeURIComponent(this.client) + '&lcd=' + encodeURIComponent(this.lcd) + '&path=' + encodeURIComponent(this.path) + '&payload=' + encodeURIComponent(payload),'','400','690');
+	return PopupCenter(this.keystationUrl + '/' + apiUrl + '?account=' + encodeURIComponent(account) + '&client=' + encodeURIComponent(this.client) + '&lcd=' + encodeURIComponent(this.lcd) + '&path=' + encodeURIComponent(this.path) + '&payload=' + encodeURIComponent(payload),'','400','705');
 }
