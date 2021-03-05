@@ -12,7 +12,7 @@
               chainId2 = "irishub-1";
               break;
           case "kava":
-              chainId2 = "kava-5";
+              chainId2 = "kava-6";
               break;
           case "band":
               chainId2 = "band-guanyu-mainnet";

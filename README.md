@@ -138,8 +138,8 @@ cosmos.getAccounts(address).then(data => {
         chain_id: chainId,
         fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
         memo: "",
-        account_number: String(data.result.value.account_number),
-        sequence: String(data.result.value.sequence)
+        account_number: String(data.account.account_number),
+        sequence: String(data.account.sequence)
 	});
     
 	console.log(stdSignMsg.json);   // txJson
