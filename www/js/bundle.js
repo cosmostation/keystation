@@ -61,6 +61,8 @@
           prefix = "cosmos";
       } else if (chainId2.indexOf("bifrost") != -1) {
           prefix = "iaa";
+      } else if (chainId2.indexOf("edgenet-6") != -1) {
+          prefix = "akash";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -34429,6 +34431,10 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("bifrost") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("irishub") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("akash") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("edgenet") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
