@@ -29,6 +29,12 @@
           case "certik":
               chainId2 = "shentu-1";
               break;
+          case "persistence":
+              chainId2 = "test-core-1";
+              break;
+          default:
+              chainId2 = "";
+              break;
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -63,6 +69,8 @@
           prefix = "iaa";
       } else if (chainId2.indexOf("edgenet-6") != -1) {
           prefix = "akash";
+      } else if (chainId2.indexOf("test-core-1") != -1) {
+          prefix = "persistence";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
