@@ -32,6 +32,9 @@
           case "persistence":
               chainId2 = "test-core-1";
               break;
+          case "sent":
+              chainId2 = "sentinelhub-1";
+              break;
           default:
               chainId2 = "";
               break;
@@ -71,6 +74,8 @@
           prefix = "akash";
       } else if (chainId2.indexOf("test-core-1") != -1) {
           prefix = "persistence";
+      } else if (chainId2.indexOf("sentinel") != -1) {
+          prefix = "sent";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
