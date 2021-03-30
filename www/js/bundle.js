@@ -30,7 +30,7 @@
               chainId2 = "shentu-1";
               break;
           case "persistence":
-              chainId2 = "test-core-1";
+              chainId2 = "core-1";
               break;
           case "sent":
               chainId2 = "sentinelhub-1";
@@ -72,7 +72,7 @@
           prefix = "iaa";
       } else if (chainId2.indexOf("edgenet-6") != -1) {
           prefix = "akash";
-      } else if (chainId2.indexOf("test-core-1") != -1) {
+      } else if (chainId2.indexOf("core-1") != -1) {
           prefix = "persistence";
       } else if (chainId2.indexOf("sentinel") != -1) {
           prefix = "sent";
@@ -34448,6 +34448,8 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("akash") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("edgenet") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("core-1") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
