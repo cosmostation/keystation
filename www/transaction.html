@@ -14,7 +14,8 @@
 	<link rel="stylesheet" href="css/styles.css">
 	<!-- js -->
 	<!-- js -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<!--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/big.js/5.2.2/big.min.js"></script>
 	<script src="js/bundle.js"></script>
@@ -112,6 +113,15 @@
 				case "bnb":
 					decimalPlace = 0.00000001;
 					break;
+				case "afet":
+					decimalPlace = 0.000000000000000001;
+					break;
+				case "rowan":
+					decimalPlace = 0.000000000000000001;
+					break;
+				case "basecro":
+					decimalPlace = 0.00000001;
+					break;
 				default:
 					decimalPlace = 0.000001;
 					break;
@@ -124,6 +134,15 @@
 			switch (denom) {
 				case "iris-atto":
 					symbol = "IRIS";
+					break;
+				case "afet":
+					symbol = "FET";
+					break;
+				case "rowan":
+					symbol = "ROWAN";
+					break;
+				case "basecro":
+					symbol = "CRO";
 					break;
 				default:
 					// removed init u

@@ -35,6 +35,15 @@
           case "sent":
               chainId2 = "sentinelhub-1";
               break;
+          case "fetch":
+              chainId2 = "fetchhub-1";
+              break;
+          case "sif":
+              chainId2 = "sifchain";
+              break;
+          case "cro":
+              chainId2 = "crypto-org-chain-mainnet-1";
+              break;
           default:
               chainId2 = "";
               break;
@@ -70,12 +79,18 @@
           prefix = "cosmos";
       } else if (chainId2.indexOf("bifrost") != -1) {
           prefix = "iaa";
-      } else if (chainId2.indexOf("edgenet-6") != -1) {
+      } else if (chainId2.indexOf("edgenet") != -1) {
           prefix = "akash";
       } else if (chainId2.indexOf("core-1") != -1) {
           prefix = "persistence";
       } else if (chainId2.indexOf("sentinel") != -1) {
           prefix = "sent";
+      } else if (chainId2.indexOf("fetchhub") != -1) {
+          prefix = "fetch";
+      } else if (chainId2.indexOf("sifchain") != -1) {
+          prefix = "sif";
+      } else if (chainId2.indexOf("crypto-org-chain-mainnet") != -1) {
+          prefix = "cro";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -34450,6 +34465,8 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("edgenet") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("core-1") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("crypto-org-chain-mainnet") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
