@@ -44,6 +44,9 @@
           case "cro":
               chainId2 = "crypto-org-chain-mainnet-1";
               break;
+          case "ki":
+              chainId2 = "kichain-1";
+              break;
           default:
               chainId2 = "";
               break;
@@ -91,6 +94,8 @@
           prefix = "sif";
       } else if (chainId2.indexOf("crypto-org-chain-mainnet") != -1) {
           prefix = "cro";
+      } else if (chainId2.indexOf("kichain") != -1) {
+          prefix = "ki";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
