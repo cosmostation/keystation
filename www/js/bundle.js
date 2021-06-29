@@ -18,7 +18,7 @@
               chainId2 = "band-guanyu-mainnet";
               break;
           case "star":
-              chainId2 = "iov-mainnet-2";
+              chainId2 = "iov-mainnet-ibc";
               break;
           case "secret":
               chainId2 = "secret-2";
@@ -33,7 +33,7 @@
               chainId2 = "core-1";
               break;
           case "sent":
-              chainId2 = "sentinelhub-1";
+              chainId2 = "sentinelhub-2";
               break;
           case "fetch":
               chainId2 = "fetchhub-1";
@@ -70,7 +70,7 @@
           prefix = "kava";
       } else if (chainId2.indexOf("band") != -1) {
           prefix = "band";
-      } else if (chainId2.indexOf("iov") != -1) {
+      } else if (chainId2.indexOf("iov") != -1 || chainId2.indexOf("stargatenet") != -1) {
           prefix = "star";
       } else if (chainId2.indexOf("secret") != -1) {
           prefix = "secret";
@@ -34472,6 +34472,8 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("core-1") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("crypto-org-chain-mainnet") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("iov") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
