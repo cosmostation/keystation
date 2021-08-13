@@ -47,6 +47,9 @@
           case "ki":
               chainId2 = "kichain-1";
               break;
+          case "medibloc":
+              chainId2 = "panacea-3";
+              break;
           default:
               chainId2 = "";
               break;
@@ -96,6 +99,8 @@
           prefix = "cro";
       } else if (chainId2.indexOf("kichain") != -1) {
           prefix = "ki";
+      } else if (chainId2.indexOf("medibloc") != -1) {
+          prefix = "panacea";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
