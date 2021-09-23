@@ -47,7 +47,7 @@
           case "ki":
               chainId2 = "kichain-1";
               break;
-          case "medibloc":
+          case "panacea":
               chainId2 = "panacea-3";
               break;
           default:
@@ -99,7 +99,7 @@
           prefix = "cro";
       } else if (chainId2.indexOf("kichain") != -1) {
           prefix = "ki";
-      } else if (chainId2.indexOf("medibloc") != -1) {
+      } else if (chainId2.indexOf("panacea") != -1) {
           prefix = "panacea";
       }
 
@@ -34483,6 +34483,10 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("band-laozi-testnet2") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("sifchain") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("fetchhub") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("laozi") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
