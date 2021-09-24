@@ -217,7 +217,12 @@
                            return;
                         }
 
-                        signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
+                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1) {
+                           // TODO: Protobuf sign
+                           signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
+                        } else {
+                           signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
+                        }
                      }
                   }
                } catch (error) {

@@ -39,7 +39,7 @@ async function generateAddress (mnemonic, hdPath, prefix, checkSum = true) {
   if (checkSum) {
     if (!bip39.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
   }
-  const seed = await bip39.mnemonicToSeed(mnemonic);
+  const seed = bip39.mnemonicToSeed(mnemonic);
   const node = bip32.fromSeed(seed)
   const child = node.derivePath(hdPath)
   const words = bech32.toWords(child.identifier);
@@ -84,7 +84,7 @@ class PostIbcSigner {
     return signDoc;
   }
 
-  async getAuthInfo (sequence, feeAmount, gasLimit, mode = 'direct') {
+  async getAuthInfo (sequence, feeAmount, feeDenom, gasLimit, mode = 'direct') {
     let _mode = cosmos.tx.signing.v1beta1.SignMode.SIGN_MODE_DIRECT;
     if (mode === 'amino') {
       _mode = cosmos.tx.signing.v1beta1.SignMode.SIGN_MODE_LEGACY_AMINO_JSON;
@@ -103,7 +103,7 @@ class PostIbcSigner {
     });
 
     const fee = new cosmos.tx.v1beta1.Fee({
-      amount: [{ denom: 'uatolo', amount: String(feeAmount) }],
+      amount: [{ denom: feeDenom, amount: String(feeAmount) }],
       gas_limit: Number(gasLimit),
     });
 
@@ -113,7 +113,7 @@ class PostIbcSigner {
   getDirectSignature (signDoc) {
     const signDocBytes = cosmos.tx.v1beta1.SignDoc.encode(signDoc).finish();
     const messageHash = crypto.createHash('sha256').update(signDocBytes).digest();
-    const signature = secp256k1.sign(messageHash, this.privateKey);
+    const signature = secp256k1. sign(messageHash, this.privateKey);
     return signature;
   }
 

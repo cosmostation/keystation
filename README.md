@@ -18,6 +18,13 @@ Keystation is a decentralized keychain-based authenticator that **DOES NOT requi
 <img width="200" alt="keystation3" src="https://user-images.githubusercontent.com/34641838/65948289-ec1a5a00-e474-11e9-943d-2828b01c8bed.png">
 </div>
 
+## Run
+
+To start Keystation server locally, simply run:
+```sh
+$ go run main.go
+```
+
 ## Import
 
 #### NPM
