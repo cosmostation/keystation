@@ -210,5 +210,5 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
     } catch (e) {
         console.log(e);
     }
-    // window.close();
+    window.close();
 }
