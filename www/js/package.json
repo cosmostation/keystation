@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "browserify tx-handler.js -o tx-handler-bundle.js"
+  },
   "dependencies": {
     "bech32": "^1.1.3",
     "bip32": "^1.0.2",
@@ -9,4 +12,4 @@
     "secp256k1": "^3.8.0",
     "axios": "^0.21.1"
   }
-}
+},

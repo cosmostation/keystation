@@ -2,9 +2,6 @@ const { google, cosmos } = require('./proto.js');
 const PostIbcSigner = require('./post-ibc-signer');
 const protoTxService = require('./proto-tx-service');
 
-console.log(PostIbcSigner);
-console.log(protoTxService);
-
 testHandler = function () {
     console.log("test11111");
 }
@@ -69,6 +66,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "ki";
     } else if (chainId.indexOf("panacea") != -1) {
         prefix = "panacea";
+    } else if (chainId.indexOf("titan") != -1) {
+        prefix = "rizon";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 

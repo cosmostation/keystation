@@ -50,6 +50,9 @@
           case "panacea":
               chainId2 = "panacea-3";
               break;
+          case "rizon":
+              chainId2 = "titan-1";
+              break;
           default:
               chainId2 = "";
               break;
@@ -101,6 +104,10 @@
           prefix = "ki";
       } else if (chainId2.indexOf("panacea") != -1) {
           prefix = "panacea";
+      } else if (chainId2.indexOf("titan") != -1) {
+          prefix = "rizon";
+      } else if (chainId2.indexOf("groot") != -1) {
+          prefix = "rizon";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -34487,6 +34494,10 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("fetchhub") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("laozi") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("titan") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("groot") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
