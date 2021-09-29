@@ -3,66 +3,11 @@
   const cosmosjs = require("../src");
 
   getKeyStationMainAddress = function (mnemonic, hdPath, prefix, checkSum = true) {
-      var chainId2 = ""
-      switch (prefix) {
-          case "cosmos":
-              chainId2 = "cosmoshub-4";
-              break;
-          case "iaa":
-              chainId2 = "irishub-1";
-              break;
-          case "kava":
-              chainId2 = "kava-6";
-              break;
-          case "band":
-              chainId2 = "band-guanyu-mainnet";
-              break;
-          case "star":
-              chainId2 = "iov-mainnet-ibc";
-              break;
-          case "secret":
-              chainId2 = "secret-2";
-              break;
-          case "akash":
-              chainId2 = "akashnet-1";
-              break;
-          case "certik":
-              chainId2 = "shentu-1";
-              break;
-          case "persistence":
-              chainId2 = "core-1";
-              break;
-          case "sent":
-              chainId2 = "sentinelhub-2";
-              break;
-          case "fetch":
-              chainId2 = "fetchhub-1";
-              break;
-          case "sif":
-              chainId2 = "sifchain";
-              break;
-          case "cro":
-              chainId2 = "crypto-org-chain-mainnet-1";
-              break;
-          case "ki":
-              chainId2 = "kichain-1";
-              break;
-          case "panacea":
-              chainId2 = "panacea-3";
-              break;
-          case "rizon":
-              chainId2 = "titan-1";
-              break;
-          default:
-              chainId2 = "";
-              break;
-      }
-
+      var chainId2 = "tempChainId"
       const cosmos = cosmosjs.network(window.lcd, chainId2);
       cosmos.setBech32MainPrefix(prefix);
       cosmos.setPath(hdPath);
       const address = cosmos.getAddress(mnemonic, checkSum);
-
       return address;
   }
 
@@ -108,6 +53,8 @@
           prefix = "rizon";
       } else if (chainId2.indexOf("groot") != -1) {
           prefix = "rizon";
+      } else if (chainId2.indexOf("emoney") != -1) {
+          prefix = "emoney";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
@@ -34498,6 +34445,8 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("titan") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("groot") != -1) {
+        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("emoney") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
