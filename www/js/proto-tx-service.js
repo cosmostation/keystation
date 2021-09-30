@@ -55,7 +55,7 @@ function createRedelegateMessage(delegatorAddress, validatorSrcAddress, validato
 }
 
 function createWithdrawMessage(delegatorAddress, validatorAddress) {
-  const rawMsg = new cosmos.staking.v1beta1.MsgBeginRedelegate({
+  const rawMsg = new cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward({
     delegator_address: delegatorAddress,
     validator_address: validatorAddress,
   });
