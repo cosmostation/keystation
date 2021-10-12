@@ -181,3 +181,8 @@ It will be updated soon.
 - [iOS Wallet](https://apple.co/2IAM3Xm)
 - [Telegram - International](https://t.me/cosmostation)
 - [Kakao - Koreans](https://open.kakao.com/o/g6KKSe5)
+
+## bundle
+
+- `www/js/tx-handler` 수정 후 번들링 과정을 거쳐야 한다.
+- `npm run start` 으로 번들링을 실행해주면 됨
