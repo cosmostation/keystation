@@ -34447,7 +34447,9 @@ Cosmos.prototype.getAccounts = function(address) {
     } else if (this.chainId.indexOf("groot") != -1) {
         accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("emoney") != -1) {
-        accountsApi = "/cosmos/auth/v1beta1/accounts/";
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("juno") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
     }

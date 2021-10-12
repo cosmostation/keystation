@@ -172,6 +172,16 @@ We welcome any contributions, suggestions, improvements, or feature requests.
 There will be `CONTRIBUTING.md` that describes rules and procedure. 
 It will be updated soon.
 
+## bundle
+
+- `www/js/tx-handler` 수정 후 번들링 과정을 거쳐야 한다.
+- `npm run start` 으로 번들링을 실행해주면 됨
+
+## deploy
+
+- https://cloud.google.com/sdk/docs/install 에서 gcloud 설치
+- `sudo gcloud app deploy app.yaml --project keystation-249804`
+
 ## Services and Community by Cosmostation
 
 - [Official Website](https://www.cosmostation.io)
