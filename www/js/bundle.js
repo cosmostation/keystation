@@ -11,6 +11,15 @@
       return address;
   }
 
+  getPrivateKey = function (path, mnemonic) {
+      var chainId2 = "tempChainId"
+      const cosmos = cosmosjs.network(window.lcd, chainId2);
+      cosmos.setPath(path);
+      const ecpairPriv = cosmos.getECPairPriv(mnemonic);
+      let privateKey = "0x" + ecpairPriv.toString('hex');
+      return privateKey;
+  }
+
   signTxByKeyStation = function (mnemonic, hdPath, chainId2, stdSignMsg) {
       var prefix = "";
       if (chainId2.indexOf("cosmos") != -1) {

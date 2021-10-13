@@ -58,6 +58,16 @@
 			window.lcd = {{.Lcd}};
 			$(".pin-wrap").addClass("open");
 		}
+
+		function moveToAccountSetting() {
+			let accountVal = $(".input-account").val();
+			let clientVal = {{.Client}};
+			let lcdVal = {{.Lcd}};
+			let pathVal = {{.Path}};
+			let payloadVal = {{.Payload}};
+
+			location.href = "/setting?account=" + accountVal + "&client=" + clientVal + "&lcd=" + lcdVal + "&path=" + pathVal + "&payload=" + payloadVal
+		}
 	</script>
 </head>
 
@@ -87,7 +97,8 @@
 				<button type="button" onclick="sendEventToParent()" id="nextBtn">Next</button>
 			</form>
 
-			<a href="{{.QueryUrl}}">Import Wallet</a>
+			<a href="{{.QueryUrl}}">Import Wallet</a><br /><br />
+			<a class="accountSetting" href="javascript:moveToAccountSetting()">Account Setting</a>
 
 			<div class="form-fotter">
 				<a href="https://github.com/cosmostation/keystation" target="_blank"><i class="fa fa-fw fa-github"></i></a>

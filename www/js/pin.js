@@ -230,6 +230,74 @@
                   // Error: Malformed UTF-8 data
                   showWrongPinAnimation();
                }
+            } else if (window.pinType == "recovery" || window.pinType == "recoveryPrivateKey") {
+               // decrypt input value
+               var encryptedMnemonics = $.trim($("input[type=password]").val());
+               var pinCode = input;
+
+               try {
+                  var decrypted = CryptoJS.AES.decrypt(encryptedMnemonics, pinCode);
+                  var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
+
+                  if (decryptedMnemonics == "") {
+                     // wrong
+                     showWrongPinAnimation();
+                  } else {
+                     // correct
+                     showCorrectPinAnimation();
+
+                     var hdPath = getParameterByName('path');
+                     var hdPathArr = hdPath.split("/");
+                     var hdPathResult = "";
+                     for (var i = 0; i < hdPathArr.length; i++) {
+                        hdPathResult += String(hdPathArr[i]);
+                        if (i < 3) {
+                           // 44, 118, 0
+                           if (hdPathArr[i].indexOf("'") == -1) {
+                              hdPathResult += "'";
+                           }
+                        }
+
+                        if (i < hdPathArr.length - 1) {
+                           hdPathResult += "/";
+                        }
+                     }
+
+                     var prefix = getParameterByName('payload');
+                     var address = getKeyStationMainAddress(decryptedMnemonics, hdPathResult, prefix, false);
+
+                     // init keypad and close
+                     $(".wrapper-number").css("display", "grid");
+                     $(".wrapper-alphabet").css("display", "none");
+                     correct = "";
+                     $(".pin-wrap").removeClass("open");
+
+                     // 화면 전환
+                     $(".keystation-form").hide();
+                     $(".subTitleOnAccountSetting").hide();
+                     $(".subTitleRecoveryOnAccountSetting").show();
+                     $(".backBtnOnAccountSetting").show();
+                     $(".recoveryOnAccountSetting").show();
+
+                     if (window.pinType == "recovery") {
+                        $(".recoverySubTitle").show();
+                        $(".recoveryPrivateKeySubTitle").hide();
+
+                        $(".recoveryText").text(decryptedMnemonics);
+                     } else if (window.pinType == "recoveryPrivateKey") {
+                        $(".recoverySubTitle").hide();
+                        $(".recoveryPrivateKeySubTitle").show();
+
+                        let pathOnAccountSetting = $(".hdPathInputOnAccountSetting").val();
+                        let privateKey = getPrivateKey(pathOnAccountSetting, decryptedMnemonics);
+                        $(".recoveryText").text(privateKey);
+                     }
+                  }
+               } catch (error) {
+                  console.log(error);
+                  // Error: Malformed UTF-8 data
+                  showWrongPinAnimation();
+               }
             }
 
             setTimeout(function () {

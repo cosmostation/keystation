@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>KEYSTATION</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<!-- css -->
+	<link rel="stylesheet" href="css/normalize.custom.css">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/input.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<!-- js -->
+	<!-- js -->
+<!--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/big.js/5.2.2/big.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+	<script src="js/bundle.js"></script>
+	<script src="js/tx-handler-bundle.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/simplecopy.min.js"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-146700011-1');
+	</script>
+</head>
+
+<body>
+	<div id="app">
+		<div class="inner">
+			<a class="backBtnOnAccountSetting" href="javascript:backBtnOnRecovery()">&lt; </a>
+			<a class="closeBtnOnAccountSetting" href="{{.CloseQueryUrl}}">&#10005;</a>
+
+			<h1 class="logoOnAccountSetting"><img src="img/logo_cosmostation.png" alt="" width="42"></h1>
+			<h2 class="subTitleOnAccountSetting">Account Setting</h2>
+			<h2 class="subTitleRecoveryOnAccountSetting">Account Setting &gt; Recovery </h2>
+			<form class="keystation-form">
+				<input style="display:none;" type="text" tabindex="-1"
+					   spellcheck="false" name="account" value="{{.Account}}">
+				<input style="display:none;" type="password" autocomplete="current-password" tabindex="-1" spellcheck="false">
+				<div class="keystation-url-info"></div>
+				<div class="keystation-account-setting">
+					<p>Recover the mnemonics of {{.Account}}</p>
+					<p class="subTextOnAccountSetting">Never share your mnemonics with others.</p>
+					<button class="recoverMnemonicsBtn" type="button" onclick="requestRecoverMnemonics()">Recover the mnemonics</button>
+					<br /><br />
+
+					<p>Get a derived from private key of {{.Account}}</p>
+					<p class="subTextOnAccountSetting">Input your HD Path</p>
+
+					<input class="hdPathInputOnAccountSetting" value="m/44'/118'/0'/0/0" />
+
+					<button class="recoverMnemonicsBtn" type="button" onclick="requestRecoverPrivateKey()">Recover the private key</button>
+				</div>
+			</form>
+
+			<div class="recoveryOnAccountSetting">
+				<div class="keystation-url-info"></div>
+				<p class="recoverySubTitle">Recovered mnemonics of {{.Account}}</p>
+				<p class="recoveryPrivateKeySubTitle">Recovered private key of {{.Account}}</p>
+
+				<ul class="recoveryResultUl">
+					<li>
+						<p class="recoveryText"></p>
+					</li>
+					<li>
+						<a href="javascript:copyRecovery()"><img src="img/copy.png" /></a>
+					</li>
+				</ul>
+
+				<p class="copied">Copied!</p>
+			</div>
+
+			<!-- pin -->
+			<div class="pin-wrap">
+				<button type="button">&#10005;</button>
+				<div class="pin-cont">
+					<h2>Please enter your PIN.</h2>
+					<div class="dots-cointainer">
+						<div class="dots">
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div class="dot"></div>
+							<div>+</div>
+							<div class="dot"></div>
+						</div>
+					</div>
+
+					<div class="wrapper-number no-select">
+						{{.ShuffledNumCode}}
+					</div>
+
+					<div class="wrapper-alphabet no-select">
+						{{.ShuffledAlphabetCode}}
+					</div>
+				</div>
+			</div>
+			<!-- pin end -->
+		</div>
+		<!-- inner end -->
+	</div>
+	<!-- #app end -->
+	<script src="js/classie.js"></script>
+	<script src="js/common.js"></script>
+	<script>
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+					results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+
+		function denyHandler() {
+			window.opener.postMessage("deny", "*");
+			window.close();
+		}
+
+		function requestRecoverMnemonics() {
+			var password = $("input[type=password]").val();
+
+			if ($.trim(password) == "") {
+				alert("You cannot sign transactions.\n1. Check your browser is in private mode.\n2. Type \"chrome://settings/passwords\" into your browser and press Enter to toggle the switch \"Offer to save passwords\" to the on.");
+				return;
+			}
+
+			window.pinType = "recovery";
+			window.lcd = {{.Lcd}};
+			window.stdSignMsgByPayload = {{.Payload}};
+			$(".pin-wrap").addClass("open");
+		}
+
+		function requestRecoverPrivateKey() {
+			var password = $("input[type=password]").val();
+
+			if ($.trim(password) == "") {
+				alert("You cannot sign transactions.\n1. Check your browser is in private mode.\n2. Type \"chrome://settings/passwords\" into your browser and press Enter to toggle the switch \"Offer to save passwords\" to the on.");
+				return;
+			}
+
+			window.pinType = "recoveryPrivateKey";
+			window.lcd = {{.Lcd}};
+			window.stdSignMsgByPayload = {{.Payload}};
+			$(".pin-wrap").addClass("open");
+		}
+
+		function backBtnOnRecovery() {
+			$(".keystation-form").show();
+
+			$(".subTitleOnAccountSetting").show();
+			$(".subTitleRecoveryOnAccountSetting").hide();
+			$(".backBtnOnAccountSetting").hide();
+			$(".recoveryOnAccountSetting").hide();
+
+			$(".recoveryText").text("");
+		}
+
+		function copyRecovery() {
+			simplecopy($(".recoveryText").text());
+			$(".copied").show();
+			setTimeout(function(){
+				$(".copied").hide();
+			},1000);
+		}
+	</script>
+	<script src="js/pin.js"></script>
+</body>
+</html>
