@@ -217,7 +217,7 @@
                            return;
                         }
 
-                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 || (stdSignMsg.json.chain_id).indexOf("juno") != -1) {
+                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 || (stdSignMsg.json.chain_id).indexOf("juno") != -1 || (stdSignMsg.json.chain_id).indexOf("bitcanna") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                         } else {

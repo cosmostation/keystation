@@ -70,6 +70,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "rizon";
     } else if (chainId.indexOf("juno") != -1) {
         prefix = "juno";
+    } else if (chainId.indexOf("bitcanna") != -1) {
+        prefix = "bitcanna";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 
