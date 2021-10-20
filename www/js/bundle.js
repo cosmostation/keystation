@@ -54,7 +54,9 @@
       } else if (chainId2.indexOf("groot") != -1) {
           prefix = "rizon";
       } else if (chainId2.indexOf("emoney") != -1) {
-          prefix = "emoney";
+        prefix = "emoney";
+      } else if (chainId2.indexOf("regen") != -1) {
+        prefix = "regen";
       }
 
       const cosmos = cosmosjs.network(window.lcd, chainId2);
