@@ -34455,6 +34455,8 @@ Cosmos.prototype.getAccounts = function(address) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("bitcanna") != -1) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("stargaze") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
         accountsApi = "/auth/accounts/";
     }
