@@ -74,7 +74,6 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "bcna";
     } else if (chainId.indexOf("regen") != -1) {
         prefix = "regen";
-    }
     } else if (chainId.indexOf("moonbys") != -1) {
         prefix = "pan";
     }

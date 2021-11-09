@@ -57,7 +57,6 @@
         prefix = "emoney";
       } else if (chainId2.indexOf("regen") != -1) {
         prefix = "regen";
-      }
       } else if (chainId2.indexOf("moonbys") != -1) {
         prefix = "pan";
       }
