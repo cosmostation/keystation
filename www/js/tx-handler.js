@@ -75,6 +75,9 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
     } else if (chainId.indexOf("regen") != -1) {
         prefix = "regen";
     }
+    } else if (chainId.indexOf("moonbys") != -1) {
+        prefix = "pan";
+    }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 
     // tx 생성에 필요한 값 추출
