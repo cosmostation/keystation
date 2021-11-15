@@ -217,7 +217,7 @@
                            return;
                         }
 
-                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 || (stdSignMsg.json.chain_id).indexOf("juno") != -1 || (stdSignMsg.json.chain_id).indexOf("bitcanna") != -1 || (stdSignMsg.json.chain_id).indexOf("moonbys") != -1 || (stdSignMsg.json.chain_id).indexOf("certik") != -1 ||  (stdSignMsg.json.chain_id).indexOf("shentu") != -1) {
+                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 || (stdSignMsg.json.chain_id).indexOf("juno") != -1 || (stdSignMsg.json.chain_id).indexOf("bitcanna") != -1 || (stdSignMsg.json.chain_id).indexOf("moonbys") != -1 || (stdSignMsg.json.chain_id).indexOf("certik") != -1 || (stdSignMsg.json.chain_id).indexOf("shentu") != -1 || (stdSignMsg.json.chain_id).indexOf("irishub-1") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                         } else {
