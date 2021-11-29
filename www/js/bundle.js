@@ -59,6 +59,8 @@
         prefix = "regen";
       } else if (chainId2.indexOf("moonbys") != -1) {
         prefix = "pan";
+      } else if (chainId2.indexOf("bitsong") != -1) {
+        prefix = "bitsong";
       }
       const cosmos = cosmosjs.network(window.lcd, chainId2);
       cosmos.setBech32MainPrefix(prefix);
