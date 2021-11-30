@@ -34457,10 +34457,12 @@ Cosmos.prototype.getAccounts = function(address) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("bitcanna") != -1) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("desmos") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("stargaze") != -1) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
-        accountsApi = "/auth/accounts/";
+      accountsApi = "/auth/accounts/";
     }
 	return fetch(this.url + accountsApi + address)
 	.then(response => response.json())

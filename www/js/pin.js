@@ -226,6 +226,7 @@
                             (stdSignMsg.json.chain_id).indexOf("irishub-1") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("injective") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("comdex") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("desmos") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
