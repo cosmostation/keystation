@@ -220,6 +220,7 @@
                         if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("juno") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("bitcanna") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("axelar") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("moonbys") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("certik") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("shentu") != -1 ||

@@ -80,6 +80,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "stars";
     } else if (chainId.indexOf("desmos") != -1) {
         prefix = "desmos";
+    } else if (chainId.indexOf("axelar") != -1) {
+        prefix = "axelar";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 
