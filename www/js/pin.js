@@ -230,6 +230,7 @@
                             (stdSignMsg.json.chain_id).indexOf("desmos") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("crypto-org") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("gravity-bridge") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("lum") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("cosmos") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
