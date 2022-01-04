@@ -86,6 +86,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "gravity";
     } else if (chainId.indexOf("lum") != -1) {
         prefix = "lum";
+    } else if (chainId.indexOf("chihuahua") != -1) {
+        prefix = "chihuahua";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 

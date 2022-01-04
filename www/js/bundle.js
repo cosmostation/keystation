@@ -34467,6 +34467,8 @@ Cosmos.prototype.getAccounts = function(address) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("gravity-bridge") != -1) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("chihuahua") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
       accountsApi = "/auth/accounts/";
     }
