@@ -8,6 +8,9 @@ type SignInTemplateParams struct {
 	Payload string
 	ShuffledNumCode template.HTML
 	ShuffledAlphabetCode template.HTML
+
+	Client string
+	Path string
 }
 
 type ImportTemplateParams struct {
@@ -43,4 +46,15 @@ type TxTemplateParams struct {
 	Payload string
 	ShuffledNumCode template.HTML
 	ShuffledAlphabetCode template.HTML
+}
+
+type SettingTemplateParams struct {
+	Account string
+	Client string
+	Lcd string
+	Path string
+	Payload string
+	ShuffledNumCode template.HTML
+	ShuffledAlphabetCode template.HTML
+	CloseQueryUrl string
 }
