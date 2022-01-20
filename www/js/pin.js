@@ -234,6 +234,7 @@
                             (stdSignMsg.json.chain_id).indexOf("cosmos") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("chihuahua") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("secret") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("kava") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
