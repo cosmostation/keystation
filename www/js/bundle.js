@@ -34473,6 +34473,8 @@ Cosmos.prototype.getAccounts = function(address) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("kava") != -1) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("axelar") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
       accountsApi = "/auth/accounts/";
     }
