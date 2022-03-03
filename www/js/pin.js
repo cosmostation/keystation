@@ -238,6 +238,7 @@
                             (stdSignMsg.json.chain_id).indexOf("axelar") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("osmosis") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("darc") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("evmos") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);

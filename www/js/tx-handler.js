@@ -94,6 +94,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "axelar";
     } else if (chainId.indexOf("osmosis") != -1) {
         prefix = "osmosis";
+    } else if (chainId.indexOf("evmos") != -1) {
+        prefix = "evmos";
     } else if (chainId.indexOf("darc") != -1) {
         prefix = "darc";
     }
