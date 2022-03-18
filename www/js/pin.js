@@ -240,6 +240,9 @@
                             (stdSignMsg.json.chain_id).indexOf("darc") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("evmos") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("core-1") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("omniflix") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("cerberus") != -1 ||
+                            (stdSignMsg.json.chain_id).indexOf("pio-mainnet") != -1 ||
                             (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);

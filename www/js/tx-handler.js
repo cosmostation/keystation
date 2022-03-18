@@ -98,6 +98,12 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "evmos";
     } else if (chainId.indexOf("darc") != -1) {
         prefix = "darc";
+    } else if (chainId.indexOf("omniflix") != -1) {
+        prefix = "omniflix";
+    } else if (chainId.indexOf("cerberus") != -1) {
+        prefix = "cerberus";
+    } else if (chainId.indexOf("pio-mainnet") != -1) {
+        prefix = "pb";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 

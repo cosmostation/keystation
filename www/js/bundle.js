@@ -34481,6 +34481,12 @@ Cosmos.prototype.getAccounts = function(address) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else if (this.chainId.indexOf("evmos") != -1) {
       accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("omniflix") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("cerberus") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
+    } else if (this.chainId.indexOf("pio-mainnet") != -1) {
+      accountsApi = "/cosmos/auth/v1beta1/accounts/";
     } else {
       accountsApi = "/auth/accounts/";
     }
