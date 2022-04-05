@@ -43,8 +43,8 @@ function Keystation(client, lcd, path) {
 	this.lcd		= lcd;
 	this.path 		= path;
 
-	this.keystationUrl = "http://localhost:8080";
-	// this.keystationUrl = "https://keystation.cosmostation.io";
+	// this.keystationUrl = "http://localhost:8080";
+	this.keystationUrl = "https://keystation.cosmostation.io";
 }
 
 Keystation.prototype.openWindow = function(type, payload, account = "") {
