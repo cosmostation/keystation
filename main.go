@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
+	"keystation/service"
 	"log"
 	"net/http"
-	"github.com/gorilla/mux"
 	"os"
-	"keystation/service"
 )
 
 func main() {
@@ -44,6 +44,16 @@ func main() {
 		Queries("payload", "{payload}").
 		HandlerFunc(service.TxHandler).
 		Methods("GET")
+	r.Path("/setting").
+		Queries("account", "{account}").
+		Queries("client", "{client}").
+		Queries("lcd", "{lcd}").
+		Queries("path", "{path}").
+		Queries("payload", "{payload}").
+		HandlerFunc(service.SettingHandler).
+		Methods("GET")
+
+	// setting?account=booyoun_test&client=https://wallet.cosmostation.io&lcd=https://lcd-cosmos.cosmostation.io&path=44/118/0/0/0&payload=cosmos
 
 	// The path "/" matches everything not matched by some other path.
 	http.Handle("/", r)

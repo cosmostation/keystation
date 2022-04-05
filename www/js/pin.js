@@ -52,7 +52,7 @@
             inputStr = inputStr.replace('<div class="finger grid-number">', '');
             inputStr = inputStr.replace('</div>', '');
 
-            if (inputStr == "←") {
+            if (inputStr == "��") {
                if (input.length > 0) {
                   dots[input.length - 1].className = 'dot';
                   input = input.substr(0, input.length - 1);
@@ -217,39 +217,80 @@
                            return;
                         }
 
-                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("juno") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("bitcanna") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("axelar") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("moonbys") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("certik") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("shentu") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("irishub-1") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("injective") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("comdex") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("desmos") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("crypto-org") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("gravity-bridge") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("lum") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("cosmos") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("chihuahua") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("secret") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("kava") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("axelar") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("osmosis") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("darc") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("evmos") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("core-1") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("omniflix") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("cerberus") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("pio-mainnet") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("titan") != -1 ||
-                            (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
+                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 || (stdSignMsg.json.chain_id).indexOf("juno") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                         } else {
                            signTxByKeyStation(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                         }
+                     }
+                  }
+               } catch (error) {
+                  console.log(error);
+                  // Error: Malformed UTF-8 data
+                  showWrongPinAnimation();
+               }
+            } else if (window.pinType == "recovery" || window.pinType == "recoveryPrivateKey") {
+               // decrypt input value
+               var encryptedMnemonics = $.trim($("input[type=password]").val());
+               var pinCode = input;
+
+               try {
+                  var decrypted = CryptoJS.AES.decrypt(encryptedMnemonics, pinCode);
+                  var decryptedMnemonics = decrypted.toString(CryptoJS.enc.Utf8);
+
+                  if (decryptedMnemonics == "") {
+                     // wrong
+                     showWrongPinAnimation();
+                  } else {
+                     // correct
+                     showCorrectPinAnimation();
+
+                     var hdPath = getParameterByName('path');
+                     var hdPathArr = hdPath.split("/");
+                     var hdPathResult = "";
+                     for (var i = 0; i < hdPathArr.length; i++) {
+                        hdPathResult += String(hdPathArr[i]);
+                        if (i < 3) {
+                           // 44, 118, 0
+                           if (hdPathArr[i].indexOf("'") == -1) {
+                              hdPathResult += "'";
+                           }
+                        }
+
+                        if (i < hdPathArr.length - 1) {
+                           hdPathResult += "/";
+                        }
+                     }
+
+                     var prefix = getParameterByName('payload');
+                     var address = getKeyStationMainAddress(decryptedMnemonics, hdPathResult, prefix, false);
+
+                     // init keypad and close
+                     $(".wrapper-number").css("display", "grid");
+                     $(".wrapper-alphabet").css("display", "none");
+                     correct = "";
+                     $(".pin-wrap").removeClass("open");
+
+                     // �붾㈃ �꾪솚
+                     $(".keystation-form").hide();
+                     $(".subTitleOnAccountSetting").hide();
+                     $(".subTitleRecoveryOnAccountSetting").show();
+                     $(".backBtnOnAccountSetting").show();
+                     $(".recoveryOnAccountSetting").show();
+
+                     if (window.pinType == "recovery") {
+                        $(".recoverySubTitle").show();
+                        $(".recoveryPrivateKeySubTitle").hide();
+
+                        $(".recoveryText").text(decryptedMnemonics);
+                     } else if (window.pinType == "recoveryPrivateKey") {
+                        $(".recoverySubTitle").hide();
+                        $(".recoveryPrivateKeySubTitle").show();
+
+                        let pathOnAccountSetting = $(".hdPathInputOnAccountSetting").val();
+                        let privateKey = getPrivateKey(pathOnAccountSetting, decryptedMnemonics);
+                        $(".recoveryText").text(privateKey);
                      }
                   }
                } catch (error) {

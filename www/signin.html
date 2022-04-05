@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
 	<title>KEYSTATION</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="shortcut icon" href="img/favicon.ico">
-	<!-- css -->
+
 	<link rel="stylesheet" href="css/normalize.custom.css">
 	<link rel="stylesheet" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/input.css">
 	<link rel="stylesheet" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- js -->
-<!--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+
+
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-   	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 	<script src="js/bundle.js"></script>
 	<script src="js/tx-handler-bundle.js"></script>
@@ -55,80 +52,91 @@
 			}
 
 			window.pinType = "signin";
-			window.lcd = {{.Lcd}};
+			window.lcd = "https://lcd-cosmos.cosmostation.io";
 			$(".pin-wrap").addClass("open");
+		}
+
+		function moveToAccountSetting() {
+			let accountVal = $(".input-account").val();
+			let clientVal = "https://wallet.cosmostation.io";
+			let lcdVal = "https://lcd-cosmos.cosmostation.io";
+			let pathVal = "44/118/0/0/0";
+			let payloadVal = "cosmos";
+
+			location.href = "/setting?account=" + accountVal + "&client=" + clientVal + "&lcd=" + lcdVal + "&path=" + pathVal + "&payload=" + payloadVal
 		}
 	</script>
 </head>
 
 <body>
-	<div id="app">
-		<div class="inner">
-			<h1><img src="img/keystation_logo_.png" alt="" width="145"></h1>
-			<h2>Sign In</h2>
+<div id="app">
+	<div class="inner">
+		<h1><img src="img/keystation_logo_.png" alt="" width="145"></h1>
+		<h2>Sign In</h2>
 
-			<form class="keystation-form">
-				<span class="input input--fumi">
+		<form class="keystation-form">
+				<span class="input input--fumi input--filled">
 					<input class="input__field input__field--fumi input-account" type="text">
 					<label class="input__label input__label--fumi">
 						<i class="fa fa-fw fa-user icon icon--fumi"></i>
 						<span class="input__label-content input__label-content--fumi">Wallet Name</span>
 					</label>
 				</span>
-				<input style="display:none;" type="password" autocomplete="current-password" tabindex="-1" spellcheck="false">
-				<p id="formInfoMessage" class="information-text">
-					<i class="fa fa-fw fa-question-circle"></i> Unavailable in guest mode or incognito mode.
-				</p>
-				<p id="errorOnSignIn" class="error">
-					<!-- error msg -->
-					<i class="fa fa-fw fa-exclamation-circle"></i> <span></span>
-				</p>
+			<input style="display:none;" type="password" autocomplete="current-password" tabindex="-1" spellcheck="false">
+			<p id="formInfoMessage" class="information-text">
+				<i class="fa fa-fw fa-question-circle"></i> Unavailable in guest mode or incognito mode.
+			</p>
+			<p id="errorOnSignIn" class="error">
 
-				<button type="button" onclick="sendEventToParent()" id="nextBtn">Next</button>
-			</form>
+				<i class="fa fa-fw fa-exclamation-circle"></i> <span></span>
+			</p>
 
-			<a href="{{.QueryUrl}}">Import Wallet</a>
+			<button type="button" onclick="sendEventToParent()" id="nextBtn">Next</button>
+		</form>
 
-			<div class="form-fotter">
-				<a href="https://github.com/cosmostation/keystation" target="_blank"><i class="fa fa-fw fa-github"></i></a>
-			</div>
-			<a class="disableChecksum" style="position:fixed;bottom:0;left:0;color:#fff;" href="{{.QueryUrl}}disablechecksum">■</a>
+		<a href="import?client=https%3A%2F%2Fwallet.cosmostation.io&amp;lcd=https%3A%2F%2Flcd-cosmos.cosmostation.io&amp;path=44%2F118%2F0%2F0%2F0&amp;payload=cosmos&amp;option=">Import Wallet</a><br><br>
+		<a class="accountSetting" href="javascript:moveToAccountSetting()">Account Setting</a>
 
-            <!-- pin -->
-            <div class="pin-wrap">
-                <button type="button">&#10005;</button>
-                <div class="pin-cont">
-                    <h2>Please enter your PIN.</h2>
-                    <div class="dots-cointainer">
-                        <div class="dots">
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                            <div class="dot"></div>
-                            <div>+</div>
-                            <div class="dot"></div>
-                        </div>
-                    </div>
-
-                    <div class="wrapper-number no-select">
-                        {{.ShuffledNumCode}}
-                    </div>
-
-                    <div class="wrapper-alphabet no-select">
-                        {{.ShuffledAlphabetCode}}
-                    </div>
-                </div>
-            </div>
-			<!-- pin end -->
+		<div class="form-fotter">
+			<a href="https://github.com/cosmostation/keystation" target="_blank"><i class="fa fa-fw fa-github"></i></a>
 		</div>
-		<!-- inner end -->
+		<a class="disableChecksum" style="position:fixed;bottom:0;left:0;color:#fff;" href="import?client=https%3A%2F%2Fwallet.cosmostation.io&amp;lcd=https%3A%2F%2Flcd-cosmos.cosmostation.io&amp;path=44%2F118%2F0%2F0%2F0&amp;payload=cosmos&amp;option=disablechecksum">■</a>
+
+
+		<div class="pin-wrap">
+			<button type="button">✕</button>
+			<div class="pin-cont">
+				<h2>Please enter your PIN.</h2>
+				<div class="dots-cointainer">
+					<div class="dots">
+						<div class="dot"></div>
+						<div class="dot"></div>
+						<div class="dot"></div>
+						<div class="dot"></div>
+						<div>+</div>
+						<div class="dot"></div>
+					</div>
+				</div>
+
+				<div class="wrapper-number no-select">
+					<div class="finger grid-number">4</div><div class="finger grid-number">8</div><div class="finger grid-number">1</div><div class="finger grid-number">0</div><div class="finger grid-number">6</div><div class="finger grid-number">9</div><div class="finger grid-number">3</div><div class="finger grid-number">5</div><div class="finger grid-number">2</div><div class="grid-number"></div><div class="finger grid-number">7</div><div class="finger grid-number">←</div>
+				</div>
+
+				<div class="wrapper-alphabet no-select">
+					<div class="finger grid-number">Z</div><div class="finger grid-number">P</div><div class="finger grid-number">S</div><div class="finger grid-number">R</div><div class="finger grid-number">C</div><div class="finger grid-number">T</div><div class="finger grid-number">B</div><div class="finger grid-number">O</div><div class="finger grid-number">G</div><div class="finger grid-number">E</div><div class="finger grid-number">V</div><div class="finger grid-number">L</div><div class="finger grid-number">D</div><div class="finger grid-number">U</div><div class="finger grid-number">K</div><div class="finger grid-number">W</div><div class="finger grid-number">H</div><div class="finger grid-number">F</div><div class="finger grid-number">Q</div><div class="finger grid-number">M</div><div class="finger grid-number">I</div><div class="finger grid-number">J</div><div class="finger grid-number">Y</div><div class="finger grid-number">N</div><div class="finger grid-number">A</div><div class="finger grid-number">X</div><div class="grid-number"></div><div class="finger grid-number">←</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
-	<!-- #app end -->
 
-	<!-- js -->
-	<script src="js/classie.js"></script>
-	<script src="js/input.js"></script>
-   <script src="js/pin.js"></script>
-</body>
+</div>
 
-</html>
+
+
+<script src="js/classie.js"></script>
+<script src="js/input.js"></script>
+<script src="js/pin.js"></script>
+
+
+</body></html>
