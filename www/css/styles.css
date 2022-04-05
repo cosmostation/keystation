@@ -907,7 +907,7 @@ textarea {
   display: none;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
 Gummy Effect
 
@@ -951,7 +951,7 @@ Gummy Effect
 }
 
 
-/* -------------------------------- 
+/* --------------------------------
 
 Animations
 
@@ -1071,7 +1071,7 @@ Animations
 
 .recoverMnemonicsBtn {
   display: block;
-  width: 50%;
+  width: 70%;
   margin: 15px auto 0;
   background: #9c6cff;
   height: 50px;
