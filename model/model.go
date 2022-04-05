@@ -44,3 +44,12 @@ type TxTemplateParams struct {
 	ShuffledNumCode template.HTML
 	ShuffledAlphabetCode template.HTML
 }
+
+type SettingTemplateParams struct {
+	Account string
+	QueryUrl string
+	Lcd string
+	Payload string
+	ShuffledNumCode template.HTML
+	ShuffledAlphabetCode template.HTML
+}
