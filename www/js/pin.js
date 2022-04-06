@@ -217,7 +217,35 @@
                            return;
                         }
 
-                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 || (stdSignMsg.json.chain_id).indexOf("juno") != -1) {
+                        if ((stdSignMsg.json.chain_id).indexOf("laozi") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("juno") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("bitcanna") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("axelar") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("moonbys") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("certik") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("shentu") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("irishub-1") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("injective") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("comdex") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("desmos") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("crypto-org") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("gravity-bridge") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("lum") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("cosmos") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("chihuahua") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("secret") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("kava") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("axelar") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("osmosis") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("darc") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("evmos") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("core-1") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("omniflix") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("cerberus") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("pio-mainnet") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("fetchhub") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("titan") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                         } else {
