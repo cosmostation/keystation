@@ -245,6 +245,7 @@
                            (stdSignMsg.json.chain_id).indexOf("pio-mainnet") != -1 ||
                            (stdSignMsg.json.chain_id).indexOf("fetchhub") != -1 ||
                            (stdSignMsg.json.chain_id).indexOf("titan") != -1 ||
+                           (stdSignMsg.json.chain_id).indexOf("sentinelhub") != -1 ||
                            (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
