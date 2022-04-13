@@ -104,6 +104,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "cerberus";
     } else if (chainId.indexOf("pio-mainnet") != -1) {
         prefix = "pb";
+    } else if (chainId.indexOf("crescent") != -1) {
+        prefix = "cre";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 
