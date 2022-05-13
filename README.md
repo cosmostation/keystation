@@ -3,191 +3,44 @@
 </p>
 
 <h1 align="center">
-    Keystation 
+	Keystation (Deprecated)
 </h1>
 
-**:alien: Developed / Developing by** [Cosmostation](https://www.cosmostation.io/)
+Keystation service will soon be terminated. If you wish to continue using Cosmostation wallet service, please follow these steps to migrate from Keystation to Cosmostation Wallet Extension.
 
-## Overview
+# Migration to Cosmostation Wallet Extension
 
-Keystation is a decentralized keychain-based authenticator that **DOES NOT require any installation**. User keys are securely stored in the web browser Keychain, allowing for users to conveniently sign transactions for networks and decentralized applications built with the Cosmos SDK. Keystation can be used as a secure and convenient authentication and key management tool for web login, decentralized exchanges, decentralized applications, and various services built with the Cosmos SDK.
+## Migration from Keystation
 
-<div align="center">
-<img width="200" alt="keystation1" src="https://user-images.githubusercontent.com/34641838/65948271-e3298880-e474-11e9-9453-b49f6dd678b9.png">
-<img width="200" alt="keystation2" src="https://user-images.githubusercontent.com/34641838/65948277-e886d300-e474-11e9-8042-a2027247605a.png">
-<img width="200" alt="keystation3" src="https://user-images.githubusercontent.com/34641838/65948289-ec1a5a00-e474-11e9-943d-2828b01c8bed.png">
-</div>
+(Caution) Keystation service will soon be terminated. If you wish to continue using Cosmostation wallet service, please follow these steps to migrate from Keystation to Cosmostation Wallet Extension.
 
-## Run
+Step 1. From the main page of the Web Wallet, click on 'Connect Wallet' to select a wallet type.
+![1 0 0 Keystation_mainpage-bedc2d6a03e6592b3c9f6c8c8d091e94](https://user-images.githubusercontent.com/5284226/168200330-fb1e9659-e66f-4b89-b197-f71d6366f202.png)
 
-To start Keystation server locally, simply run:
-```sh
-$ go run main.go
-```
+Step 2. Choose 'Connect to Keystation'
+![2](https://user-images.githubusercontent.com/5284226/168200410-1c519a68-e360-422a-a9b1-c9fa1bfad0b4.png)
 
-## Import
+Step 3. Click on 'Account Setting'
 
-#### NPM
+Step 4. Click 'Recover the mnemonics' and enter PIN to check your mnemonic phrase. Please repeat the same process for 'Recover the private key'.
 
-```bash
-npm install @cosmostation/keystation-es6
-```
+| image1                                                                                                    | image2                                                                                                    |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| ![](https://user-images.githubusercontent.com/5284226/168200444-ea446936-abfe-4c36-a8e5-1db5edb3ec61.png) | ![](https://user-images.githubusercontent.com/5284226/168200700-fc5992b3-0948-486e-aa6a-93b7f88a6a0c.png) |
 
-#### Yarn
+(Caution) When you recover your private key, please double check if you have the correct HD path. If you have wrong HD path, it will recover a different private key. If both your mnemonic phrase and private key is lost, then you may not regain access to your funds.
 
-```bash
-yarn add @cosmostation/keystation-es6
-```
+(Warning) Please save your mnemonic phrase in a safe place and DO NOT share with ANYONE. User is responsible for managing the mnemonic phrase. If your mnemonic phrase is lost, there is no way to get the funds back.
 
-#### ES6 module
+DO NOT share your Secret Recovery Phrase with anyone! If someone has access to your secret phrase, they will have access to your wallet. Cosmostation support will NEVER ask you for your secret phrase or your private key.
 
-```js
-import Keystation from "@cosmostation/keystation-es6";
-```
+## Migration to Cosmostation Wallet Extension
 
-#### Browser
-```
-<script src="https://keystation.cosmostation.io/lib/keystation.js"></script>
-```
+(Warning) Please make sure that you use Cosmostation Wallet Extension on your private PC.
 
-## Usage with React
+To download Cosmostation Wallet Extension, please click here to download from the chrome web store.
+https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf/related
 
-```js
-const Wallet = (props) => {
-	const [myKeystation, setMyKeystation] = React.useState(new Keystation);
+From here, please refer to our docs on how to restore an account with either your mnemonic phrase or private key.
 
-	const connectKeystation = React.useCallback(() => {
-
-            let myKeystation = new Keystation();
-            
-            setMyKeystation(myKeystation);
-            
-            myKeystation.client = "YOUR_WEB_URL";
-            myKeystation.lcd = "https://lcd-cosmos-free.cosmostation.io";
-            myKeystation.path = "44/118/0/0/0";
-
-	    let prefix = "cosmos";
-	    let popup = keystation1.openWindow("signin", prefix);
-	    let popupTick = setInterval(function() {
-                if (popup.closed) {
-                    clearInterval(popupTick);
-                    console.log("window closed!");
-                }
-	    }, 500);
-	}, [])
-
-	window.addEventListener("message", function(e) {
-	    if (e.origin != "https://keystation.cosmostation.io") return;
-	    console.log(e.data);
-	    // e.data.account : User's keychain account. Remember this account!
-	} , false);
-}
-```
-
-## Usage with browser
-
-```js
-// initializing configuration
-var keystation = new Keystation();
-keystation.client = "YOUR_WEB_URL";
-keystation.lcd = "https://lcd-cosmos-free.cosmostation.io";
-keystation.path = "44/118/0/0/0";
-
-// The account parameter is required for users having multiple keychain accounts.
-var keystationAccount = "";
-
-// open popup window for sign-in
-var prefix = "cosmos";  // Cosmos prefix: cosmos, Iris prefix: iaa
-var popup = keystation.openWindow("signin", prefix);
-
-// generate a transaction
-// You can get account_number and sequence from https://lcd-cosmos-free.cosmostation.io/auth/accounts/[YOUR_COSMOS_ADDRESS]
-var txJson = {"account_number":"18012","chain_id":"cosmoshub-3","fee":{"amount":[{"amount":"5000","denom":"uatom"}],"gas":"200000"},"memo":"","msgs":[{"type":"cosmos-sdk/MsgSend","value":{"amount":[{"amount":"10000","denom":"uatom"}],"from_address":"cosmos1z67fshyr48pa9a6htdz4qd0zullfk6y0fgvxv7","to_address":"cosmos10nv3yj0jdxf02vxyc0tavf97fdvppdth6wmcn3"}}],"sequence":"24"};
-
-var txJsonStr = JSON.stringify(txJson);
-var popup = keystation.openWindow("transaction", txJsonStr, keystationAccount);
-
-// add an EventListener
-window.addEventListener("message", function(e) {
-    if (e.origin != "https://keystation.cosmostation.io") return;
-    console.log(e.data);
-    // e.data.account : User's keychain account. Remember this account!
-    keystationAccount = e.data.account;
-} , false);
-```
-If the user is log in as Alice, he or she should use Alice account to sign transaction.
-
-## Supporting Transaction Message Types
-
-You can find currently supporting meesage types in [our CosmosJS library](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)
-
-## How to Create txJson
-
-```js
-// CosmosJS supports to create tx for Cosmos
-cosmos.getAccounts(address).then(data => {
-	let stdSignMsg = cosmos.newStdMsg({
-        msgs: [
-            {
-                type: "cosmos-sdk/MsgSend",
-                value: {
-                    amount: [
-                        {
-                            amount: String(100000),
-                            denom: "uatom"
-                        }
-                    ],
-                    from_address: address,
-                    to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
-                }
-            }
-        ],
-        chain_id: chainId,
-        fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-        memo: "",
-        account_number: String(data.account.account_number),
-        sequence: String(data.account.sequence)
-	});
-    
-	console.log(stdSignMsg.json);   // txJson
-})
-```
-
-## Security
-
-Keystation stores user mnemonic phrase on a key management system, Keychain in Chrome and Safari. A user is the only one who can access the keychain, and no third party is granted access. User mnemonic phrase is encrypted with AES algorithm for higher security before being stored. A PIN set by the user is required in order to access the encrypted mnemonic phrase.
-
-* [How secure is Chrome storing a password?](https://security.stackexchange.com/questions/170481/how-secure-is-chrome-storing-a-password)
-
-* [Manage saved passwords](https://support.google.com/chrome/answer/95606?co=GENIE.Platform%3DDesktop&hl=en)
-
-## Issues
-
-We welcome any type of issues. Please provide information in detail when you post issues or bugs.
-
-## Contribution
-
-We welcome any contributions, suggestions, improvements, or feature requests.
-
-There will be `CONTRIBUTING.md` that describes rules and procedure. 
-It will be updated soon.
-
-## bundle
-
-- `www/js/tx-handler` 수정 후 번들링 과정을 거쳐야 한다.
-- `npm run start` 으로 번들링을 실행해주면 됨
-
-## deploy
-
-- https://cloud.google.com/sdk/docs/install 에서 gcloud 설치
-- `sudo gcloud app deploy app.yaml --project keystation-249804`
-
-## Services and Community by Cosmostation
-
-- [Official Website](https://www.cosmostation.io)
-- [Mintscan Explorer](https://www.mintscan.io)
-- [Web Wallet](https://wallet.cosmostation.io)
-- [Android Wallet](https://bit.ly/2BWex9D)
-- [iOS Wallet](https://apple.co/2IAM3Xm)
-- [Telegram - International](https://t.me/cosmostation)
-- [Kakao - Koreans](https://open.kakao.com/o/g6KKSe5)
+https://docs.cosmostation.io/docs/User%20Guide/Cosmostation%20Extension/Account/add-account
