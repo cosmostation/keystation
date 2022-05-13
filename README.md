@@ -36,7 +36,7 @@ Step 4. Click 'Recover the mnemonics' and enter PIN to check your mnemonic phras
 
 ## Migration to Cosmostation Wallet Extension
 
-(Warning) Please make sure that you use Cosmostation Wallet Extension on your private PC.
+> :warning: Please make sure that you use Cosmostation Wallet Extension on **your private PC**.
 
 To download Cosmostation Wallet Extension, please click here to download from the chrome web store.
 https://chrome.google.com/webstore/detail/cosmostation/fpkhgmpbidmiogeglndfbkegfdlnajnf/related
