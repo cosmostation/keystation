@@ -28,11 +28,11 @@ Step 4. Click 'Recover the mnemonics' and enter PIN to check your mnemonic phras
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | ![](https://user-images.githubusercontent.com/5284226/168200444-ea446936-abfe-4c36-a8e5-1db5edb3ec61.png) | ![](https://user-images.githubusercontent.com/5284226/168200700-fc5992b3-0948-486e-aa6a-93b7f88a6a0c.png) |
 
-(Caution) When you recover your private key, please double check if you have the correct HD path. If you have wrong HD path, it will recover a different private key. If both your mnemonic phrase and private key is lost, then you may not regain access to your funds.
+> :warning: When you recover your private key, please double check if you have the correct HD path. If you have wrong HD path, it will recover a different private key. **If both your mnemonic phrase and private key is lost, then you may not regain access to your funds**.
 
-(Warning) Please save your mnemonic phrase in a safe place and DO NOT share with ANYONE. User is responsible for managing the mnemonic phrase. If your mnemonic phrase is lost, there is no way to get the funds back.
+> :warning: Please save your mnemonic phrase in a safe place and **DO NOT share with ANYONE**. User is responsible for managing the mnemonic phrase. If your mnemonic phrase is lost, there is no way to get the funds back.
 
-DO NOT share your Secret Recovery Phrase with anyone! If someone has access to your secret phrase, they will have access to your wallet. Cosmostation support will NEVER ask you for your secret phrase or your private key.
+> :warning: **DO NOT share your Secret Recovery Phrase with anyone!** If someone has access to your secret phrase, they will have access to your wallet. Cosmostation support will NEVER ask you for your secret phrase or your private key.
 
 ## Migration to Cosmostation Wallet Extension
 
