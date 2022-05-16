@@ -108,6 +108,8 @@ signTxByProto = async function (mnemonic, hdPath, chainId, stdSignMsg) {
         prefix = "cre";
     } else if (chainId.indexOf("mantle") != -1) {
         prefix = "mantle";
+    } else if (chainId.indexOf("meme") != -1) {
+	prefix = "meme";
     }
     const signer = new PostIbcSigner(mnemonic, chainId, prefix, hdPath)
 

@@ -249,7 +249,8 @@
                            (stdSignMsg.json.chain_id).indexOf("crescent") != -1 ||
                            (stdSignMsg.json.chain_id).indexOf("mantle") != -1 ||
                            (stdSignMsg.json.chain_id).indexOf("akash") != -1 ||
-                           (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) {
+                           (stdSignMsg.json.chain_id).indexOf("stargaze") != -1) ||
+                           (stdSignMsg.json.chain_id).indexOf("meme") != -1) {
                            // TODO: Protobuf sign
                            signTxByProto(decryptedMnemonics, hdPathResult, stdSignMsg.json.chain_id, stdSignMsg);
                         } else {
