@@ -10,7 +10,7 @@
     "browserify": "^16.5.2",
     "crypto": "^1.0.1",
     "lodash": "^4.17.21",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "^6.11.3",
     "secp256k1": "^3.8.0"
   }
 }
